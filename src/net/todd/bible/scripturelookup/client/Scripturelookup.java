@@ -17,33 +17,29 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class Scripturelookup implements EntryPoint {
-	private static final String SERVER_ERROR = "An error occurred while "
-			+ "attempting to contact the server. Please check your network "
-			+ "connection and try again.";
-
 	private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
 
 	private final Button sendButton;
 	private final TextBox nameField;
-	
+
 	private final DialogBox dialogBox;
-	private final Button closeButton; 
+	private final Button closeButton;
 	private final Label textToServerLabel;
 	private final HTML serverResponseLabel;
-	
+
 	public Scripturelookup() {
 		sendButton = new Button("Send");
 		sendButton.addStyleName("sendButton");
-		
+
 		nameField = new TextBox();
 		nameField.setText("GWT User");
-		
+
 		dialogBox = new DialogBox();
 		closeButton = new Button("Close");
 		textToServerLabel = new Label();
 		serverResponseLabel = new HTML();
 	}
-	
+
 	public void onModuleLoad() {
 		RootPanel.get("nameFieldContainer").add(nameField);
 		RootPanel.get("sendButtonContainer").add(sendButton);
@@ -51,12 +47,11 @@ public class Scripturelookup implements EntryPoint {
 		nameField.setFocus(true);
 		nameField.selectAll();
 
-		
 		dialogBox.setText("Remote Procedure Call");
 		dialogBox.setAnimationEnabled(true);
-		
+
 		closeButton.getElement().setId("closeButton");
-		
+
 		VerticalPanel dialogVPanel = new VerticalPanel();
 		dialogVPanel.addStyleName("dialogVPanel");
 		dialogVPanel.add(new HTML("<b>Sending name to the server:</b>"));
@@ -71,7 +66,6 @@ public class Scripturelookup implements EntryPoint {
 			public void onClick(ClickEvent event) {
 				closeDialog();
 			}
-
 		});
 
 		sendButton.addClickHandler(new ClickHandler() {
@@ -80,7 +74,7 @@ public class Scripturelookup implements EntryPoint {
 				sendNameToServer();
 			}
 		});
-		
+
 		nameField.addKeyUpHandler(new KeyUpHandler() {
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
@@ -89,6 +83,11 @@ public class Scripturelookup implements EntryPoint {
 				}
 			}
 		});
+	}
+
+	private void showDialog() {
+		dialogBox.center();
+		closeButton.setFocus(true);
 	}
 	
 	private void closeDialog() {
@@ -99,24 +98,24 @@ public class Scripturelookup implements EntryPoint {
 
 	private void sendNameToServer() {
 		sendButton.setEnabled(false);
+
 		String textToServer = nameField.getText();
+
 		textToServerLabel.setText(textToServer);
-		serverResponseLabel.setText("");
+
 		greetingService.greetServer(textToServer, new AsyncCallback<String>() {
 			public void onFailure(Throwable caught) {
-				dialogBox.setText("Remote Procedure Call - Failure");
-				serverResponseLabel.addStyleName("serverResponseLabelError");
-				serverResponseLabel.setHTML(SERVER_ERROR);
-				dialogBox.center();
-				closeButton.setFocus(true);
+				dialogBox.setText("Error!");
+				serverResponseLabel.setHTML("Error: " + caught.getMessage());
+				
+				showDialog();
 			}
 
 			public void onSuccess(String result) {
-				dialogBox.setText("Remote Procedure Call");
-				serverResponseLabel.removeStyleName("serverResponseLabelError");
+				dialogBox.setText("Response");
 				serverResponseLabel.setHTML(result);
-				dialogBox.center();
-				closeButton.setFocus(true);
+				
+				showDialog();
 			}
 		});
 	}
