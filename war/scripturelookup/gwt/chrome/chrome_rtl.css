@@ -1,5 +1,5 @@
 /**
- * The file contains styles for GWT widgets in the standard theme, in RTL mode.
+ * The file contains styles for GWT widgets in the chrome theme, in RTL mode.
  *
  * In order to maintain cross-browser compatibility, the following syntax is
  * used to create IE6 specific style rules:
@@ -38,7 +38,7 @@ a, a:visited, a:hover {
  * name below, and attach it to the DOM.  Use a timer to detect when the
  * element's height and width are set to 5px.
  */
-.gwt-Reference-standard-rtl {
+.gwt-Reference-chrome-rtl {
   height: 5px;
   width: 5px;
   zoom: 1;
@@ -118,11 +118,11 @@ a, a:visited, a:hover {
 }
 
 .gwt-DialogBox .Caption {
-  background: #e3e8f3 url(images/hborder.png) repeat-x 0px -2003px;
+  background: #ebebeb url(images/hborder.png) repeat-x 0px -2003px;
   padding: 4px 8px 4px 4px;
   cursor: default;
   border-bottom: 1px solid #bbbbbb;
-  border-top: 5px solid #d0e4f6;
+  border-top: 5px solid #e3e3e3;
 }
 .gwt-DialogBox .dialogContent {
 }
@@ -209,7 +209,7 @@ a, a:visited, a:hover {
   cursor: hand;
 }
 .gwt-DisclosurePanel .content {
-  border-right: 3px solid #e8eef7;
+  border-right: 3px solid #e3e3e3;
   padding: 4px 8px 4px 0px;
   margin-right: 6px;
 }
@@ -261,10 +261,10 @@ a, a:visited, a:hover {
   cursor: default;
 }
 .gwt-MenuBar .gwt-MenuItem-selected {
-  background: #E0EDFE;
+  background: #cdcdcd;
 }
 .gwt-MenuBar-horizontal {
-  background: #e3e8f3 url(images/hborder.png) repeat-x 0px -2003px;
+  background: #ebebeb url(images/hborder.png) repeat-x 0px -2003px;
   border: 1px solid #BBBBBB;
 }
 .gwt-MenuBar-horizontal .gwt-MenuItem {
@@ -312,7 +312,7 @@ a, a:visited, a:hover {
   padding-left: 4px;
 }
 .gwt-MenuBar-vertical .subMenuIcon-selected {
-  background: #E0EDFE;
+  background: #cdcdcd;
 }
 .gwt-MenuBarPopup {
   margin: 0px 3px 0px 0px;
@@ -397,7 +397,7 @@ a, a:visited, a:hover {
 }
 
 .gwt-PopupPanel {
-  border: 3px solid #C3D9FF;
+  border: 3px solid #e3e3e3;
   padding: 3px;
   background: white;
 }
@@ -406,7 +406,7 @@ a, a:visited, a:hover {
 }
 .gwt-DecoratedPopupPanel .popupMiddleCenter {
   padding: 3px;
-  background: #d0e4f6;
+  background: #e3e3e3;
 }
 .gwt-DecoratedPopupPanel .popupTopCenter {
   background: url(images/hborder.png) repeat-x;
@@ -548,7 +548,7 @@ a, a:visited, a:hover {
   border: 0px;
 }
 .gwt-RichTextToolbar {
-  background: #e3e8f3 url(images/hborder.png) repeat-x 0px -2003px;
+  background: #ebebeb url(images/hborder.png) repeat-x 0px -2003px;
   border-bottom: 1px solid #BBBBBB;
   padding: 3px;
   margin: 0px;
@@ -643,13 +643,13 @@ a, a:visited, a:hover {
 }
 .gwt-DecoratedStackPanel .stackItemTopLeft {
   border-left: 1px solid #bbbbbb;
-  background: #d3def6 url(images/corner.png) no-repeat 0px -49px;
-  -background: #d3def6 url(images/corner_ie6.png) no-repeat 0px -49px;
+  background: #e4e4e4 url(images/corner.png) no-repeat 0px -49px;
+  -background: #e4e4e4 url(images/corner_ie6.png) no-repeat 0px -49px;
 }
 .gwt-DecoratedStackPanel .stackItemTopRight {
   border-right: 1px solid #bbbbbb;
-  background: #d3def6 url(images/corner.png) no-repeat -6px -49px;
-  -background: #d3def6 url(images/corner_ie6.png) no-repeat -6px -49px;
+  background: #e4e4e4 url(images/corner.png) no-repeat -6px -49px;
+  -background: #e4e4e4 url(images/corner_ie6.png) no-repeat -6px -49px;
 }
 .gwt-DecoratedStackPanel .stackItemTopLeftInner,
 .gwt-DecoratedStackPanel .stackItemTopRightInner {
@@ -705,7 +705,7 @@ a, a:visited, a:hover {
   cursor: default;
 }
 .gwt-SuggestBoxPopup .item-selected {
-  background: #b7d6f6;
+  background: #cdcdcd;
 }
 .gwt-SuggestBoxPopup .suggestPopupContent {
   background: white;
@@ -796,11 +796,11 @@ a, a:visited, a:hover {
   color: black;
   font-weight: bold;
   text-align: center;
-  background: #d0e4f6;
+  background: #e3e3e3;
 }
 .gwt-TabBar .gwt-TabBarItem-selected {
   cursor: default;
-  background: #92c1f0;
+  background: #bcbcbc;
 } 
 .gwt-TabBar .gwt-TabBarItem-disabled {
   cursor: default;
@@ -809,7 +809,7 @@ a, a:visited, a:hover {
 .gwt-TabPanel {
 }
 .gwt-TabPanelBottom {
-  border-color: #92c1f0;
+  border-color: #bcbcbc;
   border-style: solid;
   border-width: 3px 2px 2px;
   overflow: hidden;
@@ -829,7 +829,7 @@ a, a:visited, a:hover {
 }
 .gwt-DecoratedTabBar .tabTopCenter {
   padding: 0px;
-  background: #d0e4f6;
+  background: #e3e3e3;
 }
 .gwt-DecoratedTabBar .tabTopLeft,
 .gwt-DecoratedTabBar .tabTopRight {
@@ -859,7 +859,7 @@ a, a:visited, a:hover {
 .gwt-DecoratedTabBar .tabMiddleRight {
   width: 6px;
   padding: 0px;
-  background: #d0e4f6;
+  background: #e3e3e3 url(images/hborder.png) repeat-x 0px -1463px;
 }
 .gwt-DecoratedTabBar .tabMiddleLeftInner,
 .gwt-DecoratedTabBar .tabMiddleRightInner {
@@ -873,10 +873,10 @@ a, a:visited, a:hover {
   color: black;
   font-weight: bold;
   text-align: center;
-  background: #d0e4f6;
+  background: #e3e3e3 url(images/hborder.png) repeat-x 0px -1463px;
 }
 .gwt-DecoratedTabBar .gwt-TabBarItem-selected .tabTopCenter {
-  background: #92c1f0;
+  background: #747474;
 }
 .gwt-DecoratedTabBar .gwt-TabBarItem-selected .tabTopLeft {
   background-position: 0px -61px;
@@ -886,11 +886,12 @@ a, a:visited, a:hover {
 }
 .gwt-DecoratedTabBar .gwt-TabBarItem-selected .tabMiddleLeft,
 .gwt-DecoratedTabBar .gwt-TabBarItem-selected .tabMiddleRight {
-  background: #92c1f0;
+  background: #bcbcbc url(images/hborder.png) repeat-x 0px -2511px;
 }
 .gwt-DecoratedTabBar .gwt-TabBarItem-selected .tabMiddleCenter {
   cursor: default;
-  background: #92c1f0;
+  background: #bcbcbc url(images/hborder.png) repeat-x 0px -2511px;
+  color: white;
 }
 .gwt-DecoratedTabBar .gwt-TabBarItem-disabled .tabMiddleCenter {
   cursor: default;
@@ -995,13 +996,13 @@ a, a:visited, a:hover {
   width: 8em;
 }
 .dateBoxFormatError {
-  background: #ffcccc;
+  background: #eed6d6;
 }
 .dateBoxPopup {
 }
 
 .gwt-DatePicker {
-  border: 1px solid #A2BBDD;
+  border: 1px solid #888;
   cursor: default;
 }
 .gwt-DatePicker td,
@@ -1022,7 +1023,7 @@ a, a:visited, a:hover {
 }
 .datePickerWeekdayLabel,
 .datePickerWeekendLabel {
-  background: #C3D9FF;
+  background: #c1c1c1;
   padding: 0px 4px 2px;
   cursor: default;
 }
@@ -1042,20 +1043,20 @@ a, a:visited, a:hover {
   color: #888888;
 }
 .datePickerDayIsValue {
-  background: #aaccee;
+  background: #abf;
 }
 .datePickerDayIsDisabled {
   color: #AAAAAA;
   font-style: italic;
 }
 .datePickerDayIsHighlighted {
-  background: #F0E68C;
+  background: #dde;
 }
 .datePickerDayIsValueAndHighlighted {
-  background: #bbddd9;
+  background: #ccf;
 }
 .datePickerMonthSelector {
-  background: #C3D9FF;
+  background: #c1c1c1;
   width: 100%;
 }
 td.datePickerMonth {
@@ -1064,13 +1065,11 @@ td.datePickerMonth {
   white-space: nowrap;
   font-size: 70%;
   font-weight: bold;
-  color: blue;
 }
 .datePickerPreviousButton,
 .datePickerNextButton {
   font-size: 120%;
   line-height: 1em;
-  color: blue;
   cursor: hand;
   cursor: pointer;
   padding: 0px 4px;
