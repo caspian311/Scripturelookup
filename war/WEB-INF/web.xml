@@ -6,6 +6,7 @@
 	<servlet>
 		<servlet-name>lookupServlet</servlet-name>
 		<servlet-class>net.todd.bible.scripturelookup.server.LookupService</servlet-class>
+		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>lookupServlet</servlet-name>
