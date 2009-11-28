@@ -93,8 +93,9 @@ public class Scripturelookup implements EntryPoint {
 			for (int i = 0; i < responseArray.size(); i++) {
 				JSONValue value = responseArray.get(i);
 				Verse verse = new Verse(value.isObject());
-				response.append(verse.getBook()).append(" ").append(verse.getChapter()).append(":")
-						.append(verse.getVerse()).append(" - ");
+				response.append("<b>").append(verse.getBook()).append(" ").append(
+						verse.getChapter()).append(":").append(verse.getVerse()).append(" - ")
+						.append("</b>");
 				response.append(verse.getText());
 				response.append("<br />\n");
 			}
