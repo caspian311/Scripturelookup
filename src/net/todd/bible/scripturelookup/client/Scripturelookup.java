@@ -99,6 +99,6 @@ public class Scripturelookup implements EntryPoint {
 				response.append("<br />\n");
 			}
 		}
-		serverResponseLabel.setText(response.toString());
+		serverResponseLabel.setHTML(response.toString());
 	}
 }
