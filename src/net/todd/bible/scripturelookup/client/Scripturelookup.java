@@ -9,69 +9,46 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class Scripturelookup implements EntryPoint {
-	private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
+	private final ILookupServiceAsync lookupService = GWT.create(ILookupService.class);
 
-	private final Button sendButton;
+	private final Button submitButton;
 	private final TextBox nameField;
 
-	private final DialogBox dialogBox;
-	private final Button closeButton;
-	private final Label textToServerLabel;
 	private final HTML serverResponseLabel;
+	private final SimplePanel responsePanel;
 
 	public Scripturelookup() {
-		sendButton = new Button("Send");
-		sendButton.addStyleName("sendButton");
+		submitButton = new Button("Search");
+		submitButton.addStyleName("sendButton");
 
 		nameField = new TextBox();
-		nameField.setText("GWT User");
+		nameField.setText("");
+		nameField.setWidth("100%");
 
-		dialogBox = new DialogBox();
-		closeButton = new Button("Close");
-		textToServerLabel = new Label();
+		responsePanel = new SimplePanel();
 		serverResponseLabel = new HTML();
 	}
 
 	public void onModuleLoad() {
-		RootPanel.get("nameFieldContainer").add(nameField);
-		RootPanel.get("sendButtonContainer").add(sendButton);
+		RootPanel.get("queryFieldContainer").add(nameField);
+		RootPanel.get("submitButtonContainer").add(submitButton);
+		RootPanel.get("responseContainer").add(responsePanel);
 
 		nameField.setFocus(true);
 		nameField.selectAll();
 
-		dialogBox.setText("Remote Procedure Call");
-		dialogBox.setAnimationEnabled(true);
-
-		closeButton.getElement().setId("closeButton");
-
-		VerticalPanel dialogVPanel = new VerticalPanel();
-		dialogVPanel.addStyleName("dialogVPanel");
-		dialogVPanel.add(new HTML("<b>Sending name to the server:</b>"));
-		dialogVPanel.add(textToServerLabel);
-		dialogVPanel.add(new HTML("<br><b>Server replies:</b>"));
-		dialogVPanel.add(serverResponseLabel);
-		dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
-		dialogVPanel.add(closeButton);
-		dialogBox.setWidget(dialogVPanel);
-
-		closeButton.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				closeDialog();
-			}
-		});
-
-		sendButton.addClickHandler(new ClickHandler() {
+		responsePanel.add(serverResponseLabel);
+		
+		submitButton.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				sendNameToServer();
+				queryServer();
 			}
 		});
 
@@ -79,43 +56,27 @@ public class Scripturelookup implements EntryPoint {
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
 				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-					sendNameToServer();
+					queryServer();
 				}
 			}
 		});
 	}
 
-	private void showDialog() {
-		dialogBox.center();
-		closeButton.setFocus(true);
-	}
-	
-	private void closeDialog() {
-		dialogBox.hide();
-		sendButton.setEnabled(true);
-		sendButton.setFocus(true);
-	}
-
-	private void sendNameToServer() {
-		sendButton.setEnabled(false);
+	private void queryServer() {
+		submitButton.setEnabled(false);
+		serverResponseLabel.setHTML("Searching Scripture...");
 
 		String textToServer = nameField.getText();
 
-		textToServerLabel.setText(textToServer);
-
-		greetingService.greetServer(textToServer, new AsyncCallback<String>() {
-			public void onFailure(Throwable caught) {
-				dialogBox.setText("Error!");
-				serverResponseLabel.setHTML("Error: " + caught.getMessage());
-				
-				showDialog();
+		lookupService.lookup(textToServer, new AsyncCallback<String>() {
+			public void onFailure(Throwable error) {
+				submitButton.setEnabled(true);
+				serverResponseLabel.setHTML("Error: " + error.getMessage());
 			}
 
-			public void onSuccess(String result) {
-				dialogBox.setText("Response");
-				serverResponseLabel.setHTML(result);
-				
-				showDialog();
+			public void onSuccess(String response) {
+				submitButton.setEnabled(true);
+				serverResponseLabel.setHTML(response);
 			}
 		});
 	}
