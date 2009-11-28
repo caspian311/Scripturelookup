@@ -7,6 +7,9 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.json.client.JSONArray;
+import com.google.gwt.json.client.JSONParser;
+import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
@@ -44,7 +47,7 @@ public class Scripturelookup implements EntryPoint {
 		nameField.selectAll();
 
 		responsePanel.add(serverResponseLabel);
-		
+
 		submitButton.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -75,9 +78,27 @@ public class Scripturelookup implements EntryPoint {
 			}
 
 			public void onSuccess(String response) {
+				JSONValue parsedValue = JSONParser.parse(response);
+
 				submitButton.setEnabled(true);
-				serverResponseLabel.setHTML(response);
+				popuplateSearchResults(parsedValue);
 			}
 		});
+	}
+
+	private void popuplateSearchResults(JSONValue parsedValue) {
+		StringBuffer response = new StringBuffer();
+		if (parsedValue.isArray() != null) {
+			JSONArray responseArray = parsedValue.isArray();
+			for (int i = 0; i < responseArray.size(); i++) {
+				JSONValue value = responseArray.get(i);
+				Verse verse = new Verse(value.isObject());
+				response.append(verse.getBook()).append(" ").append(verse.getChapter()).append(":")
+						.append(verse.getVerse()).append(" - ");
+				response.append(verse.getText());
+				response.append("<br />\n");
+			}
+		}
+		serverResponseLabel.setText(response.toString());
 	}
 }

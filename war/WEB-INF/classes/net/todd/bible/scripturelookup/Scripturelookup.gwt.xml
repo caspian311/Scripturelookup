@@ -3,6 +3,7 @@
 <module rename-to='scripturelookup'>
   <inherits name='com.google.gwt.user.User'/>
   <inherits name='com.google.gwt.user.theme.standard.Standard'/>
+  <inherits name='com.google.gwt.json.JSON'/>
   <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
   <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
   <entry-point class='net.todd.bible.scripturelookup.client.Scripturelookup'/>
