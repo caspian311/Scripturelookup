@@ -7,7 +7,7 @@ public class LookupPresenter {
 			public void handleEvent() {
 				lookupView.disableSubmitButton();
 				lookupView.showBusySignal();
-				
+
 				lookupModel.queryServer(lookupView.getQueryString());
 			}
 		});
