@@ -16,6 +16,8 @@ public class LookupModel implements ILookupModel {
 
 	private final ILookupServiceAsync lookupService;
 
+	private String errorMessage;
+
 	public LookupModel(ILookupServiceAsync lookupService) {
 		this.lookupService = lookupService;
 	}
@@ -23,6 +25,7 @@ public class LookupModel implements ILookupModel {
 	public void queryServer(String query) {
 		lookupService.lookup(query, new AsyncCallback<String>() {
 			public void onFailure(Throwable error) {
+				errorMessage = error.getMessage();
 				failureListenerManager.notifyListeners();
 			}
 
@@ -49,7 +52,20 @@ public class LookupModel implements ILookupModel {
 		}
 	}
 	
+	public void addResultsReturnedListener(IListener listener) {
+		resultsReturnedListenerManager.addListener(listener);
+	}
+	
+	public void addFailureListener(IListener listener) {
+		failureListenerManager.addListener(listener);
+	}
+	
 	public List<Verse> searchResults() {
 		return searchResults;
+	}
+
+	@Override
+	public String getErrorMessage() {
+		return errorMessage;
 	}
 }
