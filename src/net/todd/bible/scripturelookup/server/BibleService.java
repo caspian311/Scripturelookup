@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
-import javax.jdo.Query;
 
 public class BibleService implements IBibleService {
 	private List<Verse> verses;
@@ -22,19 +21,19 @@ public class BibleService implements IBibleService {
 		return verses;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Verse> search(String searchText) {
-		PersistenceManager persistenceManager = PMF.get().getPersistenceManager();
-		List<Verse> results;
-		try {
-			Query query = persistenceManager.newQuery(Verse.class);
-			query.setUnique(true);
-			results = (List<Verse>) query.execute();
-		} finally {
-			persistenceManager.close();
-		}
-		return results;
+		// PersistenceManager persistenceManager =
+		// PMF.get().getPersistenceManager();
+		// List<Verse> results;
+		// try {
+		// Query query = persistenceManager.newQuery(Verse.class);
+		// results = (List<Verse>) query.execute();
+		// } finally {
+		// persistenceManager.close();
+		// }
+		// return results;
+		return allVerses();
 	}
 
 	@Override
