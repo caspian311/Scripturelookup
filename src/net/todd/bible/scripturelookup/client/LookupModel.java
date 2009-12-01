@@ -3,14 +3,11 @@ package net.todd.bible.scripturelookup.client;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gwt.json.client.JSONArray;
-import com.google.gwt.json.client.JSONParser;
-import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class LookupModel implements ILookupModel {
 	private final List<Verse> searchResults = new ArrayList<Verse>();
-	
+
 	private final ListenerManager failureListenerManager = new ListenerManager();
 	private final ListenerManager resultsReturnedListenerManager = new ListenerManager();
 
@@ -18,8 +15,11 @@ public class LookupModel implements ILookupModel {
 
 	private String errorMessage;
 
-	public LookupModel(ILookupServiceAsync lookupService) {
+	private final IResultsParser parser;
+
+	public LookupModel(ILookupServiceAsync lookupService, IResultsParser parser) {
 		this.lookupService = lookupService;
+		this.parser = parser;
 	}
 
 	public void queryServer(String query) {
@@ -31,7 +31,6 @@ public class LookupModel implements ILookupModel {
 
 			public void onSuccess(String response) {
 				popuplateSearchResults(response);
-
 				resultsReturnedListenerManager.notifyListeners();
 			}
 		});
@@ -40,26 +39,19 @@ public class LookupModel implements ILookupModel {
 	private void popuplateSearchResults(String response) {
 		searchResults.clear();
 
-		JSONValue parsedValue = JSONParser.parse(response);
-		
-		if (parsedValue.isArray() != null) {
-			JSONArray responseArray = parsedValue.isArray();
-			
-			for (int i = 0; i < responseArray.size(); i++) {
-				JSONValue value = responseArray.get(i);
-				searchResults.add(new Verse(value.isObject()));
-			}
+		if (response != null && response.length() != 0) {
+			searchResults.addAll(parser.parse(response));
 		}
 	}
-	
+
 	public void addResultsReturnedListener(IListener listener) {
 		resultsReturnedListenerManager.addListener(listener);
 	}
-	
+
 	public void addFailureListener(IListener listener) {
 		failureListenerManager.addListener(listener);
 	}
-	
+
 	public List<Verse> searchResults() {
 		return searchResults;
 	}
