@@ -11,6 +11,6 @@ public class BibleService implements IBibleService {
 	
 	@Override
 	public List<Verse> search(String searchText) {
-		return null;
+		return bibleDao.getAllVerses();
 	}
 }

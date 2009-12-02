@@ -24,4 +24,14 @@ public class DataManagementView implements IDataManagementView {
 	public void addReloadButtonListener(IListener listener) {
 		reloadButtonListenerManager.addListener(listener);
 	}
+
+	@Override
+	public void showErrorMessage(String errorMessage) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void showSuccessMessage() {
+		// TODO Auto-generated method stub
+	}
 }

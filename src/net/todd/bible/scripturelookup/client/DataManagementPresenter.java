@@ -9,5 +9,19 @@ public class DataManagementPresenter {
 				dataManagementModel.reloadData();
 			}
 		});
+		
+		dataManagementModel.addFailureListener(new IListener() {
+			@Override
+			public void handleEvent() {
+				dataManagementView.showErrorMessage(dataManagementModel.getErrorMessage());
+			}
+		});
+		
+		dataManagementModel.addSuccessListener(new IListener() {
+			@Override
+			public void handleEvent() {
+				dataManagementView.showSuccessMessage();
+			}
+		});
 	}
 }
