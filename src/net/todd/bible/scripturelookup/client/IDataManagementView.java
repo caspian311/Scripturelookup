@@ -6,4 +6,6 @@ public interface IDataManagementView {
 	void showErrorMessage(String errorMessage);
 
 	void showSuccessMessage();
+
+	void showBusySignal();
 }

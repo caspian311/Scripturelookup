@@ -7,9 +7,12 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class DataManagementView implements IDataManagementView {
-	private static final String SUCCESS_MESSAGE = "Data has reloaded successfully.";
-	private final Button reloadButton;
 	private final ListenerManager reloadButtonListenerManager = new ListenerManager();
+	
+	private static final String SUCCESS_MESSAGE = "Data has reloaded successfully.";
+	private static final String BUSY_MESSAGE = "Reloading data... please wait...";
+	
+	private final Button reloadButton;
 	private final Label messageLabel;
 
 	public DataManagementView() {
@@ -38,5 +41,10 @@ public class DataManagementView implements IDataManagementView {
 	@Override
 	public void showSuccessMessage() {
 		messageLabel.setText(SUCCESS_MESSAGE);
+	}
+
+	@Override
+	public void showBusySignal() {
+		messageLabel.setText(BUSY_MESSAGE);
 	}
 }

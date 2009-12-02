@@ -1,5 +1,6 @@
 package net.todd.bible.scripturelookup.client;
 
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -9,6 +10,7 @@ import java.util.UUID;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InOrder;
 
 public class DataManagementPresenterTest {
 	private IDataManagementView view;
@@ -21,16 +23,20 @@ public class DataManagementPresenterTest {
 
 		new DataManagementPresenter(view, model);
 	}
+	
 	@Test
-	public void tellModelToReloadDataWhenButtonPressedOnView() {
+	public void showBusySignalThenTellModelToReloadDataWhenButtonPressedOnView() {
 		ArgumentCaptor<IListener> captor = ArgumentCaptor.forClass(IListener.class);
 		verify(view).addReloadButtonListener(captor.capture());
 
 		captor.getValue().handleEvent();
 
-		verify(model).reloadData();
-	}
+		InOrder inOrder = inOrder(view, model);
 
+		inOrder.verify(view).showBusySignal();
+		inOrder.verify(model).reloadData();
+	}
+	
 	@Test
 	public void whenModelErrorOccursViewShowErrorMessage() {
 		String errorMessage = UUID.randomUUID().toString();

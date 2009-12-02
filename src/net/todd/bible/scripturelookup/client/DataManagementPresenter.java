@@ -6,6 +6,7 @@ public class DataManagementPresenter {
 		dataManagementView.addReloadButtonListener(new IListener() {
 			@Override
 			public void handleEvent() {
+				dataManagementView.showBusySignal();
 				dataManagementModel.reloadData();
 			}
 		});

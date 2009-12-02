@@ -3,14 +3,17 @@ package net.todd.bible.scripturelookup.client;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InOrder;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -49,8 +52,9 @@ public class DataManagementModelTest {
 	}
 	
 	@Test
-	public void modelNotifiesWhenFailureReturnOfService() {
+	public void errorMessageIsMadeAvailableThenModelNotifiesWhenFailureReturnOfService() {
 		IListener failureListener = mock(IListener.class);
+		Exception exception = mock(Exception.class);
 
 		dataManagementModel.addFailureListener(failureListener);
 		dataManagementModel.reloadData();
@@ -59,17 +63,23 @@ public class DataManagementModelTest {
 
 		verify(dataManagementService).reload(anyString(), captor.capture());
 
-		captor.getValue().onFailure(new Exception());
+		captor.getValue().onFailure(exception);
 
-		verify(failureListener).handleEvent();
+		InOrder inOrder = inOrder(failureListener, exception);
+
+		inOrder.verify(exception).getMessage();
+		inOrder.verify(failureListener).handleEvent();
 	}
 
 	@Test
-	public void errorMessageAvailableWhenFailureReturnOfService() {
+	public void errorMessagePulledFromException() {
 		String errorMessage = UUID.randomUUID().toString();
-
+		
 		IListener failureListener = mock(IListener.class);
+		Exception exception = mock(Exception.class);
 
+		when(exception.getMessage()).thenReturn(errorMessage);
+		
 		dataManagementModel.addFailureListener(failureListener);
 		dataManagementModel.reloadData();
 
@@ -77,7 +87,7 @@ public class DataManagementModelTest {
 
 		verify(dataManagementService).reload(anyString(), captor.capture());
 
-		captor.getValue().onFailure(new Exception(errorMessage));
+		captor.getValue().onFailure(exception);
 
 		assertEquals(errorMessage, dataManagementModel.getErrorMessage());
 	}
