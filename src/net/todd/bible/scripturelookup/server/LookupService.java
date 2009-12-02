@@ -11,12 +11,10 @@ public class LookupService extends RemoteServiceServlet implements ILookupServic
 	private final IBibleService bibleService;
 
 	public LookupService() {
-		super();
 		bibleService = new BibleService(new BibleDao(PMF.get()));
 	}
 	
 	public LookupService(IBibleService bibleService) {
-		super();
 		this.bibleService = bibleService;
 	}
 	
