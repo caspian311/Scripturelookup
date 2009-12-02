@@ -1,3 +1,4 @@
-*.class
 war/WEB-INF/appengine-generated
 war/scripturelookup/*.cache*
+war/WEB-INF/classes/*
+bin/*
