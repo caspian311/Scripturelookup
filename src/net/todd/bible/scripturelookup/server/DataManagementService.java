@@ -19,7 +19,7 @@ public class DataManagementService extends RemoteServiceServlet implements IData
 	@Override
 	public String reload(String query) {
 		bibleDao.deleteData();
-		bibleDao.loadData(null);
+		bibleDao.loadData(getClass().getResourceAsStream("/data.txt"));
 		return null;
 	}
 }

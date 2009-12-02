@@ -45,6 +45,7 @@ public class BibleDao implements IBibleDao {
 		} finally {
 			persistenceManager.close();
 			try {
+				inputStream.close();
 				reader.close();
 			} catch (IOException e) {
 				throw new RuntimeException(e);

@@ -70,7 +70,7 @@ public class BibleDaoTest {
 
 		IBibleDao bibleDao = new BibleDao(persistenceManagerFactory);
 		bibleDao.loadData(inputStream);
-
+		
 		verify(persistenceManager, times(3)).makePersistent(any(Verse.class));
 		verify(persistenceManager, times(1)).close();
 	}
