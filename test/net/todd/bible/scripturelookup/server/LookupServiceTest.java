@@ -24,14 +24,6 @@ public class LookupServiceTest {
 	}
 	
 	@Test
-	public void loadDatabaseOnServletInit() throws Exception {
-		lookupService.init();
-
-		verify(bibleService).loadDatabase();
-		verify(bibleService).buildIndex();
-	}
-
-	@Test
 	public void lookupSearchBibleService() throws Exception {
 		String query = UUID.randomUUID().toString();
 

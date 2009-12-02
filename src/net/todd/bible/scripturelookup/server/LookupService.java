@@ -2,8 +2,6 @@ package net.todd.bible.scripturelookup.server;
 
 import java.util.List;
 
-import javax.servlet.ServletException;
-
 import net.todd.bible.scripturelookup.client.ILookupService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -14,7 +12,7 @@ public class LookupService extends RemoteServiceServlet implements ILookupServic
 
 	public LookupService() {
 		super();
-		bibleService = new BibleService();
+		bibleService = new BibleService(new BibleDao(PMF.get()));
 	}
 	
 	public LookupService(IBibleService bibleService) {
@@ -22,13 +20,6 @@ public class LookupService extends RemoteServiceServlet implements ILookupServic
 		this.bibleService = bibleService;
 	}
 	
-	@Override
-	public void init() throws ServletException {
-		super.init();
-		 bibleService.loadDatabase();
-		 bibleService.buildIndex();
-	}
-
 	public String lookup(String query) {
 		StringBuffer response = new StringBuffer();
 		
