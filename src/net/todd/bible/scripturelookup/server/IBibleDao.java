@@ -9,4 +9,6 @@ public interface IBibleDao {
 	List<Verse> getAllVerses();
 
 	Verse getVerse(String id);
+
+	void deleteData();
 }

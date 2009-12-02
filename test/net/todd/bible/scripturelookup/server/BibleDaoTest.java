@@ -74,4 +74,32 @@ public class BibleDaoTest {
 		verify(persistenceManager, times(3)).makePersistent(any(Verse.class));
 		verify(persistenceManager, times(1)).close();
 	}
+	
+	@Test
+	public void deleteAllData() {
+		Verse verse1 = new Verse("", "", "", "");
+		Verse verse2 = new Verse("", "", "", "");
+		Verse verse3 = new Verse("", "", "", "");
+
+		List<Verse> allVerses = new ArrayList<Verse>();
+		allVerses.add(verse1);
+		allVerses.add(verse2);
+		allVerses.add(verse3);
+		
+		PersistenceManagerFactory persistenceManagerFactory = mock(PersistenceManagerFactory.class);
+		PersistenceManager persistenceManager = mock(PersistenceManager.class);
+		Query query = mock(Query.class);
+
+		when(persistenceManagerFactory.getPersistenceManager()).thenReturn(persistenceManager);
+		when(persistenceManager.newQuery(Verse.class)).thenReturn(query);
+		when(query.execute()).thenReturn(allVerses);
+
+		IBibleDao bibleDao = new BibleDao(persistenceManagerFactory);
+		bibleDao.deleteData();
+
+		verify(persistenceManager).deletePersistent(verse1);
+		verify(persistenceManager).deletePersistent(verse2);
+		verify(persistenceManager).deletePersistent(verse3);
+		verify(persistenceManager, times(1)).close();
+	}
 }

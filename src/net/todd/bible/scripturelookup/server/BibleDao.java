@@ -51,6 +51,20 @@ public class BibleDao implements IBibleDao {
 			}
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	public void deleteData() {
+		PersistenceManager persistenceManager = persistenceManagerFactory.getPersistenceManager();
+		try {
+			Query query = persistenceManager.newQuery(Verse.class);
+			List<Verse> results = (List<Verse>) query.execute();
+			for (Verse verse : results) {
+				persistenceManager.deletePersistent(verse);
+			}
+		} finally {
+			persistenceManager.close();
+		}
+	}
 
 	private static Verse parse(String line) {
 		String[] splitLine = line.split("|");
