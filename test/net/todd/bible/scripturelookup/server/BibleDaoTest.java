@@ -7,6 +7,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -19,10 +20,28 @@ import org.junit.Test;
 
 public class BibleDaoTest {
 	@Test
-	public void instantiationPullsInData() {
-		List<Verse> expectedResults = new ArrayList<Verse>();
+	public void getSpecificVerse() {
 		Verse expectedResult = new Verse("", "", "", "");
 		String id = UUID.randomUUID().toString();
+
+		PersistenceManagerFactory persistenceManagerFactory = mock(PersistenceManagerFactory.class);
+		PersistenceManager persistenceManager = mock(PersistenceManager.class);
+
+		when(persistenceManagerFactory.getPersistenceManager()).thenReturn(persistenceManager);
+		when(persistenceManager.getObjectById(Verse.class, id)).thenReturn(expectedResult);
+
+		IBibleDao bibleDao = new BibleDao(persistenceManagerFactory);
+		Verse actualResult = bibleDao.getVerse(id);
+
+		verify(persistenceManager).getObjectById(Verse.class, id);
+		verify(persistenceManager).close();
+
+		assertSame(expectedResult, actualResult);
+	}
+
+	@Test
+	public void fetchAllVerses() {
+		List<Verse> expectedResults = new ArrayList<Verse>();
 		
 		PersistenceManagerFactory persistenceManagerFactory = mock(PersistenceManagerFactory.class);
 		PersistenceManager persistenceManager = mock(PersistenceManager.class);
@@ -31,17 +50,28 @@ public class BibleDaoTest {
 		when(persistenceManagerFactory.getPersistenceManager()).thenReturn(persistenceManager);
 		when(persistenceManager.newQuery(Verse.class)).thenReturn(query);
 		when(query.execute()).thenReturn(expectedResults);
-		when(persistenceManager.getObjectById(Verse.class, id)).thenReturn(expectedResult);
 		
 		IBibleDao bibleDao = new BibleDao(persistenceManagerFactory);
 		List<Verse> actualResults = bibleDao.getAllVerses();
-		Verse actualResult = bibleDao.getVerse(id);
 		
-		verify(persistenceManager, times(3)).makePersistent(any(Verse.class));
-		verify(persistenceManager, times(1)).getObjectById(Verse.class, id);
-		verify(persistenceManager, times(3)).close();
+		verify(persistenceManager).close();
 		
 		assertSame(expectedResults, actualResults);
-		assertSame(expectedResult, actualResult);
+	}
+
+	@Test
+	public void loadDataFromTestFile() {
+		InputStream inputStream = getClass().getResourceAsStream("/test-data.txt");
+		
+		PersistenceManagerFactory persistenceManagerFactory = mock(PersistenceManagerFactory.class);
+		PersistenceManager persistenceManager = mock(PersistenceManager.class);
+
+		when(persistenceManagerFactory.getPersistenceManager()).thenReturn(persistenceManager);
+
+		IBibleDao bibleDao = new BibleDao(persistenceManagerFactory);
+		bibleDao.loadData(inputStream);
+
+		verify(persistenceManager, times(3)).makePersistent(any(Verse.class));
+		verify(persistenceManager, times(1)).close();
 	}
 }
