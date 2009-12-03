@@ -72,4 +72,9 @@ public class Verse {
 	public void setText(String text) {
 		this.text = text;
 	}
+	
+	@Override
+	public String toString() {
+		return book + " " + chapter + ":" + verse + " - " + text;
+	}
 }

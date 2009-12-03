@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -21,10 +22,10 @@ public class BibleDao implements IBibleDao {
 	@Override
 	public List<Verse> getAllVerses() {
 		PersistenceManager persistenceManager = persistenceManagerFactory.getPersistenceManager();
-		List<Verse> results;
+		List<Verse> results = new ArrayList<Verse>();
 		try {
 			Query query = persistenceManager.newQuery(Verse.class);
-			results = (List<Verse>) query.execute();
+			results.addAll((List<Verse>) query.execute());
 		} finally {
 			persistenceManager.close();
 		}
@@ -68,12 +69,12 @@ public class BibleDao implements IBibleDao {
 	}
 
 	private static Verse parse(String line) {
-		String[] splitLine = line.split("|");
+		String[] splitLine = line.split("\\|");
 
 		String book = splitLine[0];
-		String chapter = splitLine[0];
-		String verse = splitLine[0];
-		String text = splitLine[0];
+		String chapter = splitLine[1];
+		String verse = splitLine[2];
+		String text = splitLine[3];
 
 		return new Verse(book, chapter, verse, text);
 	}
