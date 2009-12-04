@@ -42,7 +42,6 @@ public class BibleDao implements IBibleDao {
 			String line;
 			while ((line = reader.readLine()) != null) {
 				Verse verse = parse(line);
-				System.out.println("adding verse: " + verse.toString());
 				persistenceManager.makePersistent(verse);
 			}
 		} catch (Exception e) {

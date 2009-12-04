@@ -6,7 +6,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
-public class DataManagementView implements IDataManagementView {
+public class DataLoadingView implements IDataLoadingView {
 	private final ListenerManager reloadButtonListenerManager = new ListenerManager();
 	
 	private static final String SUCCESS_MESSAGE = "Data has reloaded successfully.";
@@ -15,7 +15,7 @@ public class DataManagementView implements IDataManagementView {
 	private final Button reloadButton;
 	private final Label messageLabel;
 
-	public DataManagementView() {
+	public DataLoadingView() {
 		messageLabel = new Label();
 		reloadButton = new Button("Reload");
 		reloadButton.addClickHandler(new ClickHandler() {

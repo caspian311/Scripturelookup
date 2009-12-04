@@ -1,8 +1,8 @@
 package net.todd.bible.scripturelookup.client;
 
-public class DataManagementPresenter {
-	public DataManagementPresenter(final IDataManagementView dataManagementView,
-			final IDataManagementModel dataManagementModel) {
+public class DataLoadingPresenter {
+	public DataLoadingPresenter(final IDataLoadingView dataManagementView,
+			final IDataLoadingModel dataManagementModel) {
 		dataManagementView.addReloadButtonListener(new IListener() {
 			@Override
 			public void handleEvent() {

@@ -13,15 +13,15 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 
 public class DataManagementPresenterTest {
-	private IDataManagementView view;
-	private IDataManagementModel model;
+	private IDataLoadingView view;
+	private IDataLoadingModel model;
 
 	@Before
 	public void setUp() {
-		view = mock(IDataManagementView.class);
-		model = mock(IDataManagementModel.class);
+		view = mock(IDataLoadingView.class);
+		model = mock(IDataLoadingModel.class);
 
-		new DataManagementPresenter(view, model);
+		new DataLoadingPresenter(view, model);
 	}
 	
 	@Test

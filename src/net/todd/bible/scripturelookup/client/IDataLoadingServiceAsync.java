@@ -2,6 +2,6 @@ package net.todd.bible.scripturelookup.client;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public interface IDataManagementServiceAsync {
+public interface IDataLoadingServiceAsync {
 	void reload(String query, AsyncCallback<String> callback);
 }

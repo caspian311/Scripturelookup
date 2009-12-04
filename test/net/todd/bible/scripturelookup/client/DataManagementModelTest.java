@@ -19,13 +19,15 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 @SuppressWarnings("unchecked")
 public class DataManagementModelTest {
-	private IDataManagementServiceAsync dataManagementService;
-	private IDataManagementModel dataManagementModel;
+	private IDataLoadingServiceAsync dataManagementService;
+	private IIndexServiceAsync indexService;
+	private IDataLoadingModel dataManagementModel;
 
 	@Before
 	public void setUp() {
-		dataManagementService = mock(IDataManagementServiceAsync.class);
-		dataManagementModel = new DataManagementModel(dataManagementService);
+		dataManagementService = mock(IDataLoadingServiceAsync.class);
+		indexService = mock(IIndexServiceAsync.class);
+		dataManagementModel = new DataLoadingModel(dataManagementService, indexService);
 	}
 	
 	@Test

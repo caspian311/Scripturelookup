@@ -1,18 +1,20 @@
 package net.todd.bible.scripturelookup.server;
 
-import net.todd.bible.scripturelookup.client.IDataManagementService;
+import net.todd.bible.scripturelookup.client.IDataLoadingService;
+import net.todd.bible.scripturelookup.client.IIndexService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-public class DataManagementService extends RemoteServiceServlet implements IDataManagementService {
+public class DataLoadingService extends RemoteServiceServlet implements IDataLoadingService,
+		IIndexService {
 	private static final long serialVersionUID = 5244338505093814611L;
 	private final IBibleDao bibleDao;
 
-	public DataManagementService() {
+	public DataLoadingService() {
 		bibleDao = new BibleDao(PMF.get());
 	}
 
-	public DataManagementService(IBibleDao bibleDao) {
+	public DataLoadingService(IBibleDao bibleDao) {
 		this.bibleDao = bibleDao;
 	}
 
@@ -21,5 +23,11 @@ public class DataManagementService extends RemoteServiceServlet implements IData
 		bibleDao.deleteData();
 		bibleDao.loadData(getClass().getResourceAsStream("/data.txt"));
 		return "Success";
+	}
+
+	@Override
+	public String rebuildIndex(String request) {
+		// TODO
+		return null;
 	}
 }

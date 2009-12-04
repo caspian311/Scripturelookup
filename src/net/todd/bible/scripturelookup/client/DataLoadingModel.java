@@ -2,15 +2,18 @@ package net.todd.bible.scripturelookup.client;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public class DataManagementModel implements IDataManagementModel {
+public class DataLoadingModel implements IDataLoadingModel {
 	private final ListenerManager successListenerManager = new ListenerManager();
 	private final ListenerManager failureListenerManager = new ListenerManager();
-	
-	private final IDataManagementServiceAsync dataManagementService;
+
+	private final IDataLoadingServiceAsync dataManagementService;
+	private final IIndexServiceAsync indexService;
 	private String errorMessage;
 
-	public DataManagementModel(IDataManagementServiceAsync dataManagementService) {
+	public DataLoadingModel(IDataLoadingServiceAsync dataManagementService,
+			IIndexServiceAsync indexService) {
 		this.dataManagementService = dataManagementService;
+		this.indexService = indexService;
 	}
 
 	@Override
