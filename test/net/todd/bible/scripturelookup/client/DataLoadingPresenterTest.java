@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 
-public class DataManagementPresenterTest {
+public class DataLoadingPresenterTest {
 	private IDataLoadingView view;
 	private IDataLoadingModel model;
 

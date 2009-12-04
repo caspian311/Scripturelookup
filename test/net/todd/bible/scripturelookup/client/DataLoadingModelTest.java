@@ -18,35 +18,35 @@ import org.mockito.InOrder;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 @SuppressWarnings("unchecked")
-public class DataManagementModelTest {
-	private IDataLoadingServiceAsync dataManagementService;
+public class DataLoadingModelTest {
+	private IDataLoadingServiceAsync dataLoadingService;
 	private IIndexServiceAsync indexService;
-	private IDataLoadingModel dataManagementModel;
+	private IDataLoadingModel dataLoadingModel;
 
 	@Before
 	public void setUp() {
-		dataManagementService = mock(IDataLoadingServiceAsync.class);
+		dataLoadingService = mock(IDataLoadingServiceAsync.class);
 		indexService = mock(IIndexServiceAsync.class);
-		dataManagementModel = new DataLoadingModel(dataManagementService, indexService);
+		dataLoadingModel = new DataLoadingModel(dataLoadingService, indexService);
 	}
 	
 	@Test
 	public void callDataManagementServicewhenReloading() {
-		dataManagementModel.reloadData();
+		dataLoadingModel.reloadData();
 		
-		verify(dataManagementService).reload(anyString(), (AsyncCallback) anyObject());
+		verify(dataLoadingService).reload(anyString(), (AsyncCallback) anyObject());
 	}
 	
 	@Test
 	public void modelNotifiesWhenSuccessfulReturnOfService() {
 		IListener successListener = mock(IListener.class);
 
-		dataManagementModel.addSuccessListener(successListener);
-		dataManagementModel.reloadData();
+		dataLoadingModel.addSuccessListener(successListener);
+		dataLoadingModel.reloadData();
 
 		ArgumentCaptor<AsyncCallback> captor = ArgumentCaptor.forClass(AsyncCallback.class);
 
-		verify(dataManagementService).reload(anyString(), captor.capture());
+		verify(dataLoadingService).reload(anyString(), captor.capture());
 		
 		captor.getValue().onSuccess("");
 		
@@ -58,12 +58,12 @@ public class DataManagementModelTest {
 		IListener failureListener = mock(IListener.class);
 		Exception exception = mock(Exception.class);
 
-		dataManagementModel.addFailureListener(failureListener);
-		dataManagementModel.reloadData();
+		dataLoadingModel.addFailureListener(failureListener);
+		dataLoadingModel.reloadData();
 
 		ArgumentCaptor<AsyncCallback> captor = ArgumentCaptor.forClass(AsyncCallback.class);
 
-		verify(dataManagementService).reload(anyString(), captor.capture());
+		verify(dataLoadingService).reload(anyString(), captor.capture());
 
 		captor.getValue().onFailure(exception);
 
@@ -82,15 +82,15 @@ public class DataManagementModelTest {
 
 		when(exception.getMessage()).thenReturn(errorMessage);
 		
-		dataManagementModel.addFailureListener(failureListener);
-		dataManagementModel.reloadData();
+		dataLoadingModel.addFailureListener(failureListener);
+		dataLoadingModel.reloadData();
 
 		ArgumentCaptor<AsyncCallback> captor = ArgumentCaptor.forClass(AsyncCallback.class);
 
-		verify(dataManagementService).reload(anyString(), captor.capture());
+		verify(dataLoadingService).reload(anyString(), captor.capture());
 
 		captor.getValue().onFailure(exception);
 
-		assertEquals(errorMessage, dataManagementModel.getErrorMessage());
+		assertEquals(errorMessage, dataLoadingModel.getErrorMessage());
 	}
 }
