@@ -26,6 +26,9 @@ public class BibleDao implements IBibleDao {
 		try {
 			Query query = persistenceManager.newQuery(Verse.class);
 			results.addAll((List<Verse>) query.execute());
+			for (Verse verse : results) {
+				verse.getText();
+			}
 		} finally {
 			persistenceManager.close();
 		}
@@ -39,6 +42,7 @@ public class BibleDao implements IBibleDao {
 			String line;
 			while ((line = reader.readLine()) != null) {
 				Verse verse = parse(line);
+				System.out.println("adding verse: " + verse.toString());
 				persistenceManager.makePersistent(verse);
 			}
 		} catch (Exception e) {

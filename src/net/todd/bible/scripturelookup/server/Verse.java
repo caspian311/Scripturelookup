@@ -7,6 +7,7 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.Text;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class Verse {
@@ -24,13 +25,13 @@ public class Verse {
 	private String verse;
 	
 	@Persistent
-	private String text;
+	private Text text;
 
 	public Verse(String book, String chapter, String verse, String text) {
 		this.book = book;
 		this.chapter = chapter;
 		this.verse = verse;
-		this.text = text;
+		this.text = new Text(text);
 	}
 
 	public Key getKey() {
@@ -54,7 +55,7 @@ public class Verse {
 	}
 
 	public String getText() {
-		return text;
+		return text.getValue();
 	}
 
 	public void setBook(String book) {
@@ -70,11 +71,11 @@ public class Verse {
 	}
 
 	public void setText(String text) {
-		this.text = text;
+		this.text = new Text(text);
 	}
 	
 	@Override
 	public String toString() {
-		return book + " " + chapter + ":" + verse + " - " + text;
+		return book + " " + chapter + ":" + verse + " - " + text.getValue();
 	}
 }

@@ -1,5 +1,6 @@
 package net.todd.bible.scripturelookup.server;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BibleService implements IBibleService {
@@ -11,6 +12,14 @@ public class BibleService implements IBibleService {
 	
 	@Override
 	public List<Verse> search(String searchText) {
-		return bibleDao.getAllVerses();
+		List<Verse> allVerses = bibleDao.getAllVerses();
+		List<Verse> returnedVerses = new ArrayList<Verse>();
+		for (Verse verse : allVerses) {
+			if (returnedVerses.size() == 10) {
+				break;
+			}
+			returnedVerses.add(verse);
+		}
+		return returnedVerses;
 	}
 }
