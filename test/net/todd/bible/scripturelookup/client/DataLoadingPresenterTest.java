@@ -54,7 +54,7 @@ public class DataLoadingPresenterTest {
 	@Test
 	public void whenModelSuccessOccursViewShowSuccessMessage() {
 		ArgumentCaptor<IListener> captor = ArgumentCaptor.forClass(IListener.class);
-		verify(model).addSuccessListener(captor.capture());
+		verify(model).addIndexBuiltListener(captor.capture());
 
 		captor.getValue().handleEvent();
 

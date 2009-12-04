@@ -18,7 +18,7 @@ public class DataLoadingPresenter {
 			}
 		});
 		
-		dataManagementModel.addSuccessListener(new IListener() {
+		dataManagementModel.addIndexBuiltListener(new IListener() {
 			@Override
 			public void handleEvent() {
 				dataManagementView.showSuccessMessage();
