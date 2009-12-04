@@ -1,5 +1,6 @@
 package net.todd.bible.scripturelookup.server;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -19,14 +20,18 @@ public class BibleServiceTest {
 	}
 
 	@Test
-	public void test() {
+	public void searchReturnsWhatDaoGaveIt() {
+		Verse verse1 = new Verse("", "", "", "");
 		List<Verse> expectedVerses = new ArrayList<Verse>();
+		expectedVerses.add(verse1);
+		
 		when(bibleDao.getAllVerses()).thenReturn(expectedVerses);
 
 		IBibleService bibleService = new BibleService(bibleDao);
 
 		List<Verse> actualVerses = bibleService.search(null);
 
-		assertSame(expectedVerses, actualVerses);
+		assertEquals(1, actualVerses.size());
+		assertSame(expectedVerses.get(0), actualVerses.get(0));
 	}
 }
