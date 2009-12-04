@@ -85,11 +85,14 @@ public class BibleDao implements IBibleDao {
 
 	@Override
 	public Verse getVerse(String id) {
+		Verse verse = null;
 		PersistenceManager persistenceManager = persistenceManagerFactory.getPersistenceManager();
 		try {
-			return persistenceManager.getObjectById(Verse.class, id);
+			verse = persistenceManager.getObjectById(Verse.class, id);
+			verse.getText();
 		} finally {
 			persistenceManager.close();
 		}
+		return verse;
 	}
 }
