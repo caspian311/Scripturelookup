@@ -9,13 +9,16 @@ public class DataLoadingService extends RemoteServiceServlet implements IDataLoa
 		IIndexService {
 	private static final long serialVersionUID = 5244338505093814611L;
 	private final IBibleDao bibleDao;
+	private final ISearchEngine searchEngine;
 
 	public DataLoadingService() {
-		bibleDao = new BibleDao(PMF.get());
+		bibleDao = BibleDaoProvider.getBibleDao();
+		searchEngine = new SearchEngine(bibleDao);
 	}
 
-	public DataLoadingService(IBibleDao bibleDao) {
+	public DataLoadingService(IBibleDao bibleDao, ISearchEngine searchEngine) {
 		this.bibleDao = bibleDao;
+		this.searchEngine = searchEngine;
 	}
 
 	@Override
@@ -27,7 +30,8 @@ public class DataLoadingService extends RemoteServiceServlet implements IDataLoa
 
 	@Override
 	public String rebuildIndex(String request) {
-		// TODO
-		return null;
+		searchEngine.deleteExistingIndex();
+		searchEngine.createIndex();
+		return "Success";
 	}
 }

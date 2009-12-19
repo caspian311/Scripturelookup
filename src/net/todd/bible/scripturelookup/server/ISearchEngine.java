@@ -1,5 +1,11 @@
 package net.todd.bible.scripturelookup.server;
 
-public interface ISearchEngine {
+import java.util.List;
 
+public interface ISearchEngine {
+	void deleteExistingIndex();
+
+	void createIndex();
+
+	List<Verse> search(String query);
 }

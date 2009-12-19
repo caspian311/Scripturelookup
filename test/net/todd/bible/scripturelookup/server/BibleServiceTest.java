@@ -7,31 +7,37 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
 
 public class BibleServiceTest {
-	private IBibleDao bibleDao;
+	private ISearchEngine searchEngine;
 
 	@Before
 	public void setUp() {
-		bibleDao = mock(IBibleDao.class);
+		searchEngine = mock(ISearchEngine.class);
 	}
 
 	@Test
 	public void searchReturnsWhatDaoGaveIt() {
-		Verse verse1 = new Verse("", "", "", "");
-		List<Verse> expectedVerses = new ArrayList<Verse>();
-		expectedVerses.add(verse1);
+		String query = UUID.randomUUID().toString();
 		
-		when(bibleDao.getAllVerses()).thenReturn(expectedVerses);
+		List<Verse> expectedVerses = new ArrayList<Verse>();
+		expectedVerses.add(new Verse("", "", "", ""));
+		expectedVerses.add(new Verse("", "", "", ""));
+		expectedVerses.add(new Verse("", "", "", ""));
+		
+		when(searchEngine.search(query)).thenReturn(expectedVerses);
 
-		IBibleService bibleService = new BibleService(bibleDao);
+		IBibleService bibleService = new BibleService(searchEngine);
 
-		List<Verse> actualVerses = bibleService.search(null);
+		List<Verse> actualVerses = bibleService.search(query);
 
-		assertEquals(1, actualVerses.size());
+		assertEquals(3, actualVerses.size());
 		assertSame(expectedVerses.get(0), actualVerses.get(0));
+		assertSame(expectedVerses.get(1), actualVerses.get(1));
+		assertSame(expectedVerses.get(2), actualVerses.get(2));
 	}
 }

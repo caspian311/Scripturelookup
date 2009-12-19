@@ -1,25 +1,17 @@
 package net.todd.bible.scripturelookup.server;
 
-import java.util.ArrayList;
 import java.util.List;
 
+// XXX This class seems unnecessary
 public class BibleService implements IBibleService {
-	private final IBibleDao bibleDao;
+	private final ISearchEngine searchEngine;
 
-	public BibleService(IBibleDao bibleDao) {
-		this.bibleDao = bibleDao;
+	public BibleService(ISearchEngine searchEngine) {
+		this.searchEngine = searchEngine;
 	}
 	
 	@Override
 	public List<Verse> search(String searchText) {
-		List<Verse> allVerses = bibleDao.getAllVerses();
-		List<Verse> returnedVerses = new ArrayList<Verse>();
-		for (Verse verse : allVerses) {
-			if (returnedVerses.size() == 10) {
-				break;
-			}
-			returnedVerses.add(verse);
-		}
-		return returnedVerses;
+		return searchEngine.search(searchText);
 	}
 }

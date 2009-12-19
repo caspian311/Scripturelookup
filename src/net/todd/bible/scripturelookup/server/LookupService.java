@@ -11,7 +11,7 @@ public class LookupService extends RemoteServiceServlet implements ILookupServic
 	private final IBibleService bibleService;
 
 	public LookupService() {
-		bibleService = new BibleService(new BibleDao(PMF.get()));
+		bibleService = new BibleService(SearchEngineProvider.getSearchEngine());
 	}
 	
 	public LookupService(IBibleService bibleService) {

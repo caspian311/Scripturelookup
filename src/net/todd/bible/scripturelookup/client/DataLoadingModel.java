@@ -34,7 +34,7 @@ public class DataLoadingModel implements IDataLoadingModel {
 	}
 
 	@Override
-	public void addIndexBuiltListener(IListener listener) {
+	public void addDataReloadedListener(IListener listener) {
 		reloadListenerManager.addListener(listener);
 	}
 

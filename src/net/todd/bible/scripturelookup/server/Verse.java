@@ -76,6 +76,10 @@ public class Verse {
 	
 	@Override
 	public String toString() {
-		return book + " " + chapter + ":" + verse + " - " + text.getValue();
+		return getReference() + " - " + text.getValue();
+	}
+
+	public String getReference() {
+		return book + " " + chapter + ":" + verse;
 	}
 }

@@ -41,7 +41,7 @@ public class DataLoadingModelTest {
 	public void modelNotifiesWhenSuccessfulReturnOfService() {
 		IListener successListener = mock(IListener.class);
 
-		dataLoadingModel.addIndexBuiltListener(successListener);
+		dataLoadingModel.addDataReloadedListener(successListener);
 		dataLoadingModel.reloadData();
 
 		ArgumentCaptor<AsyncCallback> captor = ArgumentCaptor.forClass(AsyncCallback.class);
