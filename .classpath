@@ -8,5 +8,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/lucene-core-3.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/mockito-all-1.8.0.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/lucene-memory-3.0.0.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

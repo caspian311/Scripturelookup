@@ -44,7 +44,6 @@ public class DataLoadingServiceTest {
 
 		InOrder inOrder = inOrder(searchEngine);
 
-		inOrder.verify(searchEngine).deleteExistingIndex();
 		inOrder.verify(searchEngine).createIndex();
 	}
 	

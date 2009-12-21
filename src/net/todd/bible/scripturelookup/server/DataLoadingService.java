@@ -30,7 +30,6 @@ public class DataLoadingService extends RemoteServiceServlet implements IDataLoa
 
 	@Override
 	public String rebuildIndex(String request) {
-		searchEngine.deleteExistingIndex();
 		searchEngine.createIndex();
 		return "Success";
 	}

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class SearchEngineTest {
@@ -30,9 +29,7 @@ public class SearchEngineTest {
 	}
 
 	@Test
-	@Ignore
 	public void searchResultsAreRelavent() {
-		searchEngine.deleteExistingIndex();
 		searchEngine.createIndex();
 		List<SearchResult> results = searchEngine.search("fox");
 
@@ -54,9 +51,7 @@ public class SearchEngineTest {
 	}
 
 	@Test
-	@Ignore
 	public void searchResultsAreOrdered() {
-		searchEngine.deleteExistingIndex();
 		searchEngine.createIndex();
 		List<SearchResult> results = searchEngine.search("dog");
 
