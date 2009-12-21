@@ -35,6 +35,7 @@ public class DataLoadingPresenterTest {
 
 		inOrder.verify(view).showBusySignal();
 		inOrder.verify(model).reloadData();
+		inOrder.verify(model).rebuildIndex();
 	}
 	
 	@Test

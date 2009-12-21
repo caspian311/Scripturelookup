@@ -8,16 +8,17 @@ public class DataLoadingPresenter {
 			public void handleEvent() {
 				dataManagementView.showBusySignal();
 				dataManagementModel.reloadData();
+				dataManagementModel.rebuildIndex();
 			}
 		});
-		
+
 		dataManagementModel.addFailureListener(new IListener() {
 			@Override
 			public void handleEvent() {
 				dataManagementView.showErrorMessage(dataManagementModel.getErrorMessage());
 			}
 		});
-		
+
 		dataManagementModel.addDataReloadedListener(new IListener() {
 			@Override
 			public void handleEvent() {
