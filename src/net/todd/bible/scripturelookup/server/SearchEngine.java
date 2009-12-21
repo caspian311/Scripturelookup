@@ -1,5 +1,6 @@
 package net.todd.bible.scripturelookup.server;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchEngine implements ISearchEngine {
@@ -15,7 +16,7 @@ public class SearchEngine implements ISearchEngine {
 	}
 
 	@Override
-	public List<Verse> search(String query) {
-		return null;
+	public List<SearchResult> search(String queryString) {
+		return new ArrayList<SearchResult>();
 	}
 }

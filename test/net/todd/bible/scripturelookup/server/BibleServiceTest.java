@@ -21,23 +21,30 @@ public class BibleServiceTest {
 	}
 
 	@Test
-	public void searchReturnsWhatDaoGaveIt() {
+	public void searchReturnsConvertedResults() {
 		String query = UUID.randomUUID().toString();
-		
-		List<Verse> expectedVerses = new ArrayList<Verse>();
-		expectedVerses.add(new Verse("", "", "", ""));
-		expectedVerses.add(new Verse("", "", "", ""));
-		expectedVerses.add(new Verse("", "", "", ""));
-		
-		when(searchEngine.search(query)).thenReturn(expectedVerses);
+
+		SearchResult result1 = new SearchResult();
+		result1.setText(UUID.randomUUID().toString());
+		SearchResult result2 = new SearchResult();
+		result2.setText(UUID.randomUUID().toString());
+		SearchResult result3 = new SearchResult();
+		result3.setText(UUID.randomUUID().toString());
+
+		List<SearchResult> expectedResults = new ArrayList<SearchResult>();
+		expectedResults.add(result1);
+		expectedResults.add(result2);
+		expectedResults.add(result3);
+
+		when(searchEngine.search(query)).thenReturn(expectedResults);
 
 		IBibleService bibleService = new BibleService(searchEngine);
 
 		List<Verse> actualVerses = bibleService.search(query);
 
 		assertEquals(3, actualVerses.size());
-		assertSame(expectedVerses.get(0), actualVerses.get(0));
-		assertSame(expectedVerses.get(1), actualVerses.get(1));
-		assertSame(expectedVerses.get(2), actualVerses.get(2));
+		assertSame(expectedResults.get(0).getText(), actualVerses.get(0).getText());
+		assertSame(expectedResults.get(1).getText(), actualVerses.get(1).getText());
+		assertSame(expectedResults.get(2).getText(), actualVerses.get(2).getText());
 	}
 }

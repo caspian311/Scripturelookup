@@ -7,5 +7,5 @@ public interface ISearchEngine {
 
 	void createIndex();
 
-	List<Verse> search(String query);
+	List<SearchResult> search(String query);
 }
