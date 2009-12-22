@@ -5,16 +5,12 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public class DataLoadingModel implements IDataLoadingModel {
 	private final ListenerManager reloadListenerManager = new ListenerManager();
 	private final ListenerManager failureListenerManager = new ListenerManager();
-	private final ListenerManager indexBuiltListenerManager = new ListenerManager();
 
 	private final IDataLoadingServiceAsync dataManagementService;
-	private final IIndexServiceAsync indexService;
 	private String errorMessage;
 
-	public DataLoadingModel(IDataLoadingServiceAsync dataManagementService,
-			IIndexServiceAsync indexService) {
+	public DataLoadingModel(IDataLoadingServiceAsync dataManagementService) {
 		this.dataManagementService = dataManagementService;
-		this.indexService = indexService;
 	}
 
 	@Override
@@ -46,26 +42,5 @@ public class DataLoadingModel implements IDataLoadingModel {
 	@Override
 	public String getErrorMessage() {
 		return errorMessage;
-	}
-
-	@Override
-	public void rebuildIndex() {
-		indexService.rebuildIndex(null, new AsyncCallback<String>() {
-			@Override
-			public void onFailure(Throwable caught) {
-				errorMessage = caught.getMessage();
-				failureListenerManager.notifyListeners();
-			}
-
-			@Override
-			public void onSuccess(String result) {
-				indexBuiltListenerManager.notifyListeners();
-			}
-		});
-	}
-
-	@Override
-	public void addIndexBuildSuccessListener(IListener listener) {
-		indexBuiltListenerManager.addListener(listener);
 	}
 }

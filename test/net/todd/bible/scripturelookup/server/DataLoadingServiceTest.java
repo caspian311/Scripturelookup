@@ -27,28 +27,15 @@ public class DataLoadingServiceTest {
 	public void deleteOldDataThenLoadInNew() {
 		dataLoadingService.reload(null);
 		
-		InOrder inorder = inOrder(bibleDao);
+		InOrder inorder = inOrder(bibleDao, searchEngine);
 
 		inorder.verify(bibleDao).deleteData();
 		inorder.verify(bibleDao).loadData(any(InputStream.class));
+		inorder.verify(searchEngine).createIndex();
 	}
 	
 	@Test
 	public void returnSuccessMessageWhenReloadSuccessful() {
 		assertEquals("Success", dataLoadingService.reload(null));
-	}
-	
-	@Test
-	public void rebuildingIndexRemovesExistingIndexThenCreatesNewIndex() {
-		dataLoadingService.rebuildIndex(null);
-
-		InOrder inOrder = inOrder(searchEngine);
-
-		inOrder.verify(searchEngine).createIndex();
-	}
-	
-	@Test
-	public void returnSuccessWhenRebuildIndexIsSuccessful() {
-		assertEquals("Success", dataLoadingService.rebuildIndex(null));
 	}
 }

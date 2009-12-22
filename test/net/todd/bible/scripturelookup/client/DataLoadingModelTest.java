@@ -20,14 +20,12 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 @SuppressWarnings("unchecked")
 public class DataLoadingModelTest {
 	private IDataLoadingServiceAsync dataLoadingService;
-	private IIndexServiceAsync indexService;
 	private IDataLoadingModel dataLoadingModel;
 
 	@Before
 	public void setUp() {
 		dataLoadingService = mock(IDataLoadingServiceAsync.class);
-		indexService = mock(IIndexServiceAsync.class);
-		dataLoadingModel = new DataLoadingModel(dataLoadingService, indexService);
+		dataLoadingModel = new DataLoadingModel(dataLoadingService);
 	}
 	
 	@Test
@@ -88,68 +86,6 @@ public class DataLoadingModelTest {
 		ArgumentCaptor<AsyncCallback> captor = ArgumentCaptor.forClass(AsyncCallback.class);
 
 		verify(dataLoadingService).reload(anyString(), captor.capture());
-
-		captor.getValue().onFailure(exception);
-
-		assertEquals(errorMessage, dataLoadingModel.getErrorMessage());
-	}
-	
-	@Test
-	public void whenModelRebuildsIndexItCallsTheIndexService() {
-		dataLoadingModel.rebuildIndex();
-
-		ArgumentCaptor<AsyncCallback> captor = ArgumentCaptor.forClass(AsyncCallback.class);
-
-		verify(indexService).rebuildIndex(anyString(), captor.capture());
-	}
-
-	@Test
-	public void modelNotifiesListenersWhenIndexRebuiltSuccessfully() {
-		IListener successListener = mock(IListener.class);
-
-		dataLoadingModel.addIndexBuildSuccessListener(successListener);
-		dataLoadingModel.rebuildIndex();
-
-		ArgumentCaptor<AsyncCallback> captor = ArgumentCaptor.forClass(AsyncCallback.class);
-
-		verify(indexService).rebuildIndex(anyString(), captor.capture());
-
-		captor.getValue().onSuccess("");
-		
-		verify(successListener).handleEvent();
-	}
-	
-	@Test
-	public void modelNotifiesFailureListenersWhenIndexRebuildingFails() {
-		IListener failureListener = mock(IListener.class);
-
-		dataLoadingModel.addFailureListener(failureListener);
-		dataLoadingModel.rebuildIndex();
-
-		ArgumentCaptor<AsyncCallback> captor = ArgumentCaptor.forClass(AsyncCallback.class);
-
-		verify(indexService).rebuildIndex(anyString(), captor.capture());
-
-		captor.getValue().onFailure(new Exception());
-
-		verify(failureListener).handleEvent();
-	}
-
-	@Test
-	public void modelProvidesIndexRebuildingErrorWhenFailureOccurs() {
-		String errorMessage = UUID.randomUUID().toString();
-		
-		IListener failureListener = mock(IListener.class);
-		Exception exception = mock(Exception.class);
-
-		when(exception.getMessage()).thenReturn(errorMessage);
-
-		dataLoadingModel.addIndexBuildSuccessListener(failureListener);
-		dataLoadingModel.rebuildIndex();
-
-		ArgumentCaptor<AsyncCallback> captor = ArgumentCaptor.forClass(AsyncCallback.class);
-
-		verify(indexService).rebuildIndex(anyString(), captor.capture());
 
 		captor.getValue().onFailure(exception);
 

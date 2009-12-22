@@ -8,7 +8,6 @@ public class DataLoadingPresenter {
 			public void handleEvent() {
 				dataManagementView.showBusySignal();
 				dataManagementModel.reloadData();
-				dataManagementModel.rebuildIndex();
 			}
 		});
 

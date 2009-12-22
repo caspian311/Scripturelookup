@@ -8,8 +8,4 @@ public interface IDataLoadingModel {
 	void addFailureListener(IListener failureListener);
 
 	String getErrorMessage();
-
-	void rebuildIndex();
-
-	void addIndexBuildSuccessListener(IListener successListener);
 }
