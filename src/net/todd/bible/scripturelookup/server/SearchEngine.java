@@ -17,10 +17,11 @@ import org.apache.lucene.util.Version;
 
 public class SearchEngine implements ISearchEngine {
 	private final IBibleDao bibleDao;
-	private RAMDirectory index;
+	private RAMDirectory index = new RAMDirectory();
 
 	public SearchEngine(IBibleDao bibleDao) {
 		this.bibleDao = bibleDao;
+		index = new RAMDirectory();
 	}
 
 	@Override
