@@ -9,5 +9,10 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/lucene-core-3.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/mockito-all-1.8.0.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/lucene-memory-3.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/appengine-api-stubs.jar"/>
+	<classpathentry kind="lib" path="lib/appengine-local-runtime.jar"/>
+	<classpathentry kind="lib" path="lib/appengine-api-labs.jar"/>
+	<classpathentry kind="lib" path="lib/appengine-api.jar"/>
+	<classpathentry kind="lib" path="lib/appengine-tools-api.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

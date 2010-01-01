@@ -3,7 +3,6 @@ package net.todd.bible.scripturelookup.server;
 import java.util.ArrayList;
 import java.util.List;
 
-// XXX This class seems unnecessary
 public class BibleService implements IBibleService {
 	private final ISearchEngine searchEngine;
 
@@ -20,7 +19,8 @@ public class BibleService implements IBibleService {
 		List<Verse> verses = new ArrayList<Verse>();
 		
 		for (SearchResult result : results) {
-			verses.add(new Verse("", "", "", result.getText()));
+			verses.add(new Verse(result.getBook(), result.getChapter(), result.getVerse(), result
+					.getText()));
 		}
 		
 		return verses;

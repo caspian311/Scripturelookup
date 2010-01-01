@@ -16,12 +16,12 @@ import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
 
 public class SearchEngine implements ISearchEngine {
+	private static final int MAX_RESULTS = 100;
 	private final IBibleDao bibleDao;
-	private RAMDirectory index = new RAMDirectory();
+	private static RAMDirectory index;
 
 	public SearchEngine(IBibleDao bibleDao) {
 		this.bibleDao = bibleDao;
-		index = new RAMDirectory();
 	}
 
 	@Override
@@ -30,6 +30,7 @@ public class SearchEngine implements ISearchEngine {
 
 		try {
 			index = new RAMDirectory();
+			
 			IndexWriter writer = new IndexWriter(index,
 					new StandardAnalyzer(Version.LUCENE_CURRENT), true,
 					new IndexWriter.MaxFieldLength(1000000));
@@ -45,6 +46,9 @@ public class SearchEngine implements ISearchEngine {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
+		
+		System.out.println("current index size: " + index.sizeInBytes());
+		System.out.println("all index files: " + index.listAll());
 	}
 
 	private Document convertToDocument(Verse verse) {
@@ -64,12 +68,13 @@ public class SearchEngine implements ISearchEngine {
 
 		List<SearchResult> results = new ArrayList<SearchResult>();
 		try {
+			System.out.println("index size in bytes: " + index.sizeInBytes());
 
 			IndexSearcher searcher = new IndexSearcher(index);
-			TopDocs topMatchingDocs = searcher.search(query, 100);
+			TopDocs topMatchingDocs = searcher.search(query, MAX_RESULTS);
 
 			if (topMatchingDocs != null) {
-				for (int i = 0; i < topMatchingDocs.totalHits && i < 1000; i++) {
+				for (int i = 0; i < topMatchingDocs.totalHits && i < MAX_RESULTS; i++) {
 					Document document = searcher.doc(topMatchingDocs.scoreDocs[i].doc);
 					SearchResult searchResult = new SearchResult();
 

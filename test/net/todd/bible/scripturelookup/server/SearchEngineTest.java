@@ -21,7 +21,7 @@ public class SearchEngineTest {
 		verses.add(new Verse("", "", "", "lazy dog"));
 		verses.add(new Verse("", "", "", "dog eat dog"));
 		verses.add(new Verse("", "", "", "foxxy fox"));
-		
+
 		IBibleDao bibleDao = mock(IBibleDao.class);
 		when(bibleDao.getAllVerses()).thenReturn(verses);
 
