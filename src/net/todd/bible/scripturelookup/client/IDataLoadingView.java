@@ -9,7 +9,15 @@ public interface IDataLoadingView {
 	
 	void showErrorMessage(String errorMessage);
 
-	void showSuccessMessage();
+	void showDeletionSuccessMessage();
 
-	void showBusySignal();
+	void showReloadSuccessMessage();
+
+	void showIndexSuccessMessage();
+
+	void showDeletingBusySignal();
+
+	void showReloadingBusySignal();
+
+	void showIndexingBusySignal();
 }

@@ -6,7 +6,7 @@ public class DataLoadingPresenter {
 		dataManagementView.addReloadButtonListener(new IListener() {
 			@Override
 			public void handleEvent() {
-				dataManagementView.showBusySignal();
+				dataManagementView.showReloadingBusySignal();
 				dataManagementModel.reloadData();
 			}
 		});
@@ -14,7 +14,7 @@ public class DataLoadingPresenter {
 		dataManagementView.addDeleteButtonListener(new IListener() {
 			@Override
 			public void handleEvent() {
-				dataManagementView.showBusySignal();
+				dataManagementView.showDeletingBusySignal();
 				dataManagementModel.deleteData();
 			}
 		});
@@ -22,7 +22,7 @@ public class DataLoadingPresenter {
 		dataManagementView.addReIndexButtonListener(new IListener() {
 			@Override
 			public void handleEvent() {
-				dataManagementView.showBusySignal();
+				dataManagementView.showIndexingBusySignal();
 				dataManagementModel.createIndex();
 			}
 		});
@@ -37,21 +37,21 @@ public class DataLoadingPresenter {
 		dataManagementModel.addIndexCreatedListener(new IListener() {
 			@Override
 			public void handleEvent() {
-				dataManagementView.showSuccessMessage();
+				dataManagementView.showIndexSuccessMessage();
 			}
 		});
 		
 		dataManagementModel.addDataDeletionListener(new IListener() {
 			@Override
 			public void handleEvent() {
-				dataManagementView.showSuccessMessage();
+				dataManagementView.showDeletionSuccessMessage();
 			}
 		});
 
 		dataManagementModel.addDataReloadedListener(new IListener() {
 			@Override
 			public void handleEvent() {
-				dataManagementView.showSuccessMessage();
+				dataManagementView.showReloadSuccessMessage();
 			}
 		});
 	}

@@ -11,8 +11,13 @@ public class DataLoadingView implements IDataLoadingView {
 	private final ListenerManager reloadButtonListenerManager = new ListenerManager();
 	private final ListenerManager reIndexButtonListenerManager = new ListenerManager();
 
-	private static final String SUCCESS_MESSAGE = "Data has reloaded successfully.";
-	private static final String BUSY_MESSAGE = "Reloading data... please wait...";
+	private static final String DELETION_SUCCESS_MESSAGE = "Data has deleted successfully.";
+	private static final String RELOAD_SUCCESS_MESSAGE = "Data has reloaded successfully.";
+	private static final String INDEX_SUCCESS_MESSAGE = "Index has successfully been built.";
+	
+	private static final String DELETION_BUSY_MESSAGE = "Deleting data... please wait...";
+	private static final String RELOAD_BUSY_MESSAGE = "Reloading data... please wait...";
+	private static final String INDEX_BUSY_MESSAGE = "Indexing data... please wait...";
 
 	private final Button reloadButton;
 	private final Button deleteButton;
@@ -74,12 +79,32 @@ public class DataLoadingView implements IDataLoadingView {
 	}
 
 	@Override
-	public void showSuccessMessage() {
-		messageLabel.setText(SUCCESS_MESSAGE);
+	public void showDeletionSuccessMessage() {
+		messageLabel.setText(DELETION_SUCCESS_MESSAGE);
 	}
 
 	@Override
-	public void showBusySignal() {
-		messageLabel.setText(BUSY_MESSAGE);
+	public void showReloadSuccessMessage() {
+		messageLabel.setText(RELOAD_SUCCESS_MESSAGE);
+	}
+
+	@Override
+	public void showIndexSuccessMessage() {
+		messageLabel.setText(INDEX_SUCCESS_MESSAGE);
+	}
+
+	@Override
+	public void showDeletingBusySignal() {
+		messageLabel.setText(DELETION_BUSY_MESSAGE);
+	}
+
+	@Override
+	public void showReloadingBusySignal() {
+		messageLabel.setText(RELOAD_BUSY_MESSAGE);
+	}
+
+	@Override
+	public void showIndexingBusySignal() {
+		messageLabel.setText(INDEX_BUSY_MESSAGE);
 	}
 }

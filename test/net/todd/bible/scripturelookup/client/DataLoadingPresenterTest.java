@@ -33,7 +33,7 @@ public class DataLoadingPresenterTest {
 
 		InOrder inOrder = inOrder(view, model);
 
-		inOrder.verify(view).showBusySignal();
+		inOrder.verify(view).showDeletingBusySignal();
 		inOrder.verify(model).deleteData();
 	}
 
@@ -46,7 +46,7 @@ public class DataLoadingPresenterTest {
 
 		InOrder inOrder = inOrder(view, model);
 
-		inOrder.verify(view).showBusySignal();
+		inOrder.verify(view).showReloadingBusySignal();
 		inOrder.verify(model).reloadData();
 	}
 	
@@ -59,7 +59,7 @@ public class DataLoadingPresenterTest {
 
 		InOrder inOrder = inOrder(view, model);
 
-		inOrder.verify(view).showBusySignal();
+		inOrder.verify(view).showIndexingBusySignal();
 		inOrder.verify(model).createIndex();
 	}
 
@@ -78,12 +78,32 @@ public class DataLoadingPresenterTest {
 	}
 
 	@Test
-	public void whenModelSuccessOccursViewShowSuccessMessage() {
+	public void whenDeletionSuccessfulShowDeltionSuccessMessage() {
+		ArgumentCaptor<IListener> captor = ArgumentCaptor.forClass(IListener.class);
+		verify(model).addDataDeletionListener(captor.capture());
+
+		captor.getValue().handleEvent();
+
+		verify(view).showDeletionSuccessMessage();
+	}
+
+	@Test
+	public void whenReloadSuccessfulShowReloadSuccessMessage() {
 		ArgumentCaptor<IListener> captor = ArgumentCaptor.forClass(IListener.class);
 		verify(model).addDataReloadedListener(captor.capture());
 
 		captor.getValue().handleEvent();
 
-		verify(view).showSuccessMessage();
+		verify(view).showReloadSuccessMessage();
+	}
+
+	@Test
+	public void whenIndexingSuccessfulShowIndexSuccessMessage() {
+		ArgumentCaptor<IListener> captor = ArgumentCaptor.forClass(IListener.class);
+		verify(model).addIndexCreatedListener(captor.capture());
+
+		captor.getValue().handleEvent();
+
+		verify(view).showIndexSuccessMessage();
 	}
 }
