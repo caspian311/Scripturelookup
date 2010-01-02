@@ -9,7 +9,6 @@ import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.appengine.tools.development.ApiProxyLocalImpl;
@@ -19,7 +18,7 @@ public class SearchIntegrationTest {
 	@Before
 	public void setUp() {
 		ApiProxy.setEnvironmentForCurrentThread(new TestEnvironment());
-		ApiProxy.setDelegate(new ApiProxyLocalImpl(new File("war")) {
+		ApiProxy.setDelegate(new ApiProxyLocalImpl(new File(".")) {
 		});
 	}
 
@@ -30,10 +29,12 @@ public class SearchIntegrationTest {
 	}
 
 	@Test
-	@Ignore
 	public void searchesAreConsistent() {
+		BibleDaoProvider.getBibleDao().deleteData();
+		BibleDaoProvider.getBibleDao().loadData(getClass().getResourceAsStream("/test-data.txt"));
 		SearchEngineProvider.getSearchEngine().createIndex();
-		List<SearchResult> results = SearchEngineProvider.getSearchEngine().search("elder");
+		
+		List<SearchResult> results = SearchEngineProvider.getSearchEngine().search("God");
 
 		assertTrue(results.size() > 0);
 	}
