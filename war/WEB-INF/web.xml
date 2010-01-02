@@ -20,10 +20,6 @@
 		<servlet-name>dataloading</servlet-name>
 		<url-pattern>/dataloading/reload</url-pattern>
 	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>dataloading</servlet-name>
-		<url-pattern>/dataloading/rebuildIndex</url-pattern>
-	</servlet-mapping>
 	
 	<welcome-file-list>
 		<welcome-file>Scripturelookup.html</welcome-file>
