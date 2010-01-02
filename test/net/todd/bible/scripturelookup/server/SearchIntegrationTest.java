@@ -18,7 +18,7 @@ public class SearchIntegrationTest {
 	@Before
 	public void setUp() {
 		ApiProxy.setEnvironmentForCurrentThread(new TestEnvironment());
-		ApiProxy.setDelegate(new ApiProxyLocalImpl(new File(".")) {
+		ApiProxy.setDelegate(new ApiProxyLocalImpl(new File("war")) {
 		});
 	}
 
