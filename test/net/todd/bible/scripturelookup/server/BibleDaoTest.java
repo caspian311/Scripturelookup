@@ -17,7 +17,6 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class BibleDaoTest {
@@ -109,23 +108,5 @@ public class BibleDaoTest {
 		verify(persistenceManager).deletePersistent(verse2);
 		verify(persistenceManager).deletePersistent(verse3);
 		verify(persistenceManager, times(1)).close();
-	}
-
-	@Test
-	@Ignore
-	public void integrationTest() {
-		IBibleDao bibleDao = new BibleDao(PMF.get());
-		bibleDao.deleteData();
-
-		bibleDao.loadData(getClass().getResourceAsStream("/test-data.txt"));
-
-		List<Verse> verses = bibleDao.getAllVerses();
-		assertEquals(3, verses.size());
-		assertEquals("Genesis 1:1 - In the beginning...", verses.get(0).toString());
-		assertEquals("John 3:16 - For God so loved the world...", verses.get(1).toString());
-		assertEquals("Revelation 21:1 - Then I saw a new heaven and a new earth...", verses.get(2)
-				.toString());
-
-		bibleDao.deleteData();
 	}
 }
