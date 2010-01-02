@@ -25,7 +25,20 @@ public class DataLoadingPresenterTest {
 	}
 	
 	@Test
-	public void showBusySignalThenTellModelToReloadDataWhenButtonPressedOnView() {
+	public void showBusySignalThenTellModelToDeleteDataWhenButtonDeteDataPressed() {
+		ArgumentCaptor<IListener> captor = ArgumentCaptor.forClass(IListener.class);
+		verify(view).addDeleteButtonListener(captor.capture());
+
+		captor.getValue().handleEvent();
+
+		InOrder inOrder = inOrder(view, model);
+
+		inOrder.verify(view).showBusySignal();
+		inOrder.verify(model).deleteData();
+	}
+
+	@Test
+	public void showBusySignalThenTellModelToReloadDataWhenReloadButtonPressed() {
 		ArgumentCaptor<IListener> captor = ArgumentCaptor.forClass(IListener.class);
 		verify(view).addReloadButtonListener(captor.capture());
 
@@ -37,6 +50,19 @@ public class DataLoadingPresenterTest {
 		inOrder.verify(model).reloadData();
 	}
 	
+	@Test
+	public void showBusySignalThenTellModelToReIndexDataWhenReIndexButtonPressed() {
+		ArgumentCaptor<IListener> captor = ArgumentCaptor.forClass(IListener.class);
+		verify(view).addReIndexButtonListener(captor.capture());
+
+		captor.getValue().handleEvent();
+
+		InOrder inOrder = inOrder(view, model);
+
+		inOrder.verify(view).showBusySignal();
+		inOrder.verify(model).createIndex();
+	}
+
 	@Test
 	public void whenModelErrorOccursViewShowErrorMessage() {
 		String errorMessage = UUID.randomUUID().toString();

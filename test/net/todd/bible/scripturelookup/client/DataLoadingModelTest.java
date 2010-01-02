@@ -2,7 +2,6 @@ package net.todd.bible.scripturelookup.client;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyObject;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -19,24 +18,29 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 @SuppressWarnings("unchecked")
 public class DataLoadingModelTest {
+	private IDataDeletingServiceAsync dataDeletingService;
 	private IDataLoadingServiceAsync dataLoadingService;
+	private IIndexServiceAsync indexService;
 	private IDataLoadingModel dataLoadingModel;
 
 	@Before
 	public void setUp() {
+		dataDeletingService = mock(IDataDeletingServiceAsync.class);
 		dataLoadingService = mock(IDataLoadingServiceAsync.class);
-		dataLoadingModel = new DataLoadingModel(dataLoadingService);
+		indexService = mock(IIndexServiceAsync.class);
+		dataLoadingModel = new DataLoadingModel(dataDeletingService, dataLoadingService,
+				indexService);
 	}
 	
 	@Test
 	public void callDataManagementServicewhenReloading() {
 		dataLoadingModel.reloadData();
 		
-		verify(dataLoadingService).reload(anyString(), (AsyncCallback) anyObject());
+		verify(dataLoadingService).loadAllData((AsyncCallback) anyObject());
 	}
 	
 	@Test
-	public void modelNotifiesWhenSuccessfulReturnOfService() {
+	public void reloadListenersNotifiesWhenDataGetsReloaded() {
 		IListener successListener = mock(IListener.class);
 
 		dataLoadingModel.addDataReloadedListener(successListener);
@@ -44,13 +48,45 @@ public class DataLoadingModelTest {
 
 		ArgumentCaptor<AsyncCallback> captor = ArgumentCaptor.forClass(AsyncCallback.class);
 
-		verify(dataLoadingService).reload(anyString(), captor.capture());
+		verify(dataLoadingService).loadAllData(captor.capture());
 		
 		captor.getValue().onSuccess("");
 		
 		verify(successListener).handleEvent();
 	}
 	
+	@Test
+	public void deletionListenersAreNotifiedWhenSuccessfulDeletionOccurrs() {
+		IListener successListener = mock(IListener.class);
+
+		dataLoadingModel.addDataDeletionListener(successListener);
+		dataLoadingModel.deleteData();
+
+		ArgumentCaptor<AsyncCallback> captor = ArgumentCaptor.forClass(AsyncCallback.class);
+
+		verify(dataDeletingService).deleteAllData(captor.capture());
+
+		captor.getValue().onSuccess("");
+
+		verify(successListener).handleEvent();
+	}
+	
+	@Test
+	public void createIndexListenersAreNotifiedWhenSuccessfulCreationOfIndexOccurrs() {
+		IListener successListener = mock(IListener.class);
+
+		dataLoadingModel.addIndexCreatedListener(successListener);
+		dataLoadingModel.createIndex();
+
+		ArgumentCaptor<AsyncCallback> captor = ArgumentCaptor.forClass(AsyncCallback.class);
+
+		verify(indexService).createIndex(captor.capture());
+
+		captor.getValue().onSuccess("");
+
+		verify(successListener).handleEvent();
+	}
+
 	@Test
 	public void errorMessageIsMadeAvailableThenModelNotifiesWhenFailureReturnOfService() {
 		IListener failureListener = mock(IListener.class);
@@ -61,7 +97,7 @@ public class DataLoadingModelTest {
 
 		ArgumentCaptor<AsyncCallback> captor = ArgumentCaptor.forClass(AsyncCallback.class);
 
-		verify(dataLoadingService).reload(anyString(), captor.capture());
+		verify(dataLoadingService).loadAllData(captor.capture());
 
 		captor.getValue().onFailure(exception);
 
@@ -85,7 +121,7 @@ public class DataLoadingModelTest {
 
 		ArgumentCaptor<AsyncCallback> captor = ArgumentCaptor.forClass(AsyncCallback.class);
 
-		verify(dataLoadingService).reload(anyString(), captor.capture());
+		verify(dataLoadingService).loadAllData(captor.capture());
 
 		captor.getValue().onFailure(exception);
 

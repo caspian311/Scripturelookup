@@ -2,14 +2,13 @@ package net.todd.bible.scripturelookup.server;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import java.io.InputStream;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InOrder;
 
 public class DataLoadingServiceTest {
 	private IBibleDao bibleDao;
@@ -24,18 +23,30 @@ public class DataLoadingServiceTest {
 	}
 	
 	@Test
-	public void deleteOldDataThenLoadInNew() {
-		dataLoadingService.reload(null);
+	public void deleteAllDataDeletesDataInDao() {
+		dataLoadingService.deleteAllData();
 		
-		InOrder inorder = inOrder(bibleDao, searchEngine);
-
-		inorder.verify(bibleDao).deleteData();
-		inorder.verify(bibleDao).loadData(any(InputStream.class));
-		inorder.verify(searchEngine).createIndex();
+		verify(bibleDao).deleteData();
 	}
 	
 	@Test
-	public void returnSuccessMessageWhenReloadSuccessful() {
-		assertEquals("Success", dataLoadingService.reload(null));
+	public void loadAllDataLoadsDataIntoDao() {
+		dataLoadingService.loadAllData();
+
+		verify(bibleDao).loadData(any(InputStream.class));
+	}
+
+	@Test
+	public void createIndexCreatesNewIndexInSearchEngine() {
+		dataLoadingService.createIndex();
+
+		verify(searchEngine).createIndex();
+	}
+
+	@Test
+	public void allServiceCallsReturnSUCCESSWhenSuccessful() {
+		assertEquals("SUCCESS", dataLoadingService.deleteAllData());
+		assertEquals("SUCCESS", dataLoadingService.loadAllData());
+		assertEquals("SUCCESS", dataLoadingService.createIndex());
 	}
 }

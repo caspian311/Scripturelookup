@@ -18,7 +18,15 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>dataloading</servlet-name>
-		<url-pattern>/dataloading/reload</url-pattern>
+		<url-pattern>/dataloading/deleteAllData</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>dataloading</servlet-name>
+		<url-pattern>/dataloading/loadAllData</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>dataloading</servlet-name>
+		<url-pattern>/dataloading/createIndex</url-pattern>
 	</servlet-mapping>
 	
 	<welcome-file-list>

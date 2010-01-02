@@ -1,10 +1,13 @@
 package net.todd.bible.scripturelookup.server;
 
+import net.todd.bible.scripturelookup.client.IDataDeletingService;
 import net.todd.bible.scripturelookup.client.IDataLoadingService;
+import net.todd.bible.scripturelookup.client.IIndexService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-public class DataLoadingService extends RemoteServiceServlet implements IDataLoadingService {
+public class DataLoadingService extends RemoteServiceServlet implements IDataDeletingService,
+		IDataLoadingService, IIndexService {
 	private static final long serialVersionUID = 5244338505093814611L;
 	private final IBibleDao bibleDao;
 	private final ISearchEngine searchEngine;
@@ -20,10 +23,20 @@ public class DataLoadingService extends RemoteServiceServlet implements IDataLoa
 	}
 
 	@Override
-	public String reload(String query) {
+	public String deleteAllData() {
 		bibleDao.deleteData();
+		return "SUCCESS";
+	}
+
+	@Override
+	public String loadAllData() {
 		bibleDao.loadData(getClass().getResourceAsStream("/data.txt"));
+		return "SUCCESS";
+	}
+	
+	@Override
+	public String createIndex() {
 		searchEngine.createIndex();
-		return "Success";
+		return "SUCCESS";
 	}
 }
