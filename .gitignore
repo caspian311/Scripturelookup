@@ -3,3 +3,6 @@ war/dataloading
 war/scripturelookup
 war/WEB-INF/classes/*
 bin/*
+reports
+webrat.log
+*.war
