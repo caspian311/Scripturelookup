@@ -6,3 +6,4 @@ bin/*
 reports
 webrat.log
 *.war
+build.properties

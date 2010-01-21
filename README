@@ -1,1 +1,25 @@
-Just started... get something more substantial soon.
+-------------------------------------------------------------------------------
+                                   SYNOPSIS
+-------------------------------------------------------------------------------
+An appengine web application for looking up verses in the Bible using GWT.
+
+
+-------------------------------------------------------------------------------
+                                 PREREQUISITES
+-------------------------------------------------------------------------------
+You need to have an installation of GWT and Appengine somehwere on the box.  
+By default the build will look for them in /usr/local/gwt and 
+/usr/local/appengine-java-sdk.  To set these to a different location, create a 
+build.properites file and set the values like so:
+
+gwt.sdk=<path-to-gwt>
+appengine.sdk=<path-to-gwt>
+
+
+-------------------------------------------------------------------------------
+                                    BUILD
+-------------------------------------------------------------------------------
+This project is build with ant.  So to run all the tests and build the war 
+file, run the following command:
+
+$ ant war
