@@ -15,7 +15,7 @@ import com.google.gwt.user.client.ui.TextBox;
 
 public class LookupView implements ILookupView {
 	private final Button submitButton;
-	private final TextBox nameField;
+	private final TextBox queryField;
 
 	private final HTML serverResponseLabel;
 	private final SimplePanel responsePanel;
@@ -25,19 +25,20 @@ public class LookupView implements ILookupView {
 		submitButton = new Button("Search");
 		submitButton.addStyleName("sendButton");
 
-		nameField = new TextBox();
-		nameField.setText("");
-		nameField.setWidth("100%");
+		queryField = new TextBox();
+		queryField.setStyleName("query");
+		queryField.setText("");
+		queryField.setWidth("100%");
 
 		responsePanel = new SimplePanel();
 		serverResponseLabel = new HTML();
 
-		RootPanel.get("queryFieldContainer").add(nameField);
+		RootPanel.get("queryFieldContainer").add(queryField);
 		RootPanel.get("submitButtonContainer").add(submitButton);
 		RootPanel.get("responseContainer").add(responsePanel);
 
-		nameField.setFocus(true);
-		nameField.selectAll();
+		queryField.setFocus(true);
+		queryField.selectAll();
 
 		responsePanel.add(serverResponseLabel);
 
@@ -48,7 +49,7 @@ public class LookupView implements ILookupView {
 			}
 		});
 
-		nameField.addKeyUpHandler(new KeyUpHandler() {
+		queryField.addKeyUpHandler(new KeyUpHandler() {
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
 				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
@@ -92,6 +93,6 @@ public class LookupView implements ILookupView {
 	}
 	
 	public String getQueryString() {
-		return nameField.getText();
+		return queryField.getText();
 	}
 }
