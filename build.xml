@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <project name="Scripturelookup" default="build" basedir=".">
+	<propertyfile file="build.properties" />
+	
 	<!-- Configure path to GWT SDK -->
 	<property name="gwt.sdk" location="/usr/local/gwt" />
 	<property name="appengine.sdk" location="/usr/local/appengine-java-sdk" />

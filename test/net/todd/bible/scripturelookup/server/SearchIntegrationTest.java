@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.appengine.tools.development.ApiProxyLocalImpl;
@@ -29,6 +30,7 @@ public class SearchIntegrationTest {
 	}
 
 	@Test
+	@Ignore
 	public void searchesAreConsistent() {
 		BibleDaoProvider.getBibleDao().deleteData();
 		BibleDaoProvider.getBibleDao().loadData(getClass().getResourceAsStream("/test-data.txt"));
