@@ -132,6 +132,7 @@
 		<delete dir="war/WEB-INF/classes" failonerror="false" />
 		<delete dir="war/dataloading" failonerror="false" />
 		<delete dir="war/scripturelookup" failonerror="false" />
+		<delete file="Scripturelookup.war" failonerror="false" />
 	</target>
 
 </project>
