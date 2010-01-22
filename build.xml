@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <project name="Scripturelookup" default="build" basedir=".">
 	<propertyfile file="build.properties" />
-	
+
 	<!-- Configure path to GWT SDK -->
-	<property name="gwt.sdk" location="/usr/local/gwt" />
-	<property name="appengine.sdk" location="/usr/local/appengine-java-sdk" />
+	<property name="gwt.sdk" value="/usr/local/gwt" />
+	<property name="appengine.sdk" value="/usr/local/appengine-java-sdk" />
+	<property name="app.server" value="/usr/local/tomcat" />
+	<property name="deploy-url" value="http://localhost:8080/manager" />
+	<property name="deploy-username" value="admin" />
+	<property name="deploy-password" value="admin" />
 
 	<path id="project.class.path">
 		<pathelement location="war/WEB-INF/classes" />
@@ -18,7 +22,7 @@
 	<path id="project.extra.class.path">
 		<fileset dir="lib" includes="**/*.jar" />
 	</path>
-	
+
 	<target name="libs" description="Copy libs to WEB-INF/lib">
 		<mkdir dir="war/WEB-INF/lib" />
 		<copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet.jar" />
@@ -72,7 +76,7 @@
 		</javac>
 	</target>
 
-	<target name="test.dev" depends="javac.tests" description="Run development mode tests">
+	<target name="test" depends="javac.tests" description="Run development mode tests">
 		<mkdir dir="reports/htmlunit.dev" />
 		<junit fork="yes" printsummary="yes" haltonfailure="yes">
 			<jvmarg line="-Xmx256m" />
@@ -93,37 +97,7 @@
 		</junit>
 	</target>
 
-	<target name="test.prod" depends="javac.tests" description="Run production mode tests">
-		<mkdir dir="reports/htmlunit.prod" />
-		<junit fork="yes" printsummary="yes" haltonfailure="yes">
-			<jvmarg line="-Xmx256m" />
-			<sysproperty key="gwt.args" value="-prod -logLevel WARN -out www-test" />
-			<sysproperty key="java.awt.headless" value="true" />
-			<classpath>
-				<pathelement location="test" />
-				<path refid="project.class.path" />
-				<path refid="project.extra.class.path" />
-			</classpath>
-			<batchtest todir="reports/htmlunit.prod">
-				<fileset dir="test">
-					<include name="**/*Test.java" />
-				</fileset>
-			</batchtest>
-			<formatter type="plain" />
-			<formatter type="xml" />
-		</junit>
-	</target>
-
-	<target name="test" description="Run development and production mode tests">
-		<antcall target="test.dev" />
-		<antcall target="test.prod" />
-	</target>
-
-	<target name="hosted" depends="devmode" description="Run development mode (NOTE: the 'hosted' target is deprecated)" />
-
-	<target name="build" depends="gwtc" description="Build this project" />
-
-	<target name="war" depends="build" description="Create a war file">
+	<target name="war" depends="gwtc" description="Create a war file">
 		<zip destfile="Scripturelookup.war" basedir="war" />
 	</target>
 
@@ -135,5 +109,33 @@
 		<delete file="Scripturelookup.war" failonerror="false" />
 	</target>
 
+	<taskdef name="deploy" classname="org.apache.catalina.ant.DeployTask">
+		<classpath>
+			<fileset dir="${app.server}">
+				<include name="**/*.jar" />
+			</fileset>
+		</classpath>
+	</taskdef>
+
+	<taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask">
+		<classpath>
+			<fileset dir="${app.server}">
+				<include name="**/*.jar" />
+			</fileset>
+		</classpath>
+	</taskdef>
+
+	<target name="integration-test">
+		<deploy update="true" url="${deploy-url}" username="${deploy-username}" password="${deploy-password}" path="/Scripturelookup" war="file:${basedir}/Scripturelookup.war" />
+		<exec executable="cucumber" failonerror="true" />
+		<undeploy url="${deploy-url}" username="${deploy-username}" password="${deploy-password}" path="/Scripturelookup" />
+	</target>
+
+	<target name="cruisecontrol">
+		<antcall target="clean" />
+		<antcall target="war" />
+		<antcall target="test" />
+		<antcall target="integration-test" />
+	</target>
 </project>
 
