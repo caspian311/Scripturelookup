@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<project name="Scripturelookup" default="build" basedir=".">
+<project name="Scripturelookup" default="war" basedir=".">
 	<propertyfile file="build.properties" />
 
 	<!-- Configure path to GWT SDK -->
