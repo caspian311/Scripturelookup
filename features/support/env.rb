@@ -1,12 +1,17 @@
-require 'webrat'
+require 'spec/expectations'
+require 'selenium'
 
-Webrat.configure do |config|
-  config.mode = :mechanize
-  config.application_environment = :external
-  config.application_address = "http://localhost:8080"
+browser = Selenium::SeleniumDriver.new("localhost", 4444, "*chrome", "http://localhost", 15000)
+
+Before do
+  @browser = browser
+  @browser.start
 end
 
-World do
-  include Webrat::Methods
-  include Webrat::Matchers
+After do
+  @browser.stop
+end
+
+at_exit do
+  @browser.close rescue nil
 end
