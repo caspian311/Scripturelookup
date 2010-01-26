@@ -1,20 +1,21 @@
+BASE_URL='http://localhost:8080/Scripturelookup'
+
 Given /^scripturelookup is running$/ do
-  BASE_URL='http://localhost:8080/Scripturelookup'
 end
 
-When /^I go to "([^\"]*)"$/ do |page|
+When /^I go to "(.*)"$/ do |page|
   @browser.open(BASE_URL + page)
 end
 
-And /^I type in "([^\"]*)"$/ do |arg1|
-  @broswer.type 'query', arg1
+And /^I type "(.*)" in "(.*)"$/ do |text, field_name|
+  @browser.type field_name, text
 end
 
-And /^I click "([^\"]*)"$/ do |arg1|
-  @broswer.click arg1
+And /^I click the search button$/ do
+  @browser.click "//*[@id='submitButtonContainer']/button"
 end
 
-Then /^I should see "([^\"]*)"$/ do |text|
+Then /^I should see "(.*)"$/ do |text|
   @browser.wait_for_page_to_load
   @browser.is_text_present(text).should be_true
 end

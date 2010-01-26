@@ -9,10 +9,6 @@ public interface IDataLoadingModel {
 
 	void addDataReloadedListener(IListener successListener);
 
-	void createIndex();
-
-	void addIndexCreatedListener(IListener successListener);
-
 	String getErrorMessage();
 
 	void addFailureListener(IListener failureListener);

@@ -5,19 +5,13 @@ public interface IDataLoadingView {
 	
 	void addReloadButtonListener(IListener listener);
 
-	void addReIndexButtonListener(IListener listener);
-	
 	void showErrorMessage(String errorMessage);
 
 	void showDeletionSuccessMessage();
 
 	void showReloadSuccessMessage();
 
-	void showIndexSuccessMessage();
-
 	void showDeletingBusySignal();
 
 	void showReloadingBusySignal();
-
-	void showIndexingBusySignal();
 }

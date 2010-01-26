@@ -6,19 +6,16 @@ public class DataLoadingModel implements IDataLoadingModel {
 	private final ListenerManager failureListenerManager = new ListenerManager();
 	private final ListenerManager loadListenerManager = new ListenerManager();
 	private final ListenerManager deleteListenerManager = new ListenerManager();
-	private final ListenerManager createIndexListenerManager = new ListenerManager();
 
 	private final IDataLoadingServiceAsync dataManagementService;
 	private final IDataDeletingServiceAsync dataDeletingService;
-	private final IIndexServiceAsync indexService;
 	
 	private String errorMessage;
 
 	public DataLoadingModel(IDataDeletingServiceAsync dataDeletingService,
-			IDataLoadingServiceAsync dataManagementService, IIndexServiceAsync indexService) {
+			IDataLoadingServiceAsync dataManagementService) {
 		this.dataManagementService = dataManagementService;
 		this.dataDeletingService = dataDeletingService;
-		this.indexService = indexService;
 	}
 
 	@Override
@@ -37,22 +34,6 @@ public class DataLoadingModel implements IDataLoadingModel {
 		});
 	}
 	
-	@Override
-	public void createIndex() {
-		indexService.createIndex(new AsyncCallback<String>() {
-			@Override
-			public void onFailure(Throwable caught) {
-				errorMessage = caught.getMessage();
-				failureListenerManager.notifyListeners();
-			}
-
-			@Override
-			public void onSuccess(String result) {
-				createIndexListenerManager.notifyListeners();
-			}
-		});
-	}
-
 	@Override
 	public void reloadData() {
 		dataManagementService.loadAllData(new AsyncCallback<String>() {
@@ -86,10 +67,5 @@ public class DataLoadingModel implements IDataLoadingModel {
 	@Override
 	public String getErrorMessage() {
 		return errorMessage;
-	}
-
-	@Override
-	public void addIndexCreatedListener(IListener listener) {
-		createIndexListenerManager.addListener(listener);
 	}
 }

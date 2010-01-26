@@ -3,38 +3,46 @@ package net.todd.bible.scripturelookup.server;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.appengine.tools.development.ApiProxyLocalImpl;
 import com.google.apphosting.api.ApiProxy;
 
 public class SearchIntegrationTest {
+	private String inexLocation;
+
 	@Before
-	public void setUp() {
+	public void setUp() throws IOException {
+		File tempFile = File.createTempFile(getClass().getName(), "");
+		inexLocation = tempFile.getAbsolutePath();
+		tempFile.delete();
+		
 		ApiProxy.setEnvironmentForCurrentThread(new TestEnvironment());
 		ApiProxy.setDelegate(new ApiProxyLocalImpl(new File("war")) {
 		});
+		
+		BibleDaoProvider.getBibleDao().deleteData();
+		BibleDaoProvider.getBibleDao().loadData(getClass().getResourceAsStream("/test-data.txt"));
 	}
 
 	@After
 	public void tearDown() {
+		BibleDaoProvider.getBibleDao().deleteData();
+		
 		ApiProxy.setEnvironmentForCurrentThread(null);
 		ApiProxy.setDelegate(null);
 	}
 
 	@Test
-	@Ignore
 	public void searchesAreConsistent() {
-		BibleDaoProvider.getBibleDao().deleteData();
-		BibleDaoProvider.getBibleDao().loadData(getClass().getResourceAsStream("/test-data.txt"));
-		SearchEngineProvider.getSearchEngine().createIndex();
+		SearchEngineProvider.getSearchEngine().createIndex(inexLocation);
 		
 		List<SearchResult> results = SearchEngineProvider.getSearchEngine().search("God");
 

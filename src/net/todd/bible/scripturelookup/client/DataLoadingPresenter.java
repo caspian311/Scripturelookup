@@ -19,14 +19,6 @@ public class DataLoadingPresenter {
 			}
 		});
 
-		dataManagementView.addReIndexButtonListener(new IListener() {
-			@Override
-			public void handleEvent() {
-				dataManagementView.showIndexingBusySignal();
-				dataManagementModel.createIndex();
-			}
-		});
-		
 		dataManagementModel.addFailureListener(new IListener() {
 			@Override
 			public void handleEvent() {
@@ -34,13 +26,6 @@ public class DataLoadingPresenter {
 			}
 		});
 
-		dataManagementModel.addIndexCreatedListener(new IListener() {
-			@Override
-			public void handleEvent() {
-				dataManagementView.showIndexSuccessMessage();
-			}
-		});
-		
 		dataManagementModel.addDataDeletionListener(new IListener() {
 			@Override
 			public void handleEvent() {

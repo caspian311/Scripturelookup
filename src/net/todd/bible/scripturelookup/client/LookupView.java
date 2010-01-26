@@ -26,7 +26,7 @@ public class LookupView implements ILookupView {
 		submitButton.addStyleName("sendButton");
 
 		queryField = new TextBox();
-		queryField.setStyleName("query");
+		queryField.setName("query");
 		queryField.setText("");
 		queryField.setWidth("100%");
 

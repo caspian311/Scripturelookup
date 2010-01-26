@@ -51,19 +51,6 @@ public class DataLoadingPresenterTest {
 	}
 	
 	@Test
-	public void showBusySignalThenTellModelToReIndexDataWhenReIndexButtonPressed() {
-		ArgumentCaptor<IListener> captor = ArgumentCaptor.forClass(IListener.class);
-		verify(view).addReIndexButtonListener(captor.capture());
-
-		captor.getValue().handleEvent();
-
-		InOrder inOrder = inOrder(view, model);
-
-		inOrder.verify(view).showIndexingBusySignal();
-		inOrder.verify(model).createIndex();
-	}
-
-	@Test
 	public void whenModelErrorOccursViewShowErrorMessage() {
 		String errorMessage = UUID.randomUUID().toString();
 		
@@ -95,15 +82,5 @@ public class DataLoadingPresenterTest {
 		captor.getValue().handleEvent();
 
 		verify(view).showReloadSuccessMessage();
-	}
-
-	@Test
-	public void whenIndexingSuccessfulShowIndexSuccessMessage() {
-		ArgumentCaptor<IListener> captor = ArgumentCaptor.forClass(IListener.class);
-		verify(model).addIndexCreatedListener(captor.capture());
-
-		captor.getValue().handleEvent();
-
-		verify(view).showIndexSuccessMessage();
 	}
 }

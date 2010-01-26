@@ -20,16 +20,13 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public class DataLoadingModelTest {
 	private IDataDeletingServiceAsync dataDeletingService;
 	private IDataLoadingServiceAsync dataLoadingService;
-	private IIndexServiceAsync indexService;
 	private IDataLoadingModel dataLoadingModel;
 
 	@Before
 	public void setUp() {
 		dataDeletingService = mock(IDataDeletingServiceAsync.class);
 		dataLoadingService = mock(IDataLoadingServiceAsync.class);
-		indexService = mock(IIndexServiceAsync.class);
-		dataLoadingModel = new DataLoadingModel(dataDeletingService, dataLoadingService,
-				indexService);
+		dataLoadingModel = new DataLoadingModel(dataDeletingService, dataLoadingService);
 	}
 	
 	@Test
@@ -71,22 +68,6 @@ public class DataLoadingModelTest {
 		verify(successListener).handleEvent();
 	}
 	
-	@Test
-	public void createIndexListenersAreNotifiedWhenSuccessfulCreationOfIndexOccurrs() {
-		IListener successListener = mock(IListener.class);
-
-		dataLoadingModel.addIndexCreatedListener(successListener);
-		dataLoadingModel.createIndex();
-
-		ArgumentCaptor<AsyncCallback> captor = ArgumentCaptor.forClass(AsyncCallback.class);
-
-		verify(indexService).createIndex(captor.capture());
-
-		captor.getValue().onSuccess("");
-
-		verify(successListener).handleEvent();
-	}
-
 	@Test
 	public void errorMessageIsMadeAvailableThenModelNotifiesWhenFailureReturnOfService() {
 		IListener failureListener = mock(IListener.class);

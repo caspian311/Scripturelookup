@@ -10,6 +10,8 @@
 	<property name="deploy-username" value="admin" />
 	<property name="deploy-password" value="admin" />
 
+	<import file="${appengine.sdk}/config/user/ant-macros.xml" />
+
 	<path id="project.class.path">
 		<pathelement location="war/WEB-INF/classes" />
 		<pathelement location="${gwt.sdk}/gwt-user.jar" />
@@ -39,7 +41,11 @@
 		</copy>
 	</target>
 
-	<target name="gwtc" depends="javac" description="GWT compile to JavaScript">
+	<target name="enhance" depends="javac">
+		<enhance_war war="war" />
+	</target>
+
+	<target name="gwtc" depends="enhance" description="GWT compile to JavaScript">
 		<java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
 			<classpath>
 				<pathelement location="src" />
@@ -68,7 +74,7 @@
 		</java>
 	</target>
 
-	<target name="javac.tests" depends="javac" description="Compiles test code">
+	<target name="javac.tests" depends="javac, enhance" description="Compiles test code">
 		<javac srcdir="test" includes="**" destdir="war/WEB-INF/classes" encoding="utf-8" source="1.5" target="1.5" nowarn="true" debug="true" debuglevel="lines,vars,source">
 			<classpath location="lib/junit-4.7.jar" />
 			<classpath location="lib/mockito-all-1.8.0.jar" />
@@ -77,7 +83,7 @@
 	</target>
 
 	<target name="test" depends="javac.tests" description="Run development mode tests">
-		<mkdir dir="reports/htmlunit.dev" />
+		<mkdir dir="reports" />
 		<junit fork="yes" printsummary="yes" haltonfailure="yes">
 			<jvmarg line="-Xmx256m" />
 			<sysproperty key="gwt.args" value="-logLevel WARN" />
@@ -87,12 +93,11 @@
 				<path refid="project.class.path" />
 				<path refid="project.extra.class.path" />
 			</classpath>
-			<batchtest todir="reports/htmlunit.dev">
+			<batchtest todir="reports">
 				<fileset dir="test">
 					<include name="**/*Test.java" />
 				</fileset>
 			</batchtest>
-			<formatter type="plain" />
 			<formatter type="xml" />
 		</junit>
 	</target>
@@ -126,16 +131,21 @@
 	</taskdef>
 
 	<target name="integration-test">
-		<deploy update="true" url="${deploy-url}" username="${deploy-username}" password="${deploy-password}" path="/Scripturelookup" war="file:${basedir}/Scripturelookup.war" />
-		<exec executable="cucumber" failonerror="true" />
-		<undeploy url="${deploy-url}" username="${deploy-username}" password="${deploy-password}" path="/Scripturelookup" />
+		<exec executable="cucumber" failonerror="true">
+			<arg value="--format" />
+			<arg value="junit" />
+			<arg value="--out" />
+			<arg value="reports" />
+		</exec>
 	</target>
 
 	<target name="cruisecontrol">
 		<antcall target="clean" />
 		<antcall target="war" />
 		<antcall target="test" />
+		<deploy update="true" url="${deploy-url}" username="${deploy-username}" password="${deploy-password}" path="/Scripturelookup" war="file:${basedir}/Scripturelookup.war" />
 		<antcall target="integration-test" />
+		<undeploy url="${deploy-url}" username="${deploy-username}" password="${deploy-password}" path="/Scripturelookup" />
 	</target>
 </project>
 
