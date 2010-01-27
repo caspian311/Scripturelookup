@@ -55,7 +55,6 @@
 			<jvmarg value="-Xmx256M" />
 			<!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
 			<arg value="net.todd.bible.scripturelookup.Scripturelookup" />
-			<arg value="net.todd.bible.scripturelookup.Dataloading" />
 		</java>
 	</target>
 
@@ -132,6 +131,8 @@
 
 	<target name="integration-test">
 		<exec executable="cucumber" failonerror="true">
+			<arg value="--tags" />
+			<arg value="~@Pending" />
 			<arg value="--format" />
 			<arg value="junit" />
 			<arg value="--out" />

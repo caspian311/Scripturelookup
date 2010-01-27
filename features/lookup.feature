@@ -4,6 +4,7 @@ Feature: Lookup Service
     When I go to "/"
     Then I should see "Scripture Lookup"
 
+  @Pending
   Scenario: John 3:16
     Given scripturelookup is running
     When I go to "/"
