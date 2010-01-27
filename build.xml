@@ -139,7 +139,7 @@
 		</exec>
 	</target>
 
-	<target name="cruisecontrol">
+	<target name="ci">
 		<antcall target="clean" />
 		<antcall target="war" />
 		<antcall target="test" />

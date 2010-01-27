@@ -11,16 +11,18 @@ public class LookupService extends RemoteServiceServlet implements ILookupServic
 	private final IBibleService bibleService;
 
 	public LookupService() {
-		bibleService = new BibleService(SearchEngineProvider.getSearchEngine());
+		String indexLocation = getServletContext().getRealPath("/WEB-INF/index");
+		ISearchEngine searchEngine = new SearchEngine(indexLocation);
+		bibleService = new BibleService(searchEngine);
 	}
-	
+
 	public LookupService(IBibleService bibleService) {
 		this.bibleService = bibleService;
 	}
-	
+
 	public String lookup(String query) {
 		StringBuffer response = new StringBuffer();
-		
+
 		if (query != null && !"".equals(query)) {
 			response.append("[");
 
@@ -39,12 +41,10 @@ public class LookupService extends RemoteServiceServlet implements ILookupServic
 
 	private void addVerse(StringBuffer response, Verse verse) {
 		response.append("{");
-		response.append("\"book\"").append(":").append("\"" + verse.getBook() + "\"").append(
+		response.append("\"book\"").append(":").append("\"" + verse.getBook() + "\"").append(",");
+		response.append("\"chapter\"").append(":").append("\"" + verse.getChapter() + "\"").append(
 				",");
-		response.append("\"chapter\"").append(":").append("\"" + verse.getChapter() + "\"")
-				.append(",");
-		response.append("\"verse\"").append(":").append("\"" + verse.getVerse() + "\"").append(
-				",");
+		response.append("\"verse\"").append(":").append("\"" + verse.getVerse() + "\"").append(",");
 		response.append("\"text\"").append(":").append("\"" + verse.getText() + "\"");
 		response.append("}");
 	}

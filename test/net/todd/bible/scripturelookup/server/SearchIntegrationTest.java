@@ -16,12 +16,12 @@ import com.google.appengine.tools.development.ApiProxyLocalImpl;
 import com.google.apphosting.api.ApiProxy;
 
 public class SearchIntegrationTest {
-	private String inexLocation;
+	private String indexLocation;
 
 	@Before
 	public void setUp() throws IOException {
 		File tempFile = File.createTempFile(getClass().getName(), "");
-		inexLocation = tempFile.getAbsolutePath();
+		indexLocation = tempFile.getAbsolutePath();
 		tempFile.delete();
 		
 		ApiProxy.setEnvironmentForCurrentThread(new TestEnvironment());
@@ -41,10 +41,10 @@ public class SearchIntegrationTest {
 	}
 
 	@Test
-	public void searchesAreConsistent() {
-		SearchEngineProvider.getSearchEngine().createIndex(inexLocation);
+	public void searchesWorks() {
+		new IndexBuilder(BibleDaoProvider.getBibleDao()).createIndex(indexLocation);
 		
-		List<SearchResult> results = SearchEngineProvider.getSearchEngine().search("God");
+		List<SearchResult> results = new SearchEngine(indexLocation).search("God");
 
 		assertTrue(results.size() > 0);
 	}
