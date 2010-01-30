@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <project name="Scripturelookup" default="war" basedir=".">
-	<propertyfile file="build.properties" />
+	<property file="build.properties" />
 
 	<!-- Configure path to GWT SDK -->
 	<property name="gwt.sdk" value="/usr/local/gwt" />
@@ -69,7 +69,6 @@
 			<arg value="Scripturelookup.html" />
 			<!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
 			<arg value="net.todd.bible.scripturelookup.Scripturelookup" />
-			<arg value="net.todd.bible.scripturelookup.Dataloading" />
 		</java>
 	</target>
 
@@ -108,7 +107,6 @@
 	<target name="clean" description="Cleans this project">
 		<delete dir="reports" failonerror="false" />
 		<delete dir="war/WEB-INF/classes" failonerror="false" />
-		<delete dir="war/dataloading" failonerror="false" />
 		<delete dir="war/scripturelookup" failonerror="false" />
 		<delete file="Scripturelookup.war" failonerror="false" />
 	</target>
@@ -138,6 +136,15 @@
 			<arg value="--out" />
 			<arg value="reports" />
 		</exec>
+	</target>
+
+	<target name="build-index" depends="enhance">
+		<java failonerror="true" fork="true" classname="net.todd.bible.scripturelookup.server.Indexer">
+			<classpath>
+				<path refid="project.class.path" />
+			</classpath>
+			<arg value="${basedir}/war/WEB-INF/index" />
+		</java>
 	</target>
 
 	<target name="ci">

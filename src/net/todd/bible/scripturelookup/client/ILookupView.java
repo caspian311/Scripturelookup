@@ -9,6 +9,8 @@ public interface ILookupView {
 	
 	void showErrorMessage(String errorMessage);
 	
+	void showNoResultsMessage();
+	
 	void showVerses(List<Verse> verses);
 	
 	void disableSubmitButton();

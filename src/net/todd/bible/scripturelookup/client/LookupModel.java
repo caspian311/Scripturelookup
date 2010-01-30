@@ -10,6 +10,7 @@ public class LookupModel implements ILookupModel {
 
 	private final ListenerManager failureListenerManager = new ListenerManager();
 	private final ListenerManager resultsReturnedListenerManager = new ListenerManager();
+	private final ListenerManager noResultsListenerManager = new ListenerManager();
 
 	private final ILookupServiceAsync lookupService;
 
@@ -31,7 +32,11 @@ public class LookupModel implements ILookupModel {
 
 			public void onSuccess(String response) {
 				popuplateSearchResults(response);
-				resultsReturnedListenerManager.notifyListeners();
+				if (searchResults.size() != 0) {
+					resultsReturnedListenerManager.notifyListeners();
+				} else {
+					noResultsListenerManager.notifyListeners();
+				}
 			}
 		});
 	}
@@ -59,5 +64,10 @@ public class LookupModel implements ILookupModel {
 	@Override
 	public String getErrorMessage() {
 		return errorMessage;
+	}
+
+	@Override
+	public void addNoResultsReturnedListener(IListener listener) {
+		noResultsListenerManager.addListener(listener);
 	}
 }

@@ -15,7 +15,10 @@ And /^I click the search button$/ do
   @browser.click "//*[@id='submitButtonContainer']/button"
 end
 
-Then /^I should see "(.*)"$/ do |text|
+And /^I wait for the page to load$/ do |text|
   @browser.wait_for_page_to_load
-  @browser.is_text_present(text).should be_true
+end
+
+Then /^I should see "(.*)"$/ do |text|
+  @browser.wait_for_text text, :timeout_in_seconds => 10
 end

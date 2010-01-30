@@ -6,6 +6,7 @@ import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -78,41 +79,31 @@ public class LookupModelTest {
 
 	@Test
 	public void searchResultListenersAreNotifiedWhenCallReturns() {
+		String response = UUID.randomUUID().toString();
+
+		Verse verse1 = mock(Verse.class);
+		List<Verse> searchResults = new ArrayList<Verse>();
+		searchResults.add(verse1);
 		IListener searchResultListener = mock(IListener.class);
 
 		ILookupModel lookupModel = new LookupModel(lookupService, parser);
 		lookupModel.addResultsReturnedListener(searchResultListener);
 
-		ArgumentCaptor<AsyncCallback> argument = ArgumentCaptor.forClass(AsyncCallback.class);
+		when(parser.parse(response)).thenReturn(searchResults);
 
 		lookupModel.queryServer(UUID.randomUUID().toString());
 
+		ArgumentCaptor<AsyncCallback> argument = ArgumentCaptor.forClass(AsyncCallback.class);
 		verify(lookupService).lookup(anyString(), argument.capture());
-		AsyncCallback<String> callback = argument.getValue();
-		callback.onSuccess("");
+		argument.getValue().onSuccess(response);
 
 		verify(searchResultListener).handleEvent();
 	}
 
 	@Test
-	public void searchResultAreEmptyWhenNoResultsAreReturned() {
-		ILookupModel lookupModel = new LookupModel(lookupService, parser);
-
-		ArgumentCaptor<AsyncCallback> argument = ArgumentCaptor.forClass(AsyncCallback.class);
-
-		lookupModel.queryServer(UUID.randomUUID().toString());
-
-		verify(lookupService).lookup(anyString(), argument.capture());
-		AsyncCallback<String> callback = argument.getValue();
-		callback.onSuccess("");
-
-		assertEquals(0, lookupModel.searchResults().size());
-	}
-
-	@Test
 	public void searchResultAreAvailableWhenCallReturns() {
 		String response = UUID.randomUUID().toString();
-		
+
 		Verse verse1 = mock(Verse.class);
 		List<Verse> searchResults = new ArrayList<Verse>();
 		searchResults.add(verse1);
@@ -131,5 +122,23 @@ public class LookupModelTest {
 
 		assertEquals(1, lookupModel.searchResults().size());
 		assertSame(verse1, lookupModel.searchResults().get(0));
+	}
+
+	@Test
+	public void noResultsListenerNotifiedWhenNoResultsAreReturned() {
+		ILookupModel lookupModel = new LookupModel(lookupService, parser);
+
+		IListener listener = mock(IListener.class);
+
+		lookupModel.queryServer(UUID.randomUUID().toString());
+		lookupModel.addNoResultsReturnedListener(listener);
+
+		ArgumentCaptor<AsyncCallback> argument = ArgumentCaptor.forClass(AsyncCallback.class);
+
+		verify(lookupService).lookup(anyString(), argument.capture());
+
+		argument.getValue().onSuccess("[]");
+
+		verify(listener, times(1)).handleEvent();
 	}
 }

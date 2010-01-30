@@ -3,6 +3,11 @@ package net.todd.bible.scripturelookup.server;
 import java.io.File;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.google.appengine.tools.development.ApiProxyLocalImpl;
+import com.google.apphosting.api.ApiProxy;
 
 public class Indexer {
 	public static final String USAGE_ERROR_MESSAGE = "Usage: java net.todd.bible.scripturelookup.server.Indexer <path-to-index-directory>";
@@ -22,9 +27,9 @@ public class Indexer {
 		try {
 			validateNumberOfArgs(args);
 			validateIsDirectory(args);
-			
+
 			actuallyBuildIndex(args[0]);
-			
+
 			out.println(SUCCESS_MESSAGE);
 		} catch (ValidationException e) {
 			err.println(USAGE_ERROR_MESSAGE);
@@ -56,11 +61,53 @@ public class Indexer {
 	}
 
 	public static void main(String[] args) {
-		new Indexer(System.out, System.err, new IndexBuilder(BibleDaoProvider.getBibleDao()))
-				.doit(args);
+		ApiProxy.setEnvironmentForCurrentThread(new TestEnvironment());
+		ApiProxy.setDelegate(new ApiProxyLocalImpl(new File("war")) {
+		});
+
+		IBibleDao bibleDao = BibleDaoProvider.getBibleDao();
+		bibleDao.deleteData();
+		bibleDao.loadData(Indexer.class.getResourceAsStream("/data.txt"));
+		new Indexer(System.out, System.err, new IndexBuilder(bibleDao)).doit(args);
 	}
-	
+
 	private static class ValidationException extends RuntimeException {
 		private static final long serialVersionUID = -528856349956178698L;
+	}
+	
+	private static class TestEnvironment implements ApiProxy.Environment {
+		public String getAppId() {
+			return "test";
+		}
+
+		public String getVersionId() {
+			return "1.0";
+		}
+
+		public String getEmail() {
+			throw new UnsupportedOperationException();
+		}
+
+		public boolean isLoggedIn() {
+			throw new UnsupportedOperationException();
+		}
+
+		public boolean isAdmin() {
+			throw new UnsupportedOperationException();
+		}
+
+		public String getAuthDomain() {
+			throw new UnsupportedOperationException();
+		}
+
+		public String getRequestNamespace() {
+			return "";
+		}
+
+		public Map<String, Object> getAttributes() {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("com.google.appengine.server_url_key", "http://localhost:8080");
+			return map;
+		}
 	}
 }

@@ -2,22 +2,29 @@ package net.todd.bible.scripturelookup.server;
 
 import java.util.List;
 
+import javax.servlet.ServletException;
+
 import net.todd.bible.scripturelookup.client.ILookupService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class LookupService extends RemoteServiceServlet implements ILookupService {
 	private static final long serialVersionUID = -4750186401651003378L;
-	private final IBibleService bibleService;
+	private IBibleService bibleService;
 
 	public LookupService() {
+	}
+	
+	public LookupService(IBibleService bibleService) {
+		this.bibleService = bibleService;
+	}
+
+	@Override
+	public void init() throws ServletException {
+		super.init();
 		String indexLocation = getServletContext().getRealPath("/WEB-INF/index");
 		ISearchEngine searchEngine = new SearchEngine(indexLocation);
 		bibleService = new BibleService(searchEngine);
-	}
-
-	public LookupService(IBibleService bibleService) {
-		this.bibleService = bibleService;
 	}
 
 	public String lookup(String query) {

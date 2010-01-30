@@ -12,4 +12,6 @@ public interface ILookupModel {
 	void addFailureListener(IListener listener);
 
 	String getErrorMessage();
+
+	void addNoResultsReturnedListener(IListener listener);
 }

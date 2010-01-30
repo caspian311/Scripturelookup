@@ -1,10 +1,14 @@
 require 'spec/expectations'
 require 'selenium'
-
-browser = Selenium::SeleniumDriver.new("localhost", 4444, "*chrome", "http://localhost", 15000)
+require 'selenium/client'
 
 Before do
-  @browser = browser
+  @browser = Selenium::Client::Driver.new( 
+    :host => "localhost",
+    :port => 4444,
+    :browser => "*firefox",
+    :url => "http://www.google.com",
+    :timeout_in_second => 60)
   @browser.start
 end
 

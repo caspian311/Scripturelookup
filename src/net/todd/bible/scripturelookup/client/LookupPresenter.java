@@ -27,5 +27,12 @@ public class LookupPresenter {
 				lookupView.enableSubmitButton();
 			}
 		});
+		
+		lookupModel.addNoResultsReturnedListener(new IListener() {
+			@Override
+			public void handleEvent() {
+				lookupView.showNoResultsMessage();
+			}
+		});
 	}
 }

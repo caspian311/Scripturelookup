@@ -95,14 +95,12 @@ public class LookupPresenterTest {
 	public void whenModelGetsSearchResultsPullVersesFromModelAndPutIntoView() {
 		List<Verse> results = new ArrayList<Verse>();
 		
-		ArgumentCaptor<IListener> argument = ArgumentCaptor.forClass(IListener.class);
+		when(model.searchResults()).thenReturn(results);
 
 		new LookupPresenter(view, model);
 
+		ArgumentCaptor<IListener> argument = ArgumentCaptor.forClass(IListener.class);
 		verify(model).addResultsReturnedListener(argument.capture());
-
-		when(model.searchResults()).thenReturn(results);
-		
 		argument.getValue().handleEvent();
 
 		verify(view).showVerses(results);
@@ -112,16 +110,27 @@ public class LookupPresenterTest {
 	public void whenModelSignalsFailurePullErrorMessageFromModelAndPutIntoView() {
 		String errorMessage = UUID.randomUUID().toString();
 
-		ArgumentCaptor<IListener> argument = ArgumentCaptor.forClass(IListener.class);
-
+		when(model.getErrorMessage()).thenReturn(errorMessage);
+		
 		new LookupPresenter(view, model);
 
+		ArgumentCaptor<IListener> argument = ArgumentCaptor.forClass(IListener.class);
 		verify(model).addFailureListener(argument.capture());
-
-		when(model.getErrorMessage()).thenReturn(errorMessage);
 
 		argument.getValue().handleEvent();
 
 		verify(view).showErrorMessage(errorMessage);
+	}
+	
+	@Test
+	public void whenModelSignalsNoResultsThenNoResultsMessageDisplayedOnView() {
+		new LookupPresenter(view, model);
+
+		ArgumentCaptor<IListener> argument = ArgumentCaptor.forClass(IListener.class);
+		verify(model).addNoResultsReturnedListener(argument.capture());
+
+		argument.getValue().handleEvent();
+
+		verify(view).showNoResultsMessage();
 	}
 }

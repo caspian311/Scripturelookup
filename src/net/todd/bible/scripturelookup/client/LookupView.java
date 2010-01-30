@@ -84,6 +84,11 @@ public class LookupView implements ILookupView {
 		serverResponseLabel.setHTML("Error: " + errorMessage);
 	}
 	
+	public void showNoResultsMessage() {
+		submitButton.setEnabled(true);
+		serverResponseLabel.setHTML("No results found");
+	}
+	
 	public void enableSubmitButton() {
 		submitButton.setEnabled(true);
 	}
