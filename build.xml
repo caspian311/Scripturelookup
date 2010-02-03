@@ -136,6 +136,15 @@
 			<arg value="--out" />
 			<arg value="reports" />
 		</exec>
+		<exec executable="cucumber" failonerror="true">
+			<arg value="--wip" />
+			<arg value="--tags" />
+			<arg value="@Pending" />
+			<arg value="--format" />
+			<arg value="junit" />
+			<arg value="--out" />
+			<arg value="reports" />
+		</exec>
 	</target>
 
 	<target name="build-index" depends="enhance">
@@ -147,13 +156,21 @@
 		</java>
 	</target>
 
+	<target name="deploy">
+		<deploy update="true" url="${deploy-url}" username="${deploy-username}" password="${deploy-password}" path="/Scripturelookup" war="file:${basedir}/Scripturelookup.war" />
+	</target>
+
+	<target name="undeploy">
+		<undeploy url="${deploy-url}" username="${deploy-username}" password="${deploy-password}" path="/Scripturelookup" />
+	</target>
+
 	<target name="ci">
 		<antcall target="clean" />
 		<antcall target="war" />
 		<antcall target="test" />
-		<deploy update="true" url="${deploy-url}" username="${deploy-username}" password="${deploy-password}" path="/Scripturelookup" war="file:${basedir}/Scripturelookup.war" />
+		<antcall target="deploy" />
 		<antcall target="integration-test" />
-		<undeploy url="${deploy-url}" username="${deploy-username}" password="${deploy-password}" path="/Scripturelookup" />
+		<antcall target="undeploy" />
 	</target>
 </project>
 

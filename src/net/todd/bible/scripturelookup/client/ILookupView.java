@@ -18,4 +18,6 @@ public interface ILookupView {
 	void enableSubmitButton();
 	
 	String getQueryString();
+	
+	void addQueryTypeChangeListener(IListener listener);
 }

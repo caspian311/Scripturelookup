@@ -11,8 +11,8 @@ And /^I type "(.*)" in "(.*)"$/ do |text, field_name|
   @browser.type field_name, text
 end
 
-And /^I click the search button$/ do
-  @browser.click "//*[@id='submitButtonContainer']/button"
+And /^I click the "(.*)" button$/ do |button_text|
+  @browser.click "//button[contains(., '#{button_text}')]"
 end
 
 And /^I wait for the page to load$/ do |text|
@@ -21,4 +21,8 @@ end
 
 Then /^I should see "(.*)"$/ do |text|
   @browser.wait_for_text text, :timeout_in_seconds => 10
+end
+
+When /^I select "([^\"]*)" in "([^\"]*)"$/ do |value, field|
+  @browser.select field, value
 end
