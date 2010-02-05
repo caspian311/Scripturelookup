@@ -70,4 +70,9 @@ public class LookupModel implements ILookupModel {
 	public void addNoResultsReturnedListener(IListener listener) {
 		noResultsListenerManager.addListener(listener);
 	}
+
+	@Override
+	public void setQueryType(String queryType) {
+		// TODO implement this
+	}
 }

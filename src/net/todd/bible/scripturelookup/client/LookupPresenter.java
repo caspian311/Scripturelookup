@@ -34,5 +34,12 @@ public class LookupPresenter {
 				lookupView.showNoResultsMessage();
 			}
 		});
+		
+		lookupView.addQueryTypeChangeListener(new IListener() {
+			@Override
+			public void handleEvent() {
+				lookupModel.setQueryType(lookupView.getQueryType());
+			}
+		});
 	}
 }

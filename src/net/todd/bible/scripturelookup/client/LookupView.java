@@ -22,7 +22,7 @@ public class LookupView implements ILookupView {
 
 	private final HTML serverResponseLabel;
 	private final SimplePanel responsePanel;
-	private final ListBox queryTypePanel;
+	private final ListBox queryTypeList;
 
 	private final ListenerManager submissionListeners = new ListenerManager();
 	private final ListenerManager queryTypeChangedListener = new ListenerManager();
@@ -39,11 +39,11 @@ public class LookupView implements ILookupView {
 		responsePanel = new SimplePanel();
 		serverResponseLabel = new HTML();
 
-		queryTypePanel = new ListBox();
-		queryTypePanel.setName("queryType");
-		queryTypePanel.addItem("By Keyword", "keyword");
-		queryTypePanel.addItem("By Reference", "reference");
-		queryTypePanel.addChangeHandler(new ChangeHandler() {
+		queryTypeList = new ListBox();
+		queryTypeList.setName("queryType");
+		queryTypeList.addItem("By Keyword", "keyword");
+		queryTypeList.addItem("By Reference", "reference");
+		queryTypeList.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
 				queryTypeChangedListener.notifyListeners();
@@ -53,7 +53,7 @@ public class LookupView implements ILookupView {
 		RootPanel.get("queryFieldContainer").add(queryField);
 		RootPanel.get("submitButtonContainer").add(submitButton);
 		RootPanel.get("responseContainer").add(responsePanel);
-		RootPanel.get("queryTypeFieldContainer").add(queryTypePanel);
+		RootPanel.get("queryTypeFieldContainer").add(queryTypeList);
 
 		queryField.setFocus(true);
 		queryField.selectAll();
@@ -121,5 +121,10 @@ public class LookupView implements ILookupView {
 
 	public String getQueryString() {
 		return queryField.getText();
+	}
+
+	@Override
+	public String getQueryType() {
+		return queryTypeList.getValue(queryTypeList.getSelectedIndex());
 	}
 }

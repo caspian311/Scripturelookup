@@ -20,4 +20,6 @@ public interface ILookupView {
 	String getQueryString();
 	
 	void addQueryTypeChangeListener(IListener listener);
+
+	String getQueryType();
 }

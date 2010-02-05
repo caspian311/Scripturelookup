@@ -14,4 +14,6 @@ public interface ILookupModel {
 	String getErrorMessage();
 
 	void addNoResultsReturnedListener(IListener listener);
+
+	void setQueryType(String queryType);
 }

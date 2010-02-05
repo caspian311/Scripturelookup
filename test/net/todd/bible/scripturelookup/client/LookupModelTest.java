@@ -24,18 +24,19 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public class LookupModelTest {
 	private ILookupServiceAsync lookupService;
 	private IResultsParser parser;
+	private ILookupModel lookupModel;
 
 	@Before
 	public void setUp() {
 		lookupService = mock(ILookupServiceAsync.class);
 		parser = mock(IResultsParser.class);
+		
+		lookupModel = new LookupModel(lookupService, parser);
 	}
 
 	@Test
 	public void queryStringPassedToLookupService() {
 		String query = UUID.randomUUID().toString();
-
-		ILookupModel lookupModel = new LookupModel(lookupService, parser);
 
 		lookupModel.queryServer(query);
 
@@ -46,16 +47,15 @@ public class LookupModelTest {
 	public void failureListenersAreNotifiedWhenFailureOccurs() {
 		IListener failureListener = mock(IListener.class);
 
-		ILookupModel lookupModel = new LookupModel(lookupService, parser);
 		lookupModel.addFailureListener(failureListener);
 
-		ArgumentCaptor<AsyncCallback> argument = ArgumentCaptor.forClass(AsyncCallback.class);
 
 		lookupModel.queryServer(UUID.randomUUID().toString());
 
-		verify(lookupService).lookup(anyString(), argument.capture());
-		AsyncCallback<String> callback = argument.getValue();
-		callback.onFailure(new Exception());
+		ArgumentCaptor<AsyncCallback> callbackArgument = ArgumentCaptor
+				.forClass(AsyncCallback.class);
+		verify(lookupService).lookup(anyString(), callbackArgument.capture());
+		callbackArgument.getValue().onFailure(new Exception());
 
 		verify(failureListener).handleEvent();
 	}
@@ -64,15 +64,12 @@ public class LookupModelTest {
 	public void errorMessageSetWhenFailureOccurs() {
 		String errorMessage = UUID.randomUUID().toString();
 
-		ILookupModel lookupModel = new LookupModel(lookupService, parser);
-
-		ArgumentCaptor<AsyncCallback> argument = ArgumentCaptor.forClass(AsyncCallback.class);
-
 		lookupModel.queryServer(UUID.randomUUID().toString());
 
-		verify(lookupService).lookup(anyString(), argument.capture());
-		AsyncCallback<String> callback = argument.getValue();
-		callback.onFailure(new Exception(errorMessage));
+		ArgumentCaptor<AsyncCallback> callbackArgument = ArgumentCaptor
+				.forClass(AsyncCallback.class);
+		verify(lookupService).lookup(anyString(), callbackArgument.capture());
+		callbackArgument.getValue().onFailure(new Exception(errorMessage));
 
 		assertEquals(errorMessage, lookupModel.getErrorMessage());
 	}
@@ -84,18 +81,19 @@ public class LookupModelTest {
 		Verse verse1 = mock(Verse.class);
 		List<Verse> searchResults = new ArrayList<Verse>();
 		searchResults.add(verse1);
+		
 		IListener searchResultListener = mock(IListener.class);
 
-		ILookupModel lookupModel = new LookupModel(lookupService, parser);
 		lookupModel.addResultsReturnedListener(searchResultListener);
 
 		when(parser.parse(response)).thenReturn(searchResults);
 
 		lookupModel.queryServer(UUID.randomUUID().toString());
 
-		ArgumentCaptor<AsyncCallback> argument = ArgumentCaptor.forClass(AsyncCallback.class);
-		verify(lookupService).lookup(anyString(), argument.capture());
-		argument.getValue().onSuccess(response);
+		ArgumentCaptor<AsyncCallback> callbackArgument = ArgumentCaptor
+				.forClass(AsyncCallback.class);
+		verify(lookupService).lookup(anyString(), callbackArgument.capture());
+		callbackArgument.getValue().onSuccess(response);
 
 		verify(searchResultListener).handleEvent();
 	}
@@ -108,17 +106,14 @@ public class LookupModelTest {
 		List<Verse> searchResults = new ArrayList<Verse>();
 		searchResults.add(verse1);
 
-		ILookupModel lookupModel = new LookupModel(lookupService, parser);
-
-		ArgumentCaptor<AsyncCallback> argument = ArgumentCaptor.forClass(AsyncCallback.class);
 
 		when(parser.parse(response)).thenReturn(searchResults);
 
 		lookupModel.queryServer(UUID.randomUUID().toString());
 
-		verify(lookupService).lookup(anyString(), argument.capture());
-		AsyncCallback<String> callback = argument.getValue();
-		callback.onSuccess(response);
+		ArgumentCaptor<AsyncCallback> callbackArgument = ArgumentCaptor.forClass(AsyncCallback.class);
+		verify(lookupService).lookup(anyString(), callbackArgument.capture());
+		callbackArgument.getValue().onSuccess(response);
 
 		assertEquals(1, lookupModel.searchResults().size());
 		assertSame(verse1, lookupModel.searchResults().get(0));
@@ -126,18 +121,16 @@ public class LookupModelTest {
 
 	@Test
 	public void noResultsListenerNotifiedWhenNoResultsAreReturned() {
-		ILookupModel lookupModel = new LookupModel(lookupService, parser);
-
 		IListener listener = mock(IListener.class);
 
 		lookupModel.queryServer(UUID.randomUUID().toString());
 		lookupModel.addNoResultsReturnedListener(listener);
 
-		ArgumentCaptor<AsyncCallback> argument = ArgumentCaptor.forClass(AsyncCallback.class);
 
-		verify(lookupService).lookup(anyString(), argument.capture());
-
-		argument.getValue().onSuccess("[]");
+		ArgumentCaptor<AsyncCallback> callbackArgument = ArgumentCaptor
+				.forClass(AsyncCallback.class);
+		verify(lookupService).lookup(anyString(), callbackArgument.capture());
+		callbackArgument.getValue().onSuccess("[]");
 
 		verify(listener, times(1)).handleEvent();
 	}

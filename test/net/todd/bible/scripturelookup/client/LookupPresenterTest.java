@@ -1,5 +1,6 @@
 package net.todd.bible.scripturelookup.client;
 
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -19,16 +20,17 @@ public class LookupPresenterTest {
 	private IListener resultsReturnedListener;
 	private IListener failureListener;
 	private IListener noResultsReturnedListener;
+	private IListener queryTypeChangedListener;
 
 	@Before
 	public void setUp() {
 		view = mock(ILookupView.class);
 		model = mock(ILookupModel.class);
-		
+
 		new LookupPresenter(view, model);
 
 		ArgumentCaptor<IListener> submissionListenerArgument = ArgumentCaptor
-		.forClass(IListener.class);
+				.forClass(IListener.class);
 		verify(view).addSubmissionListener(submissionListenerArgument.capture());
 		submissionListener = submissionListenerArgument.getValue();
 
@@ -41,39 +43,44 @@ public class LookupPresenterTest {
 				.forClass(IListener.class);
 		verify(model).addFailureListener(failureListenerArgument.capture());
 		failureListener = failureListenerArgument.getValue();
-		
+
 		ArgumentCaptor<IListener> noResultsReturnedListenerArgument = ArgumentCaptor
 				.forClass(IListener.class);
 		verify(model).addNoResultsReturnedListener(noResultsReturnedListenerArgument.capture());
 		noResultsReturnedListener = noResultsReturnedListenerArgument.getValue();
+
+		ArgumentCaptor<IListener> queryTypeChangedListenerArgument = ArgumentCaptor
+				.forClass(IListener.class);
+		verify(view).addQueryTypeChangeListener(queryTypeChangedListenerArgument.capture());
+		queryTypeChangedListener = queryTypeChangedListenerArgument.getValue();
 	}
-	
+
 	@Test
 	public void whenSubmitButtonPressedDisableSubmitButtonAndShowBusySignal() {
 		submissionListener.handleEvent();
-		
+
 		verify(view).disableSubmitButton();
 		verify(view).showBusySignal();
 	}
-	
+
 	@Test
 	public void whenSubmitButtonPressedPullQueryFromViewAndGiveToModel() {
 		String query = UUID.randomUUID().toString();
-		
+
 		when(view.getQueryString()).thenReturn(query);
 
 		submissionListener.handleEvent();
 
 		verify(model).queryServer(query);
 	}
-	
+
 	@Test
 	public void whenModelGetsResultsReEnableSubmitButton() {
 		resultsReturnedListener.handleEvent();
 
 		verify(view).enableSubmitButton();
 	}
-	
+
 	@Test
 	public void whenModelSignalsFailureReEnableSubmitButton() {
 		failureListener.handleEvent();
@@ -84,29 +91,40 @@ public class LookupPresenterTest {
 	@Test
 	public void whenModelGetsSearchResultsPullVersesFromModelAndPutIntoView() {
 		List<Verse> results = new ArrayList<Verse>();
-		
+
 		when(model.searchResults()).thenReturn(results);
 
 		resultsReturnedListener.handleEvent();
 
 		verify(view).showVerses(results);
 	}
-	
+
 	@Test
 	public void whenModelSignalsFailurePullErrorMessageFromModelAndPutIntoView() {
 		String errorMessage = UUID.randomUUID().toString();
 
 		when(model.getErrorMessage()).thenReturn(errorMessage);
-		
+
 		failureListener.handleEvent();
 
 		verify(view).showErrorMessage(errorMessage);
 	}
-	
+
 	@Test
 	public void whenModelSignalsNoResultsThenNoResultsMessageDisplayedOnView() {
 		noResultsReturnedListener.handleEvent();
 
 		verify(view).showNoResultsMessage();
+	}
+	
+	@Test
+	public void whenQueryTypeChangesPullQueryTypeFromViewAndGiveToModel() {
+		String queryType = UUID.randomUUID().toString();
+		
+		doReturn(queryType).when(view).getQueryType();
+
+		queryTypeChangedListener.handleEvent();
+		
+		verify(model).setQueryType(queryType);
 	}
 }
