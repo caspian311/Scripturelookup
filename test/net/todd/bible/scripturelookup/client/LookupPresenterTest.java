@@ -15,78 +15,68 @@ import org.mockito.ArgumentCaptor;
 public class LookupPresenterTest {
 	private ILookupView view;
 	private ILookupModel model;
+	private IListener submissionListener;
+	private IListener resultsReturnedListener;
+	private IListener failureListener;
+	private IListener noResultsReturnedListener;
 
 	@Before
 	public void setUp() {
 		view = mock(ILookupView.class);
 		model = mock(ILookupModel.class);
+		
+		new LookupPresenter(view, model);
+
+		ArgumentCaptor<IListener> submissionListenerArgument = ArgumentCaptor
+		.forClass(IListener.class);
+		verify(view).addSubmissionListener(submissionListenerArgument.capture());
+		submissionListener = submissionListenerArgument.getValue();
+
+		ArgumentCaptor<IListener> resultsReturnedListenerArgument = ArgumentCaptor
+				.forClass(IListener.class);
+		verify(model).addResultsReturnedListener(resultsReturnedListenerArgument.capture());
+		resultsReturnedListener = resultsReturnedListenerArgument.getValue();
+
+		ArgumentCaptor<IListener> failureListenerArgument = ArgumentCaptor
+				.forClass(IListener.class);
+		verify(model).addFailureListener(failureListenerArgument.capture());
+		failureListener = failureListenerArgument.getValue();
+		
+		ArgumentCaptor<IListener> noResultsReturnedListenerArgument = ArgumentCaptor
+				.forClass(IListener.class);
+		verify(model).addNoResultsReturnedListener(noResultsReturnedListenerArgument.capture());
+		noResultsReturnedListener = noResultsReturnedListenerArgument.getValue();
 	}
 	
 	@Test
-	public void whenSubmitButtonPressedShowBusySignal() {
-		ArgumentCaptor<IListener> argument = ArgumentCaptor.forClass(IListener.class);
-
-		new LookupPresenter(view, model);
-		
-		verify(view).addSubmissionListener(argument.capture());
-		
-		argument.getValue().handleEvent();
+	public void whenSubmitButtonPressedDisableSubmitButtonAndShowBusySignal() {
+		submissionListener.handleEvent();
 		
 		verify(view).disableSubmitButton();
 		verify(view).showBusySignal();
 	}
 	
 	@Test
-	public void whenSubmitButtonPressedDisableSubmitButton() {
-		ArgumentCaptor<IListener> argument = ArgumentCaptor.forClass(IListener.class);
-
-		new LookupPresenter(view, model);
-
-		verify(view).addSubmissionListener(argument.capture());
-
-		argument.getValue().handleEvent();
-
-		verify(view).disableSubmitButton();
-	}
-	
-	@Test
 	public void whenSubmitButtonPressedPullQueryFromViewAndGiveToModel() {
 		String query = UUID.randomUUID().toString();
 		
-		ArgumentCaptor<IListener> argument = ArgumentCaptor.forClass(IListener.class);
-
-		new LookupPresenter(view, model);
-
-		verify(view).addSubmissionListener(argument.capture());
 		when(view.getQueryString()).thenReturn(query);
 
-		argument.getValue().handleEvent();
+		submissionListener.handleEvent();
 
 		verify(model).queryServer(query);
 	}
 	
 	@Test
 	public void whenModelGetsResultsReEnableSubmitButton() {
-		ArgumentCaptor<IListener> argument = ArgumentCaptor.forClass(IListener.class);
-
-		new LookupPresenter(view, model);
-
-		verify(model).addResultsReturnedListener(argument.capture());
-
-		argument.getValue().handleEvent();
+		resultsReturnedListener.handleEvent();
 
 		verify(view).enableSubmitButton();
 	}
 	
 	@Test
 	public void whenModelSignalsFailureReEnableSubmitButton() {
-		ArgumentCaptor<IListener> argument = ArgumentCaptor.forClass(IListener.class);
-
-		new LookupPresenter(view, model);
-
-		verify(model).addFailureListener(argument.capture());
-
-		argument.getValue().handleEvent();
+		failureListener.handleEvent();
 
 		verify(view).enableSubmitButton();
 	}
@@ -97,11 +87,7 @@ public class LookupPresenterTest {
 		
 		when(model.searchResults()).thenReturn(results);
 
-		new LookupPresenter(view, model);
-
-		ArgumentCaptor<IListener> argument = ArgumentCaptor.forClass(IListener.class);
-		verify(model).addResultsReturnedListener(argument.capture());
-		argument.getValue().handleEvent();
+		resultsReturnedListener.handleEvent();
 
 		verify(view).showVerses(results);
 	}
@@ -112,24 +98,14 @@ public class LookupPresenterTest {
 
 		when(model.getErrorMessage()).thenReturn(errorMessage);
 		
-		new LookupPresenter(view, model);
-
-		ArgumentCaptor<IListener> argument = ArgumentCaptor.forClass(IListener.class);
-		verify(model).addFailureListener(argument.capture());
-
-		argument.getValue().handleEvent();
+		failureListener.handleEvent();
 
 		verify(view).showErrorMessage(errorMessage);
 	}
 	
 	@Test
 	public void whenModelSignalsNoResultsThenNoResultsMessageDisplayedOnView() {
-		new LookupPresenter(view, model);
-
-		ArgumentCaptor<IListener> argument = ArgumentCaptor.forClass(IListener.class);
-		verify(model).addNoResultsReturnedListener(argument.capture());
-
-		argument.getValue().handleEvent();
+		noResultsReturnedListener.handleEvent();
 
 		verify(view).showNoResultsMessage();
 	}
