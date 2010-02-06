@@ -32,13 +32,14 @@ public class ServiceCallerTest {
 		serviceCaller.addSuccessListener(successListener);
 		serviceCaller.addFailureListener(failureListener);
 		
-		String input = UUID.randomUUID().toString();
+		String query = UUID.randomUUID().toString();
+		String queryType = UUID.randomUUID().toString();
 
-		serviceCaller.callService(input);
+		serviceCaller.callService(queryType, query);
 		
 		ArgumentCaptor<AsyncCallback> callbackArgument = ArgumentCaptor
 				.forClass(AsyncCallback.class);
-		verify(service).lookup(eq(input), callbackArgument.capture());
+		verify(service).lookup(eq(queryType), eq(query), callbackArgument.capture());
 		callback = callbackArgument.getValue();
 	}
 

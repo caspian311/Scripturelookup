@@ -5,5 +5,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 @RemoteServiceRelativePath("lookup")
 public interface ILookupService extends RemoteService {
-	String lookup(String query);
+	String lookup(String queryType, String query);
 }

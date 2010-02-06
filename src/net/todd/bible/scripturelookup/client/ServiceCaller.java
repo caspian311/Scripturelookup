@@ -15,8 +15,8 @@ public class ServiceCaller implements IServiceCaller {
 		this.service = service;
 	}
 
-	public void callService(String input) {
-		service.lookup(input, new AsyncCallback<String>() {
+	public void callService(String queryType, String query) {
+		service.lookup(queryType, query, new AsyncCallback<String>() {
 			@Override
 			public void onFailure(Throwable caught) {
 				exception = caught;

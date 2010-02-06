@@ -15,16 +15,24 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.SimpleFSDirectory;
 import org.apache.lucene.util.Version;
 
-public class SearchEngine implements ISearchEngine {
+public class LuceneSearchEngine implements ISearchEngine {
 	private static final int MAX_RESULTS = 100;
+	
+	private final ISearchResultToVerseConverter converter;
 	private final String indexLocation;
 
-	public SearchEngine(String indexLocation) {
+	public LuceneSearchEngine(String indexLocation, ISearchResultToVerseConverter converter) {
 		this.indexLocation = indexLocation;
+		this.converter = converter;
 	}
 
 	@Override
-	public List<SearchResult> search(String queryString) {
+	public List<Verse> search(String queryString) {
+		List<SearchResult> results = queryLuceneIndex(queryString);
+		return converter.convertToVerses(results);
+	}
+
+	private List<SearchResult> queryLuceneIndex(String queryString) {
 		Query query = generateQuery(queryString);
 
 		List<SearchResult> results = new ArrayList<SearchResult>();
@@ -59,7 +67,6 @@ public class SearchEngine implements ISearchEngine {
 		}
 		Collections.sort(results);
 		Collections.reverse(results);
-
 		return results;
 	}
 

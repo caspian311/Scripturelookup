@@ -2,57 +2,28 @@ package net.todd.bible.scripturelookup.server;
 
 import java.util.List;
 
-import javax.servlet.ServletException;
-
 import net.todd.bible.scripturelookup.client.ILookupService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class LookupService extends RemoteServiceServlet implements ILookupService {
 	private static final long serialVersionUID = -4750186401651003378L;
-	private IBibleService bibleService;
+	private final IJSONWriter jsonWriter;
+	private final IBibleSearchFactory bibleSearchFactory;
 
 	public LookupService() {
+		jsonWriter = new JSONWriter();
+		bibleSearchFactory = new BibleSearchFactory();
 	}
 	
-	public LookupService(IBibleService bibleService) {
-		this.bibleService = bibleService;
+	public LookupService(IJSONWriter jsonWriter, IBibleSearchFactory bibleSearchFactory) {
+		this.jsonWriter = jsonWriter;
+		this.bibleSearchFactory = bibleSearchFactory;
 	}
 
-	@Override
-	public void init() throws ServletException {
-		super.init();
-		String indexLocation = getServletContext().getRealPath("/WEB-INF/index");
-		ISearchEngine searchEngine = new SearchEngine(indexLocation);
-		bibleService = new BibleService(searchEngine);
-	}
-
-	public String lookup(String query) {
-		StringBuffer response = new StringBuffer();
-
-		if (query != null && !"".equals(query)) {
-			response.append("[");
-
-			List<Verse> searchResults = bibleService.search(query);
-			for (int i = 0; i < searchResults.size(); i++) {
-				addVerse(response, searchResults.get(i));
-				if (i < searchResults.size() - 1) {
-					response.append(",");
-				}
-			}
-			response.append("]");
-		}
-
-		return response.toString();
-	}
-
-	private void addVerse(StringBuffer response, Verse verse) {
-		response.append("{");
-		response.append("\"book\"").append(":").append("\"" + verse.getBook() + "\"").append(",");
-		response.append("\"chapter\"").append(":").append("\"" + verse.getChapter() + "\"").append(
-				",");
-		response.append("\"verse\"").append(":").append("\"" + verse.getVerse() + "\"").append(",");
-		response.append("\"text\"").append(":").append("\"" + verse.getText() + "\"");
-		response.append("}");
+	public String lookup(String queryType, String query) {
+		ISearchEngine searchEngine = bibleSearchFactory.getSearchEngine(queryType);
+		List<Verse> searchResults = searchEngine.search(query);
+		return jsonWriter.writeOut(searchResults);
 	}
 }

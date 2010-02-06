@@ -17,9 +17,11 @@ import com.google.apphosting.api.ApiProxy;
 
 public class SearchIntegrationTest {
 	private String indexLocation;
+	private ISearchResultToVerseConverter converter;
 
 	@Before
 	public void setUp() throws IOException {
+		converter = new SearchResultToVerseConverter();
 		File tempFile = File.createTempFile(getClass().getName(), "");
 		indexLocation = tempFile.getAbsolutePath();
 		tempFile.delete();
@@ -44,7 +46,7 @@ public class SearchIntegrationTest {
 	public void searchesWorks() {
 		new IndexBuilder(BibleDaoProvider.getBibleDao()).createIndex(indexLocation);
 		
-		List<SearchResult> results = new SearchEngine(indexLocation).search("God");
+		List<Verse> results = new LuceneSearchEngine(indexLocation, converter).search("God");
 
 		assertTrue(results.size() > 0);
 	}

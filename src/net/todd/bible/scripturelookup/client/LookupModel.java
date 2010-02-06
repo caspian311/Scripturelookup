@@ -1,52 +1,60 @@
 package net.todd.bible.scripturelookup.client;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
-
 public class LookupModel implements ILookupModel {
-	private final List<Verse> searchResults = new ArrayList<Verse>();
-
-	private final ListenerManager failureListenerManager = new ListenerManager();
+	private final ListenerManager noResultsReturnedListenerManager = new ListenerManager();
 	private final ListenerManager resultsReturnedListenerManager = new ListenerManager();
-	private final ListenerManager noResultsListenerManager = new ListenerManager();
+	private final ListenerManager failureListenerManager = new ListenerManager();
+	private String queryType;
+	private final IServiceCaller serviceCaller;
+	private List<Verse> returnResults;
 
-	private final ILookupServiceAsync lookupService;
-
-	private String errorMessage;
-
-	private final IResultsParser parser;
-
-	public LookupModel(ILookupServiceAsync lookupService, IResultsParser parser) {
-		this.lookupService = lookupService;
-		this.parser = parser;
-	}
-
-	public void queryServer(String query) {
-		lookupService.lookup(query, new AsyncCallback<String>() {
-			public void onFailure(Throwable error) {
-				errorMessage = error.getMessage();
+	public LookupModel(final IServiceCaller serviceCaller, final IResultsParser parser) {
+		this.serviceCaller = serviceCaller;
+		serviceCaller.addFailureListener(new IListener() {
+			@Override
+			public void handleEvent() {
 				failureListenerManager.notifyListeners();
 			}
+		});
 
-			public void onSuccess(String response) {
-				popuplateSearchResults(response);
-				if (searchResults.size() != 0) {
-					resultsReturnedListenerManager.notifyListeners();
+		serviceCaller.addSuccessListener(new IListener() {
+			@Override
+			public void handleEvent() {
+				returnResults = parser.parse(serviceCaller.getReturnValue());
+				if (returnResults.isEmpty()) {
+					noResultsReturnedListenerManager.notifyListeners();
 				} else {
-					noResultsListenerManager.notifyListeners();
+					resultsReturnedListenerManager.notifyListeners();
 				}
 			}
 		});
 	}
 
-	private void popuplateSearchResults(String response) {
-		searchResults.clear();
+	@Override
+	public void queryServer(String query) {
+		serviceCaller.callService(queryType, query);
+	}
 
-		if (response != null && response.length() != 0) {
-			searchResults.addAll(parser.parse(response));
-		}
+	@Override
+	public List<Verse> searchResults() {
+		return returnResults;
+	}
+
+	@Override
+	public String getErrorMessage() {
+		return serviceCaller.getException().getMessage();
+	}
+
+	@Override
+	public void setQueryType(String queryType) {
+		this.queryType = queryType;
+	}
+
+	@Override
+	public void addNoResultsReturnedListener(IListener listener) {
+		noResultsReturnedListenerManager.addListener(listener);
 	}
 
 	public void addResultsReturnedListener(IListener listener) {
@@ -55,24 +63,5 @@ public class LookupModel implements ILookupModel {
 
 	public void addFailureListener(IListener listener) {
 		failureListenerManager.addListener(listener);
-	}
-
-	public List<Verse> searchResults() {
-		return searchResults;
-	}
-
-	@Override
-	public String getErrorMessage() {
-		return errorMessage;
-	}
-
-	@Override
-	public void addNoResultsReturnedListener(IListener listener) {
-		noResultsListenerManager.addListener(listener);
-	}
-
-	@Override
-	public void setQueryType(String queryType) {
-		// TODO implement this
 	}
 }
