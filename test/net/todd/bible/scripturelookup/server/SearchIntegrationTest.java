@@ -30,13 +30,14 @@ public class SearchIntegrationTest {
 		ApiProxy.setDelegate(new ApiProxyLocalImpl(new File("war")) {
 		});
 		
-		BibleDaoProvider.getBibleDao().deleteData();
-		BibleDaoProvider.getBibleDao().loadData(getClass().getResourceAsStream("/test-data.txt"));
+		DataLoaderProvider.getDataLoader().deleteData();
+		DataLoaderProvider.getDataLoader().loadData(
+				getClass().getResourceAsStream("/test-data.txt"));
 	}
 
 	@After
 	public void tearDown() {
-		BibleDaoProvider.getBibleDao().deleteData();
+		DataLoaderProvider.getDataLoader().deleteData();
 		
 		ApiProxy.setEnvironmentForCurrentThread(null);
 		ApiProxy.setDelegate(null);

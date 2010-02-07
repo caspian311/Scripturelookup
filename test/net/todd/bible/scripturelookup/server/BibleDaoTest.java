@@ -2,13 +2,10 @@ package net.todd.bible.scripturelookup.server;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -64,49 +61,5 @@ public class BibleDaoTest {
 		assertSame(expectedResults.get(0), actualResults.get(0));
 		assertSame(expectedResults.get(1), actualResults.get(1));
 		assertSame(expectedResults.get(2), actualResults.get(2));
-	}
-
-	@Test
-	public void loadDataFromTestFile() {
-		InputStream inputStream = getClass().getResourceAsStream("/test-data.txt");
-
-		PersistenceManagerFactory persistenceManagerFactory = mock(PersistenceManagerFactory.class);
-		PersistenceManager persistenceManager = mock(PersistenceManager.class);
-
-		when(persistenceManagerFactory.getPersistenceManager()).thenReturn(persistenceManager);
-
-		IBibleDao bibleDao = new BibleDao(persistenceManagerFactory);
-		bibleDao.loadData(inputStream);
-
-		verify(persistenceManager, times(3)).makePersistent(any(Verse.class));
-		verify(persistenceManager, times(1)).close();
-	}
-
-	@Test
-	public void deleteAllData() {
-		Verse verse1 = new Verse("", "", "", "");
-		Verse verse2 = new Verse("", "", "", "");
-		Verse verse3 = new Verse("", "", "", "");
-
-		List<Verse> allVerses = new ArrayList<Verse>();
-		allVerses.add(verse1);
-		allVerses.add(verse2);
-		allVerses.add(verse3);
-
-		PersistenceManagerFactory persistenceManagerFactory = mock(PersistenceManagerFactory.class);
-		PersistenceManager persistenceManager = mock(PersistenceManager.class);
-		Query query = mock(Query.class);
-
-		when(persistenceManagerFactory.getPersistenceManager()).thenReturn(persistenceManager);
-		when(persistenceManager.newQuery(Verse.class)).thenReturn(query);
-		when(query.execute()).thenReturn(allVerses);
-
-		IBibleDao bibleDao = new BibleDao(persistenceManagerFactory);
-		bibleDao.deleteData();
-
-		verify(persistenceManager).deletePersistent(verse1);
-		verify(persistenceManager).deletePersistent(verse2);
-		verify(persistenceManager).deletePersistent(verse3);
-		verify(persistenceManager, times(1)).close();
 	}
 }

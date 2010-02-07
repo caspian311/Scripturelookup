@@ -1,10 +1,6 @@
 package net.todd.bible.scripturelookup.server;
 
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,53 +32,6 @@ public class BibleDao implements IBibleDao {
 		return results;
 	}
 
-	public void loadData(InputStream inputStream) {
-		PersistenceManager persistenceManager = persistenceManagerFactory.getPersistenceManager();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-		try {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				Verse verse = parse(line);
-				persistenceManager.makePersistent(verse);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			persistenceManager.close();
-			try {
-				inputStream.close();
-				reader.close();
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-		}
-	}
-	
-	@SuppressWarnings("unchecked")
-	public void deleteData() {
-		PersistenceManager persistenceManager = persistenceManagerFactory.getPersistenceManager();
-		try {
-			Query query = persistenceManager.newQuery(Verse.class);
-			List<Verse> results = (List<Verse>) query.execute();
-			for (Verse verse : results) {
-				persistenceManager.deletePersistent(verse);
-			}
-		} finally {
-			persistenceManager.close();
-		}
-	}
-
-	private static Verse parse(String line) {
-		String[] splitLine = line.split("\\|");
-
-		String book = splitLine[0];
-		String chapter = splitLine[1];
-		String verse = splitLine[2];
-		String text = splitLine[3];
-
-		return new Verse(book, chapter, verse, text);
-	}
-
 	@Override
 	public Verse getVerse(String id) {
 		Verse verse = null;
@@ -94,5 +43,23 @@ public class BibleDao implements IBibleDao {
 			persistenceManager.close();
 		}
 		return verse;
+	}
+
+	@Override
+	public List<Verse> getAllVersesInBook(String book) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Verse> getAllVersesInChapter(String book, int chapter) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Verse getVerse(String book, int chapter, int verse) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -17,7 +17,8 @@ public class BibleSearchFactory implements IBibleSearchFactory {
 			}
 			searchEngine = new LuceneSearchEngine(indexLocation, new SearchResultToVerseConverter());
 		} else if ("reference".equals(queryType)) {
-			searchEngine = new ReferenceSearchEngine();
+			searchEngine = new ReferenceSearchEngine(new ReferenceParser(), new ReferenceLookup(
+					BibleDaoProvider.getBibleDao()));
 		} else {
 			throw new RuntimeException();
 		}

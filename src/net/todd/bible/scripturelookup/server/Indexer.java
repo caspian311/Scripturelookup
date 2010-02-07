@@ -66,9 +66,10 @@ public class Indexer {
 		ApiProxy.setDelegate(new ApiProxyLocalImpl(new File("war")) {
 		});
 
+		IDataLoader dataLoader = DataLoaderProvider.getDataLoader();
+		dataLoader.deleteData();
+		dataLoader.loadData(Indexer.class.getResourceAsStream("/data.txt"));
 		IBibleDao bibleDao = BibleDaoProvider.getBibleDao();
-		bibleDao.deleteData();
-		bibleDao.loadData(Indexer.class.getResourceAsStream("/data.txt"));
 		new Indexer(System.out, System.err, new IndexBuilder(bibleDao)).doit(args);
 	}
 
