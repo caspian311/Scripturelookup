@@ -7,17 +7,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.google.appengine.tools.development.ApiProxyLocalImpl;
 import com.google.apphosting.api.ApiProxy;
 
 public class BibleDaoIntegrationTest {
-	private static IBibleDao bibleDao;
+	private IBibleDao bibleDao;
 
-	@BeforeClass
-	public static void setUp() {
+	@Before
+	public void setUp() {
 		ApiProxy.setEnvironmentForCurrentThread(new TestEnvironment());
 		ApiProxy.setDelegate(new ApiProxyLocalImpl(new File("war")) {
 		});
@@ -28,6 +29,11 @@ public class BibleDaoIntegrationTest {
 								.getResourceAsStream("/dao-integration-test-data.txt"));
 		
 		bibleDao = BibleDaoProvider.getBibleDao();
+	}
+	
+	@After
+	public void tearDown() {
+		DataLoaderProvider.getDataLoader().deleteData();
 	}
 	
 	@Test
@@ -72,7 +78,7 @@ public class BibleDaoIntegrationTest {
 		assertEquals("For God so loved the world...", john316.getText());
 	}
 	
-	private static class TestEnvironment implements ApiProxy.Environment {
+	class TestEnvironment implements ApiProxy.Environment {
 		public String getAppId() {
 			return "test";
 		}

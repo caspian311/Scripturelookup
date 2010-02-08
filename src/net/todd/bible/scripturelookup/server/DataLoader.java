@@ -5,12 +5,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 
 public class DataLoader implements IDataLoader {
+	private static final Logger LOG = Logger.getLogger(DataLoader.class.getName());
+	
 	private final PersistenceManagerFactory persistenceManagerFactory;
 
 	public DataLoader(PersistenceManagerFactory persistenceManagerFactory) {
@@ -27,6 +30,9 @@ public class DataLoader implements IDataLoader {
 			for (Verse verse : results) {
 				persistenceManager.deletePersistent(verse);
 			}
+		} catch (RuntimeException e) {
+			LOG.severe(e.getMessage());
+			throw e;
 		} finally {
 			persistenceManager.close();
 		}
@@ -42,8 +48,11 @@ public class DataLoader implements IDataLoader {
 				Verse verse = parse(line);
 				persistenceManager.makePersistent(verse);
 			}
+		} catch (RuntimeException e) {
+			LOG.severe(e.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.severe(e.getMessage());
+			throw new RuntimeException(e);
 		} finally {
 			persistenceManager.close();
 			try {
