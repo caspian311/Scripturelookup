@@ -1,6 +1,5 @@
 package net.todd.bible.scripturelookup.server;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,21 +44,49 @@ public class BibleDao implements IBibleDao {
 		return verse;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Verse> getAllVersesInBook(String book) {
-		// TODO Auto-generated method stub
-		return null;
+		PersistenceManager persistenceManager = persistenceManagerFactory.getPersistenceManager();
+		List<Verse> results = new ArrayList<Verse>();
+		try {
+			Query query = persistenceManager.newQuery("select from " + Verse.class.getName()
+					+ " where book == '" + book + "'");
+			results.addAll((List<Verse>) query.execute());
+		} finally {
+			persistenceManager.close();
+		}
+		return results;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Verse> getAllVersesInChapter(String book, int chapter) {
-		// TODO Auto-generated method stub
-		return null;
+		PersistenceManager persistenceManager = persistenceManagerFactory.getPersistenceManager();
+		List<Verse> results = new ArrayList<Verse>();
+		try {
+			Query query = persistenceManager.newQuery("select from " + Verse.class.getName()
+					+ " where book == '" + book + "'" + " && chapter == '" + chapter + "'");
+			results.addAll((List<Verse>) query.execute());
+		} finally {
+			persistenceManager.close();
+		}
+		return results;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Verse getVerse(String book, int chapter, int verse) {
-		// TODO Auto-generated method stub
-		return null;
+		PersistenceManager persistenceManager = persistenceManagerFactory.getPersistenceManager();
+		List<Verse> verses = new ArrayList<Verse>();
+		try {
+			Query query = persistenceManager.newQuery("select from " + Verse.class.getName()
+					+ " where book == '" + book + "'" + " && chapter == '" + chapter
+					+ "' && verse == '" + verse + "'");
+			verses.addAll((List<Verse>) query.execute());
+		} finally {
+			persistenceManager.close();
+		}
+		return verses.get(0);
 	}
 }
