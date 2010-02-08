@@ -1,6 +1,5 @@
 package net.todd.bible.scripturelookup.client;
 
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -20,7 +19,6 @@ public class LookupPresenterTest {
 	private IListener resultsReturnedListener;
 	private IListener failureListener;
 	private IListener noResultsReturnedListener;
-	private IListener queryTypeChangedListener;
 
 	@Before
 	public void setUp() {
@@ -48,11 +46,6 @@ public class LookupPresenterTest {
 				.forClass(IListener.class);
 		verify(model).addNoResultsReturnedListener(noResultsReturnedListenerArgument.capture());
 		noResultsReturnedListener = noResultsReturnedListenerArgument.getValue();
-
-		ArgumentCaptor<IListener> queryTypeChangedListenerArgument = ArgumentCaptor
-				.forClass(IListener.class);
-		verify(view).addQueryTypeChangeListener(queryTypeChangedListenerArgument.capture());
-		queryTypeChangedListener = queryTypeChangedListenerArgument.getValue();
 	}
 
 	@Test
@@ -72,6 +65,17 @@ public class LookupPresenterTest {
 		submissionListener.handleEvent();
 
 		verify(model).queryServer(query);
+	}
+	
+	@Test
+	public void whenSubmitButtonPressedPullQueryTypeFromViewAndGiveToModel() {
+		String queryType = UUID.randomUUID().toString();
+
+		when(view.getQueryType()).thenReturn(queryType);
+
+		submissionListener.handleEvent();
+
+		verify(model).setQueryType(queryType);
 	}
 
 	@Test
@@ -115,16 +119,5 @@ public class LookupPresenterTest {
 		noResultsReturnedListener.handleEvent();
 
 		verify(view).showNoResultsMessage();
-	}
-	
-	@Test
-	public void whenQueryTypeChangesPullQueryTypeFromViewAndGiveToModel() {
-		String queryType = UUID.randomUUID().toString();
-		
-		doReturn(queryType).when(view).getQueryType();
-
-		queryTypeChangedListener.handleEvent();
-		
-		verify(model).setQueryType(queryType);
 	}
 }

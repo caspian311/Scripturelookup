@@ -7,6 +7,7 @@ public class LookupPresenter {
 			public void handleEvent() {
 				lookupView.disableSubmitButton();
 				lookupView.showBusySignal();
+				lookupModel.setQueryType(lookupView.getQueryType());
 
 				lookupModel.queryServer(lookupView.getQueryString());
 			}
@@ -32,13 +33,6 @@ public class LookupPresenter {
 			@Override
 			public void handleEvent() {
 				lookupView.showNoResultsMessage();
-			}
-		});
-		
-		lookupView.addQueryTypeChangeListener(new IListener() {
-			@Override
-			public void handleEvent() {
-				lookupModel.setQueryType(lookupView.getQueryType());
 			}
 		});
 	}

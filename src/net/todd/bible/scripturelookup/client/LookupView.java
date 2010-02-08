@@ -35,6 +35,14 @@ public class LookupView implements ILookupView {
 		queryField.setName("query");
 		queryField.setText("");
 		queryField.setWidth("100%");
+		queryField.addKeyUpHandler(new KeyUpHandler() {
+			@Override
+			public void onKeyUp(KeyUpEvent event) {
+				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+					submissionListeners.notifyListeners();
+				}
+			}
+		});
 
 		responsePanel = new SimplePanel();
 		serverResponseLabel = new HTML();
@@ -43,17 +51,14 @@ public class LookupView implements ILookupView {
 		queryTypeList.setName("queryType");
 		queryTypeList.addItem("By Keyword", "keyword");
 		queryTypeList.addItem("By Reference", "reference");
+		queryTypeList.setSelectedIndex(0);
+		queryTypeList.setItemSelected(0, true);
 		queryTypeList.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
 				queryTypeChangedListener.notifyListeners();
 			}
 		});
-
-		RootPanel.get("queryFieldContainer").add(queryField);
-		RootPanel.get("submitButtonContainer").add(submitButton);
-		RootPanel.get("responseContainer").add(responsePanel);
-		RootPanel.get("queryTypeFieldContainer").add(queryTypeList);
 
 		queryField.setFocus(true);
 		queryField.selectAll();
@@ -66,15 +71,11 @@ public class LookupView implements ILookupView {
 				submissionListeners.notifyListeners();
 			}
 		});
-
-		queryField.addKeyUpHandler(new KeyUpHandler() {
-			@Override
-			public void onKeyUp(KeyUpEvent event) {
-				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-					submissionListeners.notifyListeners();
-				}
-			}
-		});
+		
+		RootPanel.get("queryFieldContainer").add(queryField);
+		RootPanel.get("submitButtonContainer").add(submitButton);
+		RootPanel.get("responseContainer").add(responsePanel);
+		RootPanel.get("queryTypeFieldContainer").add(queryTypeList);
 	}
 
 	public void addQueryTypeChangeListener(IListener listener) {
