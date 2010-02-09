@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 import org.junit.Before;
@@ -34,8 +35,8 @@ public class SearchResultToVerseConverterTest {
 	@Test
 	public void aFewSearchResults() {
 		String book1 = UUID.randomUUID().toString();
-		String chapter1 = UUID.randomUUID().toString();
-		String verse1 = UUID.randomUUID().toString();
+		Integer chapter1 = new Random().nextInt();
+		Integer verse1 = new Random().nextInt();
 		String text1 = UUID.randomUUID().toString();
 
 		SearchResult result1 = new SearchResult();
@@ -45,8 +46,8 @@ public class SearchResultToVerseConverterTest {
 		result1.setText(text1);
 		
 		String book2 = UUID.randomUUID().toString();
-		String chapter2 = UUID.randomUUID().toString();
-		String verse2 = UUID.randomUUID().toString();
+		Integer chapter2 = new Random().nextInt();
+		Integer verse2 = new Random().nextInt();
 		String text2 = UUID.randomUUID().toString();
 
 		SearchResult result2 = new SearchResult();

@@ -3,8 +3,8 @@ package net.todd.bible.scripturelookup.server;
 public class SearchResult implements Comparable<SearchResult> {
 	private float score;
 	private String book;
-	private String chapter;
-	private String verse;
+	private Integer chapter;
+	private Integer verse;
 	private String text;
 
 	public float getScore() {
@@ -31,19 +31,19 @@ public class SearchResult implements Comparable<SearchResult> {
 		this.book = book;
 	}
 
-	public String getChapter() {
+	public Integer getChapter() {
 		return chapter;
 	}
 
-	public void setChapter(String chapter) {
+	public void setChapter(Integer chapter) {
 		this.chapter = chapter;
 	}
 
-	public String getVerse() {
+	public Integer getVerse() {
 		return verse;
 	}
 
-	public void setVerse(String verse) {
+	public void setVerse(Integer verse) {
 		this.verse = verse;
 	}
 

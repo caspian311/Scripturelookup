@@ -49,8 +49,8 @@ public class LuceneSearchEngine implements ISearchEngine {
 					SearchResult searchResult = new SearchResult();
 
 					String book = document.get("book");
-					String chapter = document.get("chapter");
-					String verse = document.get("verse");
+					Integer chapter = new Integer(document.get("chapter"));
+					Integer verse = new Integer(document.get("verse"));
 					String text = document.get("text");
 					float score = topMatchingDocs.scoreDocs[i].score;
 

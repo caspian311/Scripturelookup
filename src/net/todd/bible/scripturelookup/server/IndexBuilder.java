@@ -58,9 +58,11 @@ public class IndexBuilder implements IIndexBuilder {
 
 		doc.add(new Field("book", verse.getBook(), Field.Store.YES, Field.Index.NOT_ANALYZED));
 		doc
-				.add(new Field("chapter", verse.getChapter(), Field.Store.YES,
+				.add(new Field("chapter", "" + verse.getChapter(), Field.Store.YES,
 						Field.Index.NOT_ANALYZED));
-		doc.add(new Field("verse", verse.getVerse(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+		doc
+				.add(new Field("verse", "" + verse.getVerse(), Field.Store.YES,
+						Field.Index.NOT_ANALYZED));
 		doc.add(new Field("text", verse.getText(), Field.Store.YES, Field.Index.ANALYZED));
 
 		return doc;

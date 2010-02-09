@@ -35,9 +35,9 @@ public class DataLoaderTest {
 
 	@Test
 	public void deleteAllData() {
-		Verse verse1 = new Verse("", "", "", "");
-		Verse verse2 = new Verse("", "", "", "");
-		Verse verse3 = new Verse("", "", "", "");
+		Verse verse1 = mock(Verse.class);
+		Verse verse2 = mock(Verse.class);
+		Verse verse3 = mock(Verse.class);
 
 		List<Verse> allVerses = new ArrayList<Verse>();
 		allVerses.add(verse1);

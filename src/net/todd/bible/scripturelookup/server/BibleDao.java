@@ -80,7 +80,7 @@ public class BibleDao implements IBibleDao {
 		List<Verse> results = new ArrayList<Verse>();
 		try {
 			Query query = persistenceManager.newQuery("select from " + Verse.class.getName()
-					+ " where book == '" + book + "'" + " && chapter == '" + chapter + "'");
+					+ " where book == '" + book + "' && chapter == " + chapter);
 			query.setOrdering("chapter, verse");
 			results.addAll((List<Verse>) query.execute());
 		} catch (RuntimeException e) {
@@ -99,9 +99,8 @@ public class BibleDao implements IBibleDao {
 		List<Verse> verses = new ArrayList<Verse>();
 		try {
 			Query query = persistenceManager.newQuery("select from " + Verse.class.getName()
-					+ " where book == '" + book + "'" + " && chapter == '" + chapter
-					+ "' && verse == '" + verse + "'");
-			query.setOrdering("chapter, verse");
+					+ " where book == '" + book + "' && chapter == " + chapter + " && verse == "
+					+ verse);
 			verses.addAll((List<Verse>) query.execute());
 		} catch (RuntimeException e) {
 			LOG.severe(e.getMessage());

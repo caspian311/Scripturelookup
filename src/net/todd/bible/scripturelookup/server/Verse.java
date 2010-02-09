@@ -19,15 +19,15 @@ public class Verse {
 	private String book;
 	
 	@Persistent
-	private String chapter;
+	private Integer chapter;
 	
 	@Persistent
-	private String verse;
+	private Integer verse;
 	
 	@Persistent
 	private Text text;
 
-	public Verse(String book, String chapter, String verse, String text) {
+	public Verse(String book, Integer chapter, Integer verse, String text) {
 		this.book = book;
 		this.chapter = chapter;
 		this.verse = verse;
@@ -46,11 +46,11 @@ public class Verse {
 		return book;
 	}
 
-	public String getChapter() {
+	public Integer getChapter() {
 		return chapter;
 	}
 
-	public String getVerse() {
+	public Integer getVerse() {
 		return verse;
 	}
 
@@ -62,11 +62,11 @@ public class Verse {
 		this.book = book;
 	}
 
-	public void setChapter(String chapter) {
+	public void setChapter(Integer chapter) {
 		this.chapter = chapter;
 	}
 
-	public void setVerse(String verse) {
+	public void setVerse(Integer verse) {
 		this.verse = verse;
 	}
 

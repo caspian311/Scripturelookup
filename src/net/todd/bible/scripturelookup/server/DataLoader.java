@@ -68,8 +68,8 @@ public class DataLoader implements IDataLoader {
 		String[] splitLine = line.split("\\|");
 
 		String book = splitLine[0];
-		String chapter = splitLine[1];
-		String verse = splitLine[2];
+		Integer chapter = new Integer(splitLine[1]);
+		Integer verse = new Integer(splitLine[2]);
 		String text = splitLine[3];
 
 		return new Verse(book, chapter, verse, text);

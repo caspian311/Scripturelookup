@@ -19,7 +19,7 @@ import org.junit.Test;
 public class BibleDaoTest {
 	@Test
 	public void getSpecificVerse() {
-		Verse expectedResult = new Verse("", "", "", "");
+		Verse expectedResult = mock(Verse.class);
 		String id = UUID.randomUUID().toString();
 
 		PersistenceManagerFactory persistenceManagerFactory = mock(PersistenceManagerFactory.class);
@@ -40,9 +40,9 @@ public class BibleDaoTest {
 	@Test
 	public void fetchAllVerses() {
 		List<Verse> expectedResults = new ArrayList<Verse>();
-		expectedResults.add(new Verse("", "", "", ""));
-		expectedResults.add(new Verse("", "", "", ""));
-		expectedResults.add(new Verse("", "", "", ""));
+		expectedResults.add(mock(Verse.class));
+		expectedResults.add(mock(Verse.class));
+		expectedResults.add(mock(Verse.class));
 
 		PersistenceManagerFactory persistenceManagerFactory = mock(PersistenceManagerFactory.class);
 		PersistenceManager persistenceManager = mock(PersistenceManager.class);
