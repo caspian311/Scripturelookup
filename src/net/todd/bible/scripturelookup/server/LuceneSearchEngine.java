@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -16,6 +17,7 @@ import org.apache.lucene.store.SimpleFSDirectory;
 import org.apache.lucene.util.Version;
 
 public class LuceneSearchEngine implements ISearchEngine {
+	private static final Logger LOG = Logger.getLogger(LuceneSearchEngine.class.getName());
 	private static final int MAX_RESULTS = 100;
 	
 	private final ISearchResultToVerseConverter converter;
@@ -62,6 +64,7 @@ public class LuceneSearchEngine implements ISearchEngine {
 				}
 			}
 		} catch (Exception e) {
+			LOG.severe(e.getMessage());
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}

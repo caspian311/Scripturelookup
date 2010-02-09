@@ -13,7 +13,7 @@ public class LookupService extends RemoteServiceServlet implements ILookupServic
 
 	public LookupService() {
 		jsonWriter = new JSONWriter();
-		bibleSearchFactory = new BibleSearchFactory();
+		bibleSearchFactory = new BibleSearchFactory(new ServletContextProvider());
 	}
 	
 	public LookupService(IJSONWriter jsonWriter, IBibleSearchFactory bibleSearchFactory) {

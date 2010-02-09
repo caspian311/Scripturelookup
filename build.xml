@@ -107,6 +107,7 @@
 	<target name="clean" description="Cleans this project">
 		<delete dir="reports" failonerror="false" />
 		<delete dir="war/WEB-INF/classes" failonerror="false" />
+		<delete dir="war/WEB-INF/appengine-generated" failonerror="false" />
 		<delete dir="war/scripturelookup" failonerror="false" />
 		<delete file="Scripturelookup.war" failonerror="false" />
 	</target>

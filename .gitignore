@@ -7,3 +7,4 @@ reports
 webrat.log
 *.war
 build.properties
+*.log
