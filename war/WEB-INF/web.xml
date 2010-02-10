@@ -8,16 +8,28 @@
 		<servlet-class>net.todd.bible.scripturelookup.server.InitServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	
 	<servlet>
 		<servlet-name>lookupServlet</servlet-name>
 		<servlet-class>net.todd.bible.scripturelookup.server.LookupService</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>dataloading</servlet-name>
+		<servlet-class>net.todd.bible.scripturelookup.server.DataLoadingService</servlet-class>
+	</servlet>
+
 	<servlet-mapping>
 		<servlet-name>lookupServlet</servlet-name>
 		<url-pattern>/scripturelookup/lookup</url-pattern>
 	</servlet-mapping>
-	
+	<servlet-mapping>
+		<servlet-name>dataloading</servlet-name>
+		<url-pattern>/dataloading/deleteAllData</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>dataloading</servlet-name>
+		<url-pattern>/dataloading/loadAllData</url-pattern>
+	</servlet-mapping>
+
 	<welcome-file-list>
 		<welcome-file>Scripturelookup.html</welcome-file>
 	</welcome-file-list>
