@@ -17,12 +17,14 @@ public class DataLoadingModelTest {
 	private IDataLoadingModel dataLoadingModel;
 	private IListener loadingSuccessfullListener;
 	private IListener loadingFailedListener;
+	private IFileProvider fileProvider;
 
 	@Before
 	public void setUpMocks() {
 		dataLoadingServiceCaller = mock(IDataLoadingServiceCaller.class);
+		fileProvider = mock(IFileProvider.class);
 		
-		dataLoadingModel = new DataLoadingModel(dataLoadingServiceCaller);
+		dataLoadingModel = new DataLoadingModel(dataLoadingServiceCaller, fileProvider);
 		
 		ArgumentCaptor<IListener> loadingSuccessListenerCapture = ArgumentCaptor
 				.forClass(IListener.class);
@@ -34,8 +36,9 @@ public class DataLoadingModelTest {
 				.forClass(IListener.class);
 		verify(dataLoadingServiceCaller).addFailureListener(loadingFailedListenerCapture.capture());
 		loadingFailedListener = loadingFailedListenerCapture.getValue();
+		
 	}
-	
+
 	@Test
 	public void callDataLoadingServiceWhenReloadData() {
 		dataLoadingModel.reloadData();

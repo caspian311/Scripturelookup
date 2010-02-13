@@ -13,7 +13,7 @@ public class Dataloading implements EntryPoint {
 	public void onModuleLoad() {
 		IDataManagementView dataManagementView = new DataManagementView();
 		new DataLoadingPresenter(dataManagementView, new DataLoadingModel(
-				new DataLoadingServiceCaller(dataLoadingService)));
+				new DataLoadingServiceCaller(dataLoadingService), new FileProvider()));
 		new DataDeletingPresenter(dataManagementView, new DataDeletingModel(
 				new DataDeletingServiceCaller(dataDeletingService)));
 	}

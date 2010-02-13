@@ -1,5 +1,6 @@
 package net.todd.bible.scripturelookup.client;
 
+
 public class DataLoadingModel implements IDataLoadingModel {
 	private final ListenerManager failureListenerManager = new ListenerManager();
 
@@ -7,7 +8,8 @@ public class DataLoadingModel implements IDataLoadingModel {
 
 	protected String errorMessage;
 	
-	public DataLoadingModel(final IDataLoadingServiceCaller dataLoadingServiceCaller) {
+	public DataLoadingModel(final IDataLoadingServiceCaller dataLoadingServiceCaller,
+			IFileProvider fileProvider) {
 		this.dataLoadingServiceCaller = dataLoadingServiceCaller;
 		
 		dataLoadingServiceCaller.addFailureListener(new IListener() {
