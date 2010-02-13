@@ -6,7 +6,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
-public class DataLoadingView implements IDataLoadingView {
+public class DataManagementView implements IDataManagementView {
 	private final ListenerManager deleteButtonListenerManager = new ListenerManager();
 	private final ListenerManager reloadButtonListenerManager = new ListenerManager();
 
@@ -21,7 +21,7 @@ public class DataLoadingView implements IDataLoadingView {
 
 	private final Label messageLabel;
 
-	public DataLoadingView() {
+	public DataManagementView() {
 		messageLabel = new Label();
 		deleteButton = new Button("Delete");
 		reloadButton = new Button("Reload");

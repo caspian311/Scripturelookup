@@ -1,6 +1,7 @@
 package net.todd.bible.scripturelookup.client;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -11,35 +12,18 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
-@SuppressWarnings("unchecked")
 public class DataLoadingModelTest {
-	private IDataDeletingServiceCaller dataDeletingServiceCaller;
 	private IDataLoadingServiceCaller dataLoadingServiceCaller;
 	private IDataLoadingModel dataLoadingModel;
-	private IListener deletionSuccessfullListener;
-	private IListener deletionFailedListener;
 	private IListener loadingSuccessfullListener;
 	private IListener loadingFailedListener;
 
 	@Before
 	public void setUpMocks() {
-		dataDeletingServiceCaller = mock(IDataDeletingServiceCaller.class);
 		dataLoadingServiceCaller = mock(IDataLoadingServiceCaller.class);
 		
-		dataLoadingModel = new DataLoadingModel(dataDeletingServiceCaller, dataLoadingServiceCaller);
+		dataLoadingModel = new DataLoadingModel(dataLoadingServiceCaller);
 		
-		ArgumentCaptor<IListener> deletionSuccessListenerCapture = ArgumentCaptor
-				.forClass(IListener.class);
-		verify(dataDeletingServiceCaller).addSuccessListener(
-				deletionSuccessListenerCapture.capture());
-		deletionSuccessfullListener = deletionSuccessListenerCapture.getValue();
-
-		ArgumentCaptor<IListener> deletionFailedListenerCapture = ArgumentCaptor
-				.forClass(IListener.class);
-		verify(dataDeletingServiceCaller).addFailureListener(
-				deletionFailedListenerCapture.capture());
-		deletionFailedListener = deletionFailedListenerCapture.getValue();
-
 		ArgumentCaptor<IListener> loadingSuccessListenerCapture = ArgumentCaptor
 				.forClass(IListener.class);
 		verify(dataLoadingServiceCaller)
@@ -51,40 +35,30 @@ public class DataLoadingModelTest {
 		verify(dataLoadingServiceCaller).addFailureListener(loadingFailedListenerCapture.capture());
 		loadingFailedListener = loadingFailedListenerCapture.getValue();
 	}
-
+	
 	@Test
-	public void callDeleteDataServiceWhenDeletingData() {
-		dataLoadingModel.deleteData();
+	public void callDataLoadingServiceWhenReloadData() {
+		dataLoadingModel.reloadData();
 
-		verify(dataDeletingServiceCaller).callService();
+		verify(dataLoadingServiceCaller).callService(anyString());
 	}
 
 	@Test
-	public void errorMessageIsMadeAvailableWhenDataDeletionFails() {
+	public void errorMessageIsMadeAvailableWhenDataLoadingFails() {
 		String errorMessage = UUID.randomUUID().toString();
-		doReturn(new Exception(errorMessage)).when(dataDeletingServiceCaller).getException();
+		doReturn(new Exception(errorMessage)).when(dataLoadingServiceCaller).getException();
 
-		deletionFailedListener.handleEvent();
+		loadingFailedListener.handleEvent();
 
 		assertEquals(errorMessage, dataLoadingModel.getErrorMessage());
 	}
-	
+
 	@Test
-	public void notifyDeleteFailListenersWhenDataDeletionFails() {
+	public void notifyDataLoadingFailedListenersWhenDataLoadingFails() {
 		IListener listener = mock(IListener.class);
 		dataLoadingModel.addFailureListener(listener);
-		
-		deletionFailedListener.handleEvent();
 
-		verify(listener).handleEvent();
-	}
-	
-	@Test
-	public void notifyDeleteSuccessfullListenersWhenDataDeletionSucceeds() {
-		IListener listener = mock(IListener.class);
-		dataLoadingModel.addDataDeletionListener(listener);
-
-		deletionSuccessfullListener.handleEvent();
+		loadingFailedListener.handleEvent();
 
 		verify(listener).handleEvent();
 	}

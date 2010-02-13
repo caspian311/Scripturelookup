@@ -1,6 +1,6 @@
 package net.todd.bible.scripturelookup.client;
 
-public interface IDataLoadingView {
+public interface IDataManagementView {
 	void addDeleteButtonListener(IListener listener);
 	
 	void addReloadButtonListener(IListener listener);

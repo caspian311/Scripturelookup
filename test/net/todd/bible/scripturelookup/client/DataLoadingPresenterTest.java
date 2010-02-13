@@ -13,30 +13,17 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 
 public class DataLoadingPresenterTest {
-	private IDataLoadingView view;
+	private IDataManagementView view;
 	private IDataLoadingModel model;
 
 	@Before
 	public void setUp() {
-		view = mock(IDataLoadingView.class);
+		view = mock(IDataManagementView.class);
 		model = mock(IDataLoadingModel.class);
 
 		new DataLoadingPresenter(view, model);
 	}
 	
-	@Test
-	public void showBusySignalThenTellModelToDeleteDataWhenButtonDeteDataPressed() {
-		ArgumentCaptor<IListener> captor = ArgumentCaptor.forClass(IListener.class);
-		verify(view).addDeleteButtonListener(captor.capture());
-
-		captor.getValue().handleEvent();
-
-		InOrder inOrder = inOrder(view, model);
-
-		inOrder.verify(view).showDeletingBusySignal();
-		inOrder.verify(model).deleteData();
-	}
-
 	@Test
 	public void showBusySignalThenTellModelToReloadDataWhenReloadButtonPressed() {
 		ArgumentCaptor<IListener> captor = ArgumentCaptor.forClass(IListener.class);
@@ -62,16 +49,6 @@ public class DataLoadingPresenterTest {
 		captor.getValue().handleEvent();
 
 		verify(view).showErrorMessage(errorMessage);
-	}
-
-	@Test
-	public void whenDeletionSuccessfulShowDeltionSuccessMessage() {
-		ArgumentCaptor<IListener> captor = ArgumentCaptor.forClass(IListener.class);
-		verify(model).addDataDeletionListener(captor.capture());
-
-		captor.getValue().handleEvent();
-
-		verify(view).showDeletionSuccessMessage();
 	}
 
 	@Test

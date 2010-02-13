@@ -6,14 +6,15 @@ import com.google.gwt.core.client.GWT;
 public class Dataloading implements EntryPoint {
 	private final IDataDeletingServiceAsync dataDeletingService = GWT
 			.create(IDataDeletingService.class);
-	private final IDataLoadingServiceAsync dataManagementService = GWT
+	private final IDataLoadingServiceAsync dataLoadingService = GWT
 			.create(IDataLoadingService.class);
 
 	@Override
 	public void onModuleLoad() {
-		new DataLoadingPresenter(new DataLoadingView(), new DataLoadingModel(
-				new DataDeletingServiceCaller(dataDeletingService),
-				new DataLoadingServiceCaller(
-						dataManagementService)));
+		IDataManagementView dataManagementView = new DataManagementView();
+		new DataLoadingPresenter(dataManagementView, new DataLoadingModel(
+				new DataLoadingServiceCaller(dataLoadingService)));
+		new DataDeletingPresenter(dataManagementView, new DataDeletingModel(
+				new DataDeletingServiceCaller(dataDeletingService)));
 	}
 }
