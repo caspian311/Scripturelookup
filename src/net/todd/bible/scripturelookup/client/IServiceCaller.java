@@ -1,9 +1,6 @@
 package net.todd.bible.scripturelookup.client;
 
 public interface IServiceCaller {
-
-	void callService(String queryType, String query);
-
 	void addSuccessListener(IListener listener);
 
 	void addFailureListener(IListener listener);
@@ -11,5 +8,4 @@ public interface IServiceCaller {
 	Throwable getException();
 
 	String getReturnValue();
-
 }

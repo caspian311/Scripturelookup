@@ -2,34 +2,12 @@ package net.todd.bible.scripturelookup.client;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public class ServiceCaller implements IServiceCaller {
-	private final ILookupServiceAsync service;
-	
+public abstract class ServiceCaller implements IServiceCaller {
 	private final ListenerManager failureListenerManager = new ListenerManager();
 	private final ListenerManager successListenerManager = new ListenerManager();
-	
+
 	private Throwable exception;
 	private String returnValue;
-	
-	public ServiceCaller(ILookupServiceAsync service) {
-		this.service = service;
-	}
-
-	public void callService(String queryType, String query) {
-		service.lookup(queryType, query, new AsyncCallback<String>() {
-			@Override
-			public void onFailure(Throwable caught) {
-				exception = caught;
-				failureListenerManager.notifyListeners();
-			}
-
-			@Override
-			public void onSuccess(String result) {
-				returnValue = result;
-				successListenerManager.notifyListeners();
-			}
-		});
-	}
 	
 	public void addSuccessListener(IListener listener) {
 		successListenerManager.addListener(listener);
@@ -45,5 +23,38 @@ public class ServiceCaller implements IServiceCaller {
 
 	public String getReturnValue() {
 		return returnValue;
+	}
+	
+	private void setFailureException(Throwable caught) {
+		this.exception = caught;
+	}
+	
+	private void notifyFailureListeners() {
+		failureListenerManager.notifyListeners();
+	}
+	
+
+	private void setReturnValue(String result) {
+		returnValue = result;
+	}
+	
+	private void notifySuccessListeners() {
+		successListenerManager.notifyListeners();
+	}
+	
+	protected AsyncCallback<String> getCallback() {
+		return new AsyncCallback<String>() {
+			@Override
+			public void onFailure(Throwable caught) {
+				setFailureException(caught);
+				notifyFailureListeners();
+			}
+
+			@Override
+			public void onSuccess(String result) {
+				setReturnValue(result);
+				notifySuccessListeners();
+			}
+		};
 	}
 }

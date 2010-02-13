@@ -65,16 +65,16 @@ public class BibleDaoIntegrationTest {
 	public void verse() {
 		Verse john11 = BibleDaoProvider.getBibleDao().getVerse("John", 1, 1);
 		assertEquals("John", john11.getBook());
-		assertEquals(1, john11.getChapter());
-		assertEquals(1, john11.getVerse());
+		assertEquals(1, john11.getChapter().intValue());
+		assertEquals(1, john11.getVerse().intValue());
 		assertEquals(
 				"In the beginning was the Word, and the Word was with God, and the Word was God.",
 				john11.getText());
 
 		Verse john316 = BibleDaoProvider.getBibleDao().getVerse("John", 3, 16);
 		assertEquals("John", john316.getBook());
-		assertEquals(3, john316.getChapter());
-		assertEquals(16, john316.getVerse());
+		assertEquals(3, john316.getChapter().intValue());
+		assertEquals(16, john316.getVerse().intValue());
 		assertEquals("For God so loved the world...", john316.getText());
 	}
 	

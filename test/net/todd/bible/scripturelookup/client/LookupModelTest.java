@@ -16,7 +16,7 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
 public class LookupModelTest {
-	private IServiceCaller serviceCaller;
+	private ILookupServiceCaller serviceCaller;
 	private IResultsParser resultsParser;
 	private IListener failureListener;
 	private LookupModel lookupModel;
@@ -27,7 +27,7 @@ public class LookupModelTest {
 
 	@Before
 	public void setUp() {
-		serviceCaller = mock(IServiceCaller.class);
+		serviceCaller = mock(ILookupServiceCaller.class);
 		resultsParser = mock(IResultsParser.class);
 
 		lookupModel = new LookupModel(serviceCaller, resultsParser);

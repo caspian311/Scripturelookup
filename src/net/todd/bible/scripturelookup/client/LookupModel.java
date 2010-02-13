@@ -7,10 +7,10 @@ public class LookupModel implements ILookupModel {
 	private final ListenerManager resultsReturnedListenerManager = new ListenerManager();
 	private final ListenerManager failureListenerManager = new ListenerManager();
 	private String queryType;
-	private final IServiceCaller serviceCaller;
+	private final ILookupServiceCaller serviceCaller;
 	private List<Verse> returnResults;
 
-	public LookupModel(final IServiceCaller serviceCaller, final IResultsParser parser) {
+	public LookupModel(final ILookupServiceCaller serviceCaller, final IResultsParser parser) {
 		this.serviceCaller = serviceCaller;
 		serviceCaller.addFailureListener(new IListener() {
 			@Override

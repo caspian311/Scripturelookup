@@ -9,13 +9,16 @@ public class DataLoadingService extends RemoteServiceServlet implements IDataDel
 		IDataLoadingService {
 	private static final long serialVersionUID = 5244338505093814611L;
 	private final IDataLoader dataLoader;
+	private final IDataFileStreamer dataFileStreamer;
 
 	public DataLoadingService() {
 		dataLoader = DataLoaderProvider.getDataLoader();
+		dataFileStreamer = new DataFileStreamer();
 	}
 
-	public DataLoadingService(IDataLoader dataLoader) {
+	public DataLoadingService(IDataLoader dataLoader, IDataFileStreamer dataFileStreamer) {
 		this.dataLoader = dataLoader;
+		this.dataFileStreamer = dataFileStreamer;
 	}
 
 	@Override
@@ -25,8 +28,9 @@ public class DataLoadingService extends RemoteServiceServlet implements IDataDel
 	}
 
 	@Override
-	public String loadAllData() {
-		dataLoader.loadData(getClass().getResourceAsStream("/data.txt"));
+	public String loadAllData(String part) {
+		String dataFile = "/data" + part + ".txt";
+		dataLoader.loadData(dataFileStreamer.getStreamForFile(dataFile));
 		return "SUCCESS";
 	}
 }

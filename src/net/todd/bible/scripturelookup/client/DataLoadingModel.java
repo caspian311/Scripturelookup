@@ -1,67 +1,71 @@
 package net.todd.bible.scripturelookup.client;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
-
 public class DataLoadingModel implements IDataLoadingModel {
 	private final ListenerManager failureListenerManager = new ListenerManager();
-	private final ListenerManager loadListenerManager = new ListenerManager();
-	private final ListenerManager deleteListenerManager = new ListenerManager();
-
-	private final IDataLoadingServiceAsync dataManagementService;
-	private final IDataDeletingServiceAsync dataDeletingService;
+	private final ListenerManager dataDeletedListenerManager = new ListenerManager();
 	
-	private String errorMessage;
+	private final IDataDeletingServiceCaller dataDeletingServiceCaller;
+	private final IDataLoadingServiceCaller dataLoadingServiceCaller;
+	
+	protected String errorMessage;
 
-	public DataLoadingModel(IDataDeletingServiceAsync dataDeletingService,
-			IDataLoadingServiceAsync dataManagementService) {
-		this.dataManagementService = dataManagementService;
-		this.dataDeletingService = dataDeletingService;
+
+	public DataLoadingModel(final IDataDeletingServiceCaller dataDeletingServiceCaller,
+			IDataLoadingServiceCaller dataLoadingServiceCaller) {
+		this.dataDeletingServiceCaller = dataDeletingServiceCaller;
+		this.dataLoadingServiceCaller = dataLoadingServiceCaller;
+		dataDeletingServiceCaller.addFailureListener(new IListener() {
+			@Override
+			public void handleEvent() {
+				Throwable exception = dataDeletingServiceCaller.getException();
+				if (exception != null) {
+					errorMessage = exception.getMessage();
+				}
+				failureListenerManager.notifyListeners();
+			}
+		});
+
+		dataDeletingServiceCaller.addSuccessListener(new IListener() {
+			@Override
+			public void handleEvent() {
+				dataDeletedListenerManager.notifyListeners();
+			}
+		});
+		
+		dataLoadingServiceCaller.addFailureListener(new IListener() {
+			@Override
+			public void handleEvent() {
+			}
+		});
+
+		dataLoadingServiceCaller.addSuccessListener(new IListener() {
+			@Override
+			public void handleEvent() {
+			}
+		});
 	}
 
 	@Override
 	public void deleteData() {
-		dataDeletingService.deleteAllData(new AsyncCallback<String>() {
-			@Override
-			public void onFailure(Throwable caught) {
-				errorMessage = caught.getMessage();
-				failureListenerManager.notifyListeners();
-			}
-
-			@Override
-			public void onSuccess(String result) {
-				deleteListenerManager.notifyListeners();
-			}
-		});
+		dataDeletingServiceCaller.callService();
 	}
-	
+
 	@Override
 	public void reloadData() {
-		dataManagementService.loadAllData(new AsyncCallback<String>() {
-			@Override
-			public void onFailure(Throwable caught) {
-				errorMessage = caught.getMessage();
-				failureListenerManager.notifyListeners();
-			}
-
-			@Override
-			public void onSuccess(String result) {
-				loadListenerManager.notifyListeners();
-			}
-		});
+		dataLoadingServiceCaller.callService("");
 	}
 
 	@Override
 	public void addDataReloadedListener(IListener listener) {
-		loadListenerManager.addListener(listener);
 	}
 
 	@Override
 	public void addFailureListener(IListener listener) {
 		failureListenerManager.addListener(listener);
 	}
-	
+
 	public void addDataDeletionListener(IListener listener) {
-		deleteListenerManager.addListener(listener);
+		dataDeletedListenerManager.addListener(listener);
 	}
 
 	@Override

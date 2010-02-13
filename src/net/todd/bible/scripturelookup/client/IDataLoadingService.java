@@ -5,5 +5,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 @RemoteServiceRelativePath("loadAllData")
 public interface IDataLoadingService extends RemoteService {
-	String loadAllData();
+	String loadAllData(String part);
 }

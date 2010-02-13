@@ -1,111 +1,91 @@
 package net.todd.bible.scripturelookup.client;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.anyObject;
-import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InOrder;
-
-import com.google.gwt.user.client.rpc.AsyncCallback;
 
 @SuppressWarnings("unchecked")
 public class DataLoadingModelTest {
-	private IDataDeletingServiceAsync dataDeletingService;
-	private IDataLoadingServiceAsync dataLoadingService;
+	private IDataDeletingServiceCaller dataDeletingServiceCaller;
+	private IDataLoadingServiceCaller dataLoadingServiceCaller;
 	private IDataLoadingModel dataLoadingModel;
+	private IListener deletionSuccessfullListener;
+	private IListener deletionFailedListener;
+	private IListener loadingSuccessfullListener;
+	private IListener loadingFailedListener;
 
 	@Before
-	public void setUp() {
-		dataDeletingService = mock(IDataDeletingServiceAsync.class);
-		dataLoadingService = mock(IDataLoadingServiceAsync.class);
-		dataLoadingModel = new DataLoadingModel(dataDeletingService, dataLoadingService);
-	}
-	
-	@Test
-	public void callDataManagementServicewhenReloading() {
-		dataLoadingModel.reloadData();
+	public void setUpMocks() {
+		dataDeletingServiceCaller = mock(IDataDeletingServiceCaller.class);
+		dataLoadingServiceCaller = mock(IDataLoadingServiceCaller.class);
 		
-		verify(dataLoadingService).loadAllData((AsyncCallback) anyObject());
-	}
-	
-	@Test
-	public void reloadListenersNotifiesWhenDataGetsReloaded() {
-		IListener successListener = mock(IListener.class);
-
-		dataLoadingModel.addDataReloadedListener(successListener);
-		dataLoadingModel.reloadData();
-
-		ArgumentCaptor<AsyncCallback> captor = ArgumentCaptor.forClass(AsyncCallback.class);
-
-		verify(dataLoadingService).loadAllData(captor.capture());
+		dataLoadingModel = new DataLoadingModel(dataDeletingServiceCaller, dataLoadingServiceCaller);
 		
-		captor.getValue().onSuccess("");
-		
-		verify(successListener).handleEvent();
-	}
-	
-	@Test
-	public void deletionListenersAreNotifiedWhenSuccessfulDeletionOccurrs() {
-		IListener successListener = mock(IListener.class);
+		ArgumentCaptor<IListener> deletionSuccessListenerCapture = ArgumentCaptor
+				.forClass(IListener.class);
+		verify(dataDeletingServiceCaller).addSuccessListener(
+				deletionSuccessListenerCapture.capture());
+		deletionSuccessfullListener = deletionSuccessListenerCapture.getValue();
 
-		dataLoadingModel.addDataDeletionListener(successListener);
+		ArgumentCaptor<IListener> deletionFailedListenerCapture = ArgumentCaptor
+				.forClass(IListener.class);
+		verify(dataDeletingServiceCaller).addFailureListener(
+				deletionFailedListenerCapture.capture());
+		deletionFailedListener = deletionFailedListenerCapture.getValue();
+
+		ArgumentCaptor<IListener> loadingSuccessListenerCapture = ArgumentCaptor
+				.forClass(IListener.class);
+		verify(dataLoadingServiceCaller)
+				.addSuccessListener(loadingSuccessListenerCapture.capture());
+		loadingSuccessfullListener = loadingSuccessListenerCapture.getValue();
+
+		ArgumentCaptor<IListener> loadingFailedListenerCapture = ArgumentCaptor
+				.forClass(IListener.class);
+		verify(dataLoadingServiceCaller).addFailureListener(loadingFailedListenerCapture.capture());
+		loadingFailedListener = loadingFailedListenerCapture.getValue();
+	}
+
+	@Test
+	public void callDeleteDataServiceWhenDeletingData() {
 		dataLoadingModel.deleteData();
 
-		ArgumentCaptor<AsyncCallback> captor = ArgumentCaptor.forClass(AsyncCallback.class);
+		verify(dataDeletingServiceCaller).callService();
+	}
 
-		verify(dataDeletingService).deleteAllData(captor.capture());
+	@Test
+	public void errorMessageIsMadeAvailableWhenDataDeletionFails() {
+		String errorMessage = UUID.randomUUID().toString();
+		doReturn(new Exception(errorMessage)).when(dataDeletingServiceCaller).getException();
 
-		captor.getValue().onSuccess("");
+		deletionFailedListener.handleEvent();
 
-		verify(successListener).handleEvent();
+		assertEquals(errorMessage, dataLoadingModel.getErrorMessage());
 	}
 	
 	@Test
-	public void errorMessageIsMadeAvailableThenModelNotifiesWhenFailureReturnOfService() {
-		IListener failureListener = mock(IListener.class);
-		Exception exception = mock(Exception.class);
+	public void notifyDeleteFailListenersWhenDataDeletionFails() {
+		IListener listener = mock(IListener.class);
+		dataLoadingModel.addFailureListener(listener);
+		
+		deletionFailedListener.handleEvent();
 
-		dataLoadingModel.addFailureListener(failureListener);
-		dataLoadingModel.reloadData();
-
-		ArgumentCaptor<AsyncCallback> captor = ArgumentCaptor.forClass(AsyncCallback.class);
-
-		verify(dataLoadingService).loadAllData(captor.capture());
-
-		captor.getValue().onFailure(exception);
-
-		InOrder inOrder = inOrder(failureListener, exception);
-
-		inOrder.verify(exception).getMessage();
-		inOrder.verify(failureListener).handleEvent();
+		verify(listener).handleEvent();
 	}
-
+	
 	@Test
-	public void errorMessagePulledFromException() {
-		String errorMessage = UUID.randomUUID().toString();
-		
-		IListener failureListener = mock(IListener.class);
-		Exception exception = mock(Exception.class);
+	public void notifyDeleteSuccessfullListenersWhenDataDeletionSucceeds() {
+		IListener listener = mock(IListener.class);
+		dataLoadingModel.addDataDeletionListener(listener);
 
-		when(exception.getMessage()).thenReturn(errorMessage);
-		
-		dataLoadingModel.addFailureListener(failureListener);
-		dataLoadingModel.reloadData();
+		deletionSuccessfullListener.handleEvent();
 
-		ArgumentCaptor<AsyncCallback> captor = ArgumentCaptor.forClass(AsyncCallback.class);
-
-		verify(dataLoadingService).loadAllData(captor.capture());
-
-		captor.getValue().onFailure(exception);
-
-		assertEquals(errorMessage, dataLoadingModel.getErrorMessage());
+		verify(listener).handleEvent();
 	}
 }

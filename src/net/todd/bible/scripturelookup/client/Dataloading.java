@@ -11,7 +11,9 @@ public class Dataloading implements EntryPoint {
 
 	@Override
 	public void onModuleLoad() {
-		new DataLoadingPresenter(new DataLoadingView(), new DataLoadingModel(dataDeletingService,
-				dataManagementService));
+		new DataLoadingPresenter(new DataLoadingView(), new DataLoadingModel(
+				new DataDeletingServiceCaller(dataDeletingService),
+				new DataLoadingServiceCaller(
+						dataManagementService)));
 	}
 }
