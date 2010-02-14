@@ -1,10 +1,12 @@
 package net.todd.bible.scripturelookup.client;
 
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Random;
 import java.util.UUID;
 
 import org.junit.Before;
@@ -15,6 +17,10 @@ import org.mockito.InOrder;
 public class DataLoadingPresenterTest {
 	private IDataManagementView view;
 	private IDataLoadingModel model;
+	private IListener reloadButtonListener;
+	private IListener failureListener;
+	private IListener dataReloadedListener;
+	private IListener progressListener;
 
 	@Before
 	public void setUp() {
@@ -22,17 +28,30 @@ public class DataLoadingPresenterTest {
 		model = mock(IDataLoadingModel.class);
 
 		new DataLoadingPresenter(view, model);
+		
+		ArgumentCaptor<IListener> reloadButtonListenerCaptor = ArgumentCaptor
+				.forClass(IListener.class);
+		verify(view).addReloadButtonListener(reloadButtonListenerCaptor.capture());
+		reloadButtonListener = reloadButtonListenerCaptor.getValue();
+
+		ArgumentCaptor<IListener> failureListenerCaptor = ArgumentCaptor.forClass(IListener.class);
+		verify(model).addFailureListener(failureListenerCaptor.capture());
+		failureListener = failureListenerCaptor.getValue();
+		
+		ArgumentCaptor<IListener> dataReloadedCaptor = ArgumentCaptor.forClass(IListener.class);
+		verify(model).addDataReloadedListener(dataReloadedCaptor.capture());
+		dataReloadedListener = dataReloadedCaptor.getValue();
+		
+		ArgumentCaptor<IListener> progressListenerCaptor = ArgumentCaptor.forClass(IListener.class);
+		verify(model).addProgressListener(progressListenerCaptor.capture());
+		progressListener = progressListenerCaptor.getValue();
 	}
 	
 	@Test
 	public void showBusySignalThenTellModelToReloadDataWhenReloadButtonPressed() {
-		ArgumentCaptor<IListener> captor = ArgumentCaptor.forClass(IListener.class);
-		verify(view).addReloadButtonListener(captor.capture());
-
-		captor.getValue().handleEvent();
+		reloadButtonListener.handleEvent();
 
 		InOrder inOrder = inOrder(view, model);
-
 		inOrder.verify(view).showReloadingBusySignal();
 		inOrder.verify(model).reloadData();
 	}
@@ -40,24 +59,27 @@ public class DataLoadingPresenterTest {
 	@Test
 	public void whenModelErrorOccursViewShowErrorMessage() {
 		String errorMessage = UUID.randomUUID().toString();
-		
-		ArgumentCaptor<IListener> captor = ArgumentCaptor.forClass(IListener.class);
-		verify(model).addFailureListener(captor.capture());
-
 		when(model.getErrorMessage()).thenReturn(errorMessage);
 		
-		captor.getValue().handleEvent();
+		failureListener.handleEvent();
 
 		verify(view).showErrorMessage(errorMessage);
 	}
 
 	@Test
 	public void whenReloadSuccessfulShowReloadSuccessMessage() {
-		ArgumentCaptor<IListener> captor = ArgumentCaptor.forClass(IListener.class);
-		verify(model).addDataReloadedListener(captor.capture());
-
-		captor.getValue().handleEvent();
+		dataReloadedListener.handleEvent();
 
 		verify(view).showReloadSuccessMessage();
+	}
+	
+	@Test
+	public void whenProgressIsMadeShowPullPercentCompleteFromModelAndGiveToView() {
+		double percentComplete = new Random().nextDouble();
+		doReturn(percentComplete).when(model).getPercentComplete();
+		
+		progressListener.handleEvent();
+
+		verify(view).updatePercentComplete(percentComplete);
 	}
 }

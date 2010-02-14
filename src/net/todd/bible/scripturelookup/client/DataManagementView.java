@@ -79,4 +79,9 @@ public class DataManagementView implements IDataManagementView {
 	public void showReloadingBusySignal() {
 		messageLabel.setText(RELOAD_BUSY_MESSAGE);
 	}
+
+	@Override
+	public void updatePercentComplete(double percentComplete) {
+		messageLabel.setText("Updating: " + percentComplete * 100 + "% complete...");
+	}
 }

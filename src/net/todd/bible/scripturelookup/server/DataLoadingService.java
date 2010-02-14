@@ -28,8 +28,7 @@ public class DataLoadingService extends RemoteServiceServlet implements IDataDel
 	}
 
 	@Override
-	public String loadAllData(String part) {
-		String dataFile = "/data" + part + ".txt";
+	public String loadAllData(String dataFile) {
 		dataLoader.loadData(dataFileStreamer.getStreamForFile(dataFile));
 		return "SUCCESS";
 	}

@@ -6,7 +6,7 @@
 	<property name="gwt.sdk" value="/usr/local/gwt" />
 	<property name="appengine.sdk" value="/usr/local/appengine-java-sdk" />
 	<property name="app.server" value="/usr/local/tomcat" />
-	<property name="deploy-url" value="http://localhost:8080/manager" />
+	<property name="deploy-url" value="http://build-box:8080/manager" />
 	<property name="deploy-username" value="admin" />
 	<property name="deploy-password" value="admin" />
 

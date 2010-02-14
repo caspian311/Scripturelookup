@@ -8,4 +8,8 @@ public interface IDataLoadingModel {
 	String getErrorMessage();
 
 	void addFailureListener(IListener failureListener);
+
+	void addProgressListener(IListener progressListener);
+
+	double getPercentComplete();
 }

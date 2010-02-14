@@ -1,4 +1,4 @@
-BASE_URL='http://localhost:8080/Scripturelookup'
+BASE_URL='http://build-box:8080/Scripturelookup'
 
 Given /^scripturelookup is running$/ do
 end

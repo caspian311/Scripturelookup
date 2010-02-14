@@ -1,17 +1,24 @@
 package net.todd.bible.scripturelookup.client;
 
+import java.util.List;
 
 public class DataLoadingModel implements IDataLoadingModel {
 	private final ListenerManager failureListenerManager = new ListenerManager();
+	private final ListenerManager progressListenerManager = new ListenerManager();
+	private final ListenerManager successListenerManager = new ListenerManager();
 
 	private final IDataLoadingServiceCaller dataLoadingServiceCaller;
+	private final List<String> filesToLoad;
 
 	protected String errorMessage;
-	
+	private int fileIndex;
+	private double percentComplete;
+
 	public DataLoadingModel(final IDataLoadingServiceCaller dataLoadingServiceCaller,
 			IFileProvider fileProvider) {
 		this.dataLoadingServiceCaller = dataLoadingServiceCaller;
-		
+		filesToLoad = fileProvider.filesToLoad();
+
 		dataLoadingServiceCaller.addFailureListener(new IListener() {
 			@Override
 			public void handleEvent() {
@@ -26,19 +33,33 @@ public class DataLoadingModel implements IDataLoadingModel {
 		dataLoadingServiceCaller.addSuccessListener(new IListener() {
 			@Override
 			public void handleEvent() {
+				fileIndex++;
+				updatePrecentComplete(fileIndex, filesToLoad.size());
+				progressListenerManager.notifyListeners();
+				if (filesToLoad.size() > fileIndex) {
+					dataLoadingServiceCaller.callService(filesToLoad.get(fileIndex));
+				} else {
+					successListenerManager.notifyListeners();
+				}
 			}
 		});
 	}
-
+	
+	private void updatePrecentComplete(double currentFile, double totalFiles) {
+		percentComplete = currentFile / totalFiles;
+	}
+	
 	@Override
 	public void reloadData() {
-		dataLoadingServiceCaller.callService("");
+		fileIndex = 0; // need test for this...
+		dataLoadingServiceCaller.callService(filesToLoad.get(fileIndex));
 	}
 
 	@Override
 	public void addDataReloadedListener(IListener listener) {
+		successListenerManager.addListener(listener);
 	}
-	
+
 	@Override
 	public void addFailureListener(IListener listener) {
 		failureListenerManager.addListener(listener);
@@ -47,5 +68,15 @@ public class DataLoadingModel implements IDataLoadingModel {
 	@Override
 	public String getErrorMessage() {
 		return errorMessage;
+	}
+
+	@Override
+	public void addProgressListener(IListener progressListener) {
+		progressListenerManager.addListener(progressListener);
+	}
+
+	@Override
+	public double getPercentComplete() {
+		return percentComplete;
 	}
 }

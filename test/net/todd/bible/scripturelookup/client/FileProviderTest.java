@@ -17,4 +17,9 @@ public class FileProviderTest {
 	public void filesToLoadAreNotNull() {
 		assertNotNull(fileProvider.filesToLoad());
 	}
+
+	@Test(expected = UnsupportedOperationException.class)
+	public void listOfFileIsUnmodifiable() {
+		fileProvider.filesToLoad().add("");
+	}
 }

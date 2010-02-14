@@ -4,7 +4,7 @@ require 'selenium/client'
 
 Before do
   @browser = Selenium::Client::Driver.new( 
-    :host => "localhost",
+    :host => "build-box",
     :port => 4444,
     :browser => "*firefox",
     :url => "http://www.google.com",

@@ -15,7 +15,7 @@ import org.junit.Test;
 public class DataLoadingServiceTest {
 	private IDataLoader dataLoader;
 	private DataLoadingService dataLoadingService;
-	private String part;
+	private String fileName;
 	private IDataFileStreamer dataFileStreamer;
 	
 	@Before
@@ -24,7 +24,7 @@ public class DataLoadingServiceTest {
 		dataFileStreamer = mock(IDataFileStreamer.class);
 		dataLoadingService = new DataLoadingService(dataLoader, dataFileStreamer);
 		
-		part = UUID.randomUUID().toString();
+		fileName = UUID.randomUUID().toString();
 	}
 	
 	@Test
@@ -36,9 +36,9 @@ public class DataLoadingServiceTest {
 	
 	@Test
 	public void fetchStreamForDataFileSpecifiedByThePart() {
-		dataLoadingService.loadAllData(part);
+		dataLoadingService.loadAllData(fileName);
 
-		verify(dataFileStreamer).getStreamForFile("/data" + part + ".txt");
+		verify(dataFileStreamer).getStreamForFile(fileName);
 	}
 
 	@Test
@@ -46,7 +46,7 @@ public class DataLoadingServiceTest {
 		InputStream inputStream = mock(InputStream.class);
 		doReturn(inputStream).when(dataFileStreamer).getStreamForFile(anyString());
 
-		dataLoadingService.loadAllData(part);
+		dataLoadingService.loadAllData(fileName);
 
 		verify(dataLoader).loadData(inputStream);
 	}
@@ -58,6 +58,6 @@ public class DataLoadingServiceTest {
 
 	@Test
 	public void loadAllDataReturnSUCCESSWhenSuccessful() {
-		assertEquals("SUCCESS", dataLoadingService.loadAllData(part));
+		assertEquals("SUCCESS", dataLoadingService.loadAllData(fileName));
 	}
 }

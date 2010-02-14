@@ -14,4 +14,6 @@ public interface IDataManagementView {
 	void showDeletingBusySignal();
 
 	void showReloadingBusySignal();
+
+	void updatePercentComplete(double percentComplete);
 }
