@@ -1,0 +1,100 @@
+Acts|8|6|And the multitudes gave heed with one accord unto the things that were spoken by Philip, when they heard, and saw the signs which he did.
+Acts|8|7|For {from} many of those that had unclean spirits, they came out, crying with a loud voice: and many that were palsied, and that were lame, were healed.
+Acts|8|8|And there was much joy in that city.
+Acts|8|9|But there was a certain man, Simon by name, who beforetime in the city used sorcery, and amazed the people of Samaria, giving out that himself was some great one:
+Acts|8|10|to whom they all gave heed, from the least to the greatest, saying, This man is that power of God which is called Great.
+Acts|8|11|And they gave heed to him, because that of long time he had amazed them with his sorceries.
+Acts|8|12|But when they believed Philip preaching good tidings concerning the kingdom of God and the name of Jesus Christ, they were baptized, both men and women.
+Acts|8|13|And Simon also himself believed: and being baptized, he continued with Philip; and beholding signs and great miracles wrought, he was amazed.
+Acts|8|14|Now when the apostles that were at Jerusalem heard that Samaria had received the word of God, they sent unto them Peter and John:
+Acts|8|15|who, when they were come down, prayed for them, that they might receive the Holy Spirit:
+Acts|8|16|for as yet it was fallen upon none of them: only they had been baptized into the name of the Lord Jesus.
+Acts|8|17|Then laid they their hands on them, and they received the Holy Spirit.
+Acts|8|18|Now when Simon saw that through the laying on of the apostles’ hands the Holy Spirit was given, he offered them money,
+Acts|8|19|saying, Give me also this power, that on whomsoever I lay my hands, he may receive the Holy Spirit.
+Acts|8|20|But Peter said unto him, Thy silver perish with thee, because thou hast thought to obtain the gift of God with money.
+Acts|8|21|Thou hast neither part nor lot in this matter: for thy heart is not right before God.
+Acts|8|22|Repent therefore of this thy wickedness, and pray the Lord, if perhaps the thought of thy heart shall be forgiven thee.
+Acts|8|23|For I see that thou art in the gall of bitterness and in the bond of iniquity.
+Acts|8|24|And Simon answered and said, Pray ye for me to the Lord, that none of the things which ye have spoken come upon me.
+Acts|8|25|They therefore, when they had testified and spoken the word of the Lord, returned to Jerusalem, and preached the gospel to many villages of the Samaritans.
+Acts|8|26|But an angel of the Lord spake unto Philip, saying, Arise, and go toward the south unto the way that goeth down from Jerusalem unto Gaza: the same is desert.
+Acts|8|27|And he arose and went: and behold, a man of Ethiopia, a eunuch of great authority under Candace, queen of the Ethiopians, who was over all her treasure, who had come to Jerusalem to worship;
+Acts|8|28|and he was returning and sitting in his chariot, and was reading the prophet Isaiah.
+Acts|8|29|And the Spirit said unto Philip, Go near, and join thyself to this chariot.
+Acts|8|30|And Philip ran to him, and heard him reading Isaiah the prophet, and said, Understandest thou what thou readest?
+Acts|8|31|And he said, How can I, except some one shall guide me? And he besought Philip to come up and sit with him.
+Acts|8|32|Now the passage of the Scripture which he was reading was this,             He was led as a sheep to the slaughter;                   And as a lamb before his shearer is dumb,                   So he openeth not his mouth:
+Acts|8|33|In his humiliation his judgment was taken away:                   His generation who shall declare?                   For his life is taken from the earth.
+Acts|8|34|And the eunuch answered Philip, and said, I pray thee, of whom speaketh the prophet this? of himself, or of some other?
+Acts|8|35|And Philip opened his mouth, and beginning from this Scripture, preached unto him Jesus.
+Acts|8|36|And as they went on the way, they came unto a certain water; and the eunuch saith, Behold, {here is} water; what doth hinder me to be baptized?
+Acts|8|37|{And Philip said, If thou believest with all thy heart, thou mayest. And he answered and said, I believe that Jesus Christ is the Son of God.}
+Acts|8|38|And he commanded the chariot to stand still: and they both went down into the water, both Philip and the eunuch, and he baptized him.
+Acts|8|39|And when they came up out of the water, the Spirit of the Lord caught away Philip; and the eunuch saw him no more, for he went on his way rejoicing.
+Acts|8|40|But Philip was found at Azotus: and passing through he preached the gospel to all the cities, till he came to Caesarea.
+Acts|9|1|But Saul, yet breathing threatening and slaughter against the disciples of the Lord, went unto the high priest,
+Acts|9|2|and asked of him letters to Damascus unto the synagogues, that if he found any that were of the Way, whether men or women, he might bring them bound to Jerusalem.
+Acts|9|3|And as he journeyed, it came to pass that he drew nigh unto Damascus: and suddenly there shone round about him a light out of heaven:
+Acts|9|4|and he fell upon the earth, and heard a voice saying unto him, Saul, Saul, why persecutest thou me?
+Acts|9|5|And he said, Who art thou, Lord? And he {said}, I am Jesus whom thou persecutest:
+Acts|9|6|but rise, and enter into the city, and it shall be told thee what thou must do.
+Acts|9|7|And the men that journeyed with him stood speechless, hearing the voice, but beholding no man.
+Acts|9|8|And Saul arose from the earth; and when his eyes were opened, he saw nothing; and they led him by the hand, and brought him into Damascus.
+Acts|9|9|And he was three days without sight, and did neither eat nor drink.
+Acts|9|10|Now there was a certain disciple at Damascus, named Ananias; and the Lord said unto him in a vision, Ananias. And he said, Behold, I {am here}, Lord.
+Acts|9|11|And the Lord {said} unto him, Arise, and go to the street which is called Straight, and inquire in the house of Judas for one named Saul, a man of Tarsus: for behold, he prayeth;
+Acts|9|12|and he hath seen a man named Ananias coming in, and laying his hands on him, that he might receive his sight.
+Acts|9|13|But Ananias answered, Lord, I have heard from many of this man, how much evil he did to thy saints at Jerusalem:
+Acts|9|14|and here he hath authority from the chief priests to bind all that call upon thy name.
+Acts|9|15|But the Lord said unto him, Go thy way: for he is a chosen vessel unto me, to bear my name before the Gentiles and kings, and the children of Israel:
+Acts|9|16|for I will show him how many things he must suffer for my name’s sake.
+Acts|9|17|And Ananias departed, and entered into the house; and laying his hands on him said, Brother Saul, the Lord, {even} Jesus, who appeared unto thee in the way which thou camest, hath sent me, that thou mayest receive thy sight, and be filled with the Holy Spirit.
+Acts|9|18|And straightway there fell from his eyes as it were scales, and he received his sight; and he arose and was baptized;
+Acts|9|19|and he took food and was strengthened. And he was certain days with the disciples that were at Damascus.
+Acts|9|20|And straightway in the synagogues he proclaimed Jesus, that he is the Son of God.
+Acts|9|21|And all that heard him were amazed, and said, Is not this he that in Jerusalem made havoc of them that called on this name? and he had come hither for this intent, that he might bring them bound before the chief priests.
+Acts|9|22|But Saul increased the more in strength, and confounded the Jews that dwelt at Damascus, proving that this is the Christ.
+Acts|9|23|And when many days were fulfilled, the Jews took counsel together to kill him:
+Acts|9|24|but their plot became known to Saul. And they watched the gates also day and night that they might kill him:
+Acts|9|25|but his disciples took him by night, and let him down through the wall, lowering him in a basket.
+Acts|9|26|And when he was come to Jerusalem, he assayed to join himself to the disciples: and they were all afraid of him, not believing that he was a disciple.
+Acts|9|27|But Barnabas took him, and brought him to the apostles, and declared unto them how he had seen the Lord in the way, and that he had spoken to him, and how at Damascus he had preached boldly in the name of Jesus.
+Acts|9|28|And he was with them going in and going out at Jerusalem,
+Acts|9|29|preaching boldly in the name of the Lord: and he spake and disputed against the Grecian Jews; but they were seeking to kill him.
+Acts|9|30|And when the brethren knew it, they brought him down to Caesarea, and sent him forth to Tarsus.
+Acts|9|31|So the church throughout all Judaea and Galilee and Samaria had peace, being edified; and, walking in the fear of the Lord and in the comfort of the Holy Spirit, was multiplied.
+Acts|9|32|And it came to pass, as Peter went throughout all parts, he came down also to the saints that dwelt at Lydda.
+Acts|9|33|And there he found a certain man named Aeneas, who had kept his bed eight years; for he was palsied.
+Acts|9|34|And Peter said unto him, Aeneas, Jesus Christ healeth thee: arise and make thy bed. And straightway he arose.
+Acts|9|35|And all that dwelt at Lydda and in Sharon saw him, and they turned to the Lord.
+Acts|9|36|Now there was at Joppa a certain disciple named Tabitha, which by interpretation is called Dorcas: this woman was full of good works and almsdeeds which she did.
+Acts|9|37|And it came to pass in those days, that she fell sick, and died: and when they had washed her, they laid her in an upper chamber.
+Acts|9|38|And as Lydda was nigh unto Joppa, the disciples, hearing that Peter was there, sent two men unto him, entreating him, Delay not to come on unto us.
+Acts|9|39|And Peter arose and went with them. And when he was come, they brought him into the upper chamber: and all the widows stood by him weeping, and showing the coats and garments which Dorcas made, while she was with them.
+Acts|9|40|But Peter put them all forth, and kneeled down and prayed; and turning to the body, he said, Tabitha, arise. And she opened her eyes; and when she saw Peter, she sat up.
+Acts|9|41|And he gave her his hand, and raised her up; and calling the saints and widows, he presented her alive.
+Acts|9|42|And it became known throughout all Joppa: and many believed on the Lord.
+Acts|9|43|And it came to pass, that he abode many days in Joppa with one Simon a tanner.
+Acts|10|1|Now {there was} a certain man in Caesarea, Cornelius by name, a centurion of the band called the Italian {band},
+Acts|10|2|a devout man, and one that feared God with all his house, who gave much alms to the people, and prayed to God always.
+Acts|10|3|He saw in a vision openly, as it were about the ninth hour of the day, an angel of God coming in unto him, and saying to him, Cornelius.
+Acts|10|4|And he, fastening his eyes upon him, and being affrighted, said, What is it, Lord? And he said unto him, Thy prayers and thine alms are gone up for a memorial before God.
+Acts|10|5|And now send men to Joppa, and fetch one Simon, who is surnamed Peter:
+Acts|10|6|he lodgeth with one Simon a tanner, whose house is by the sea side.
+Acts|10|7|And when the angel that spake unto him was departed, he called two of his household-servants, and a devout soldier of them that waited on him continually;
+Acts|10|8|and having rehearsed all things unto them, he sent them to Joppa.
+Acts|10|9|Now on the morrow, as they were on their journey, and drew nigh unto the city, Peter went up upon the housetop to pray, about the sixth hour:
+Acts|10|10|and he became hungry, and desired to eat: but while they made ready, he fell into a trance;
+Acts|10|11|and he beholdeth the heaven opened, and a certain vessel descending, as it were a great sheet, let down by four corners upon the earth:
+Acts|10|12|wherein were all manner of fourfooted beasts and creeping things of the earth and birds of the heaven.
+Acts|10|13|And there came a voice to him, Rise, Peter; kill and eat.
+Acts|10|14|But Peter said, Not so, Lord; for I have never eaten anything that is common and unclean.
+Acts|10|15|And a voice {came} unto him again the second time, What God hath cleansed, make not thou common.
+Acts|10|16|And this was done thrice: and straightway the vessel was received up into heaven.
+Acts|10|17|Now while Peter was much perplexed in himself what the vision which he had seen might mean, behold, the men that were sent by Cornelius, having made inquiry for Simon’s house, stood before the gate,
+Acts|10|18|and called and asked whether Simon, who was surnamed Peter, were lodging there.
+Acts|10|19|And while Peter thought on the vision, the Spirit said unto him, Behold, three men seek thee.
+Acts|10|20|But arise, and get thee down, and go with them, nothing doubting: for I have sent them.
+Acts|10|21|And Peter went down to the men, and said, Behold, I am he whom ye seek: what is the cause wherefore ye are come?
+Acts|10|22|And they said, Cornelius a centurion, a righteous man and one that feareth God, and well reported of by all the nation of the Jews, was warned {of God} by a holy angel to send for thee into his house, and to hear words from thee.

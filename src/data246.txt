@@ -1,0 +1,100 @@
+Job|16|5|{But} I would strengthen you with my mouth,                   And the solace of my lips would assuage {your grief}.
+Job|16|6|Though I speak, my grief is not assuaged;                   And though I forbear, what am I eased?
+Job|16|7|But now he hath made me weary:                   Thou hast made desolate all my company.
+Job|16|8|And thou hast laid fast hold on me, {which} is a witness {against me}:                   And my leanness riseth up against me,                   It testifieth to my face.
+Job|16|9|He hath torn me in his wrath, and persecuted me;                   He hath gnashed upon me with his teeth:                   Mine adversary sharpeneth his eyes upon me.
+Job|16|10|They have gaped upon me with their mouth;                   They have smitten me upon the cheek reproachfully:                   They gather themselves together against me.
+Job|16|11|God delivereth me to the ungodly,                   And casteth me into the hands of the wicked.
+Job|16|12|I was at ease, and he brake me asunder;                   Yea, he hath taken me by the neck, and dashed me to pieces:                   He hath also set me up for his mark.
+Job|16|13|His archers compass me round about;                   He cleaveth my reins asunder, and doth not spare;                   He poureth out my gall upon the ground.
+Job|16|14|He breaketh me with breach upon breach;                   He runneth upon me like a giant.
+Job|16|15|I have sewed sackcloth upon my skin,                   And have laid my horn in the dust.
+Job|16|16|My face is red with weeping,                   And on my eyelids is the shadow of death;
+Job|16|17|Although there is no violence in my hands,                   And my prayer is pure.
+Job|16|18|O earth, cover not thou my blood,                   And let my cry have no {resting} -place.
+Job|16|19|Even now, behold, my witness is in heaven,                   And he that voucheth for me is on high.
+Job|16|20|My friends scoff at me:                           {But} mine eye poureth out tears unto God,
+Job|16|21|That he would maintain the right of a man with God,                   And of a son of man with his neighbor!
+Job|16|22|For when a few years are come,                   I shall go the way whence I shall not return.
+Job|17|1|My spirit is consumed, my days are extinct,                   The grave is {ready} for me.
+Job|17|2|Surely there are mockers with me,                   And mine eye dwelleth upon their provocation.
+Job|17|3|Give now a pledge, be surety for me with thyself;                   Who is there that will strike hands with me?
+Job|17|4|For thou hast hid their heart from understanding:                   Therefore shalt thou not exalt {them}.
+Job|17|5|He that denounceth his friends for a prey,                   Even the eyes of his children shall fail.
+Job|17|6|But he hath made me a byword of the people;                   And they spit in my face.
+Job|17|7|Mine eye also is dim by reason of sorrow,                   And all my members are as a shadow.
+Job|17|8|Upright men shall be astonished at this,                   And the innocent shall stir up himself against the godless.
+Job|17|9|Yet shall the righteous hold on his way,                   And he that hath clean hands shall wax stronger and stronger.
+Job|17|10|But as for you all, come on now again;                   And I shall not find a wise man among you.
+Job|17|11|My days are past, my purposes are broken off,                   Even the thoughts of my heart.
+Job|17|12|They change the night into day:                   The light, {say they}, is near unto the darkness.
+Job|17|13|If I look for Sheol as my house;                   If I have spread my couch in the darkness;
+Job|17|14|If I have said to corruption, Thou art my father;                   To the worm, {Thou art} my mother, and my sister;
+Job|17|15|Where then is my hope?                   And as for my hope, who shall see it?
+Job|17|16|It shall go down to the bars of Sheol,                   When once there is rest in the dust.
+Job|18|1|Then answered Bildad the Shuhite, and said,
+Job|18|2|How long will ye hunt for words?                   Consider, and afterwards we will speak.
+Job|18|3|Wherefore are we counted as beasts,                           {And} are become unclean in your sight?
+Job|18|4|Thou that tearest thyself in thine anger,                   Shall the earth be forsaken for thee?                   Or shall the rock be removed out of its place?
+Job|18|5|Yea, the light of the wicked shall be put out,                   And the spark of his fire shall not shine.
+Job|18|6|The light shall be dark in his tent,                   And his lamp above him shall be put out.
+Job|18|7|The steps of his strength shall be straitened,                   And his own counsel shall cast him down.
+Job|18|8|For he is cast into a net by his own feet,                   And he walketh upon the toils.
+Job|18|9|A gin shall take {him} by the heel,                           {And} a snare shall lay hold on him.
+Job|18|10|A noose is hid for him in the ground,                   And a trap for him in the way.
+Job|18|11|Terrors shall make him afraid on every side,                   And shall chase him at his heels.
+Job|18|12|His strength shall be hunger-bitten,                   And calamity shall be ready at his side.
+Job|18|13|The members of his body shall be devoured,                           {Yea}, the first-born of death shall devour his members.
+Job|18|14|He shall be rooted out of his tent where he trusteth;                   And he shall be brought to the king of terrors.
+Job|18|15|There shall dwell in his tent that which is none of his:                   Brimstone shall be scattered upon his habitation.
+Job|18|16|His roots shall be dried up beneath,                   And above shall his branch be cut off.
+Job|18|17|His remembrance shall perish from the earth,                   And he shall have no name in the street.
+Job|18|18|He shall be driven from light into darkness,                   And chased out of the world.
+Job|18|19|He shall have neither son nor son’s son among his people,                   Nor any remaining where he sojourned.
+Job|18|20|They that come after shall be astonished at his day,                   As they that went before were affrighted.
+Job|18|21|Surely such are the dwellings of the unrighteous,                   And this is the place of him that knoweth not God.
+Job|19|1|Then Job answered and said,
+Job|19|2|How long will ye vex my soul,                   And break me in pieces with words?
+Job|19|3|These ten times have ye reproached me:                   Ye are not ashamed that ye deal hardly with me.
+Job|19|4|And be it indeed that I have erred,                   Mine error remaineth with myself.
+Job|19|5|If indeed ye will magnify yourselves against me,                   And plead against me my reproach;
+Job|19|6|Know now that God hath subverted me {in my cause},                   And hath compassed me with his net.
+Job|19|7|Behold, I cry out of wrong, but I am not heard:                   I cry for help, but there is no justice.
+Job|19|8|He hath walled up my way that I cannot pass,                   And hath set darkness in my paths.
+Job|19|9|He hath stripped me of my glory,                   And taken the crown from my head.
+Job|19|10|He hath broken me down on every side, and I am gone;                   And my hope hath he plucked up like a tree.
+Job|19|11|He hath also kindled his wrath against me,                   And he counteth me unto him as {one of} his adversaries.
+Job|19|12|His troops come on together,                   And cast up their way against me,                   And encamp round about my tent.
+Job|19|13|He hath put my brethren far from me,                   And mine acquaintance are wholly estranged from me.
+Job|19|14|My kinsfolk have failed,                   And my familiar friends have forgotten me.
+Job|19|15|They that dwell in my house, and my maids, count me for a stranger;                   I am an alien in their sight.
+Job|19|16|I call unto my servant, and he giveth me no answer,                           {Though} I entreat him with my mouth.
+Job|19|17|My breath is strange to my wife,                   And my supplication to the children of mine own mother.
+Job|19|18|Even young children despise me;                   If I arise, they speak against me.
+Job|19|19|All my familiar friends abhor me,                   And they whom I loved are turned against me.
+Job|19|20|My bone cleaveth to my skin and to my flesh,                   And I am escaped with the skin of my teeth.
+Job|19|21|Have pity upon me, have pity upon me, O ye my friends;                   For the hand of God hath touched me.
+Job|19|22|Why do ye persecute me as God,                   And are not satisfied with my flesh?
+Job|19|23|Oh that my words were now written!                   Oh that they were inscribed in a book!
+Job|19|24|That with an iron pen and lead                   They were graven in the rock for ever!
+Job|19|25|But as for me I know that my Redeemer liveth,                   And at last he will stand up upon the earth:
+Job|19|26|And after my skin, {even} this {body}, is destroyed,                   Then without my flesh shall I see God;
+Job|19|27|Whom I, even I, shall see, on my side,                   And mine eyes shall behold, and not as a stranger.                   My heart is consumed within me.
+Job|19|28|If ye say, How we will persecute him!                   And that the root of the matter is found in me;
+Job|19|29|Be ye afraid of the sword:                   For wrath {bringeth} the punishments of the sword,                   That ye may know there is a judgment.
+Job|20|1|Then answered Zophar the Naamathite, and said,
+Job|20|2|Therefore do my thoughts give answer to me,                   Even by reason of my haste that is in me.
+Job|20|3|I have heard the reproof which putteth me to shame;                   And the spirit of my understanding answereth me.
+Job|20|4|Knowest thou {not} this of old time,                   Since man was placed upon earth,
+Job|20|5|That the triumphing of the wicked is short,                   And the joy of the godless but for a moment?
+Job|20|6|Though his height mount up to the heavens,                   And his head reach unto the clouds;
+Job|20|7|Yet he shall perish for ever like his own dung:                   They that have seen him shall say, Where is he?
+Job|20|8|He shall fly away as a dream, and shall not be found:                   Yea, he shall be chased away as a vision of the night.
+Job|20|9|The eye which saw him shall see him no more;                   Neither shall his place any more behold him.
+Job|20|10|His children shall seek the favor of the poor,                   And his hands shall give back his wealth.
+Job|20|11|His bones are full of his youth,                   But it shall lie down with him in the dust.
+Job|20|12|Though wickedness be sweet in his mouth,                   Though he hide it under his tongue,
+Job|20|13|Though he spare it, and will not let it go,                   But keep it still within his mouth;
+Job|20|14|Yet his food in his bowels is turned,                   It is the gall of asps within him.
+Job|20|15|He hath swallowed down riches, and he shall vomit them up again;                   God will cast them out of his belly.
+Job|20|16|He shall suck the poison of asps:                   The viper’s tongue shall slay him.

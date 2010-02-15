@@ -1,0 +1,100 @@
+John|1|17|For the law was given through Moses; grace and truth came through Jesus Christ.
+John|1|18|No man hath seen God at any time; the only begotten Son, who is in the bosom of the Father, he hath declared {him}.
+John|1|19|And this is the witness of John, when the Jews sent unto him from Jerusalem priests and Levites to ask him, Who art thou?
+John|1|20|And he confessed, and denied not; and he confessed, I am not the Christ.
+John|1|21|And they asked him, What then? Art thou Elijah? And he saith, I am not. Art thou the prophet? And he answered, No.
+John|1|22|They said therefore unto him, Who art thou? that we may give an answer to them that sent us. What sayest thou of thyself?
+John|1|23|He said, I am the voice of one crying in the wilderness, Make straight the way of the Lord, as said Isaiah the prophet.
+John|1|24|And they had been sent from the Pharisees.
+John|1|25|And they asked him, and said unto him, Why then baptizest thou, if thou art not the Christ, neither Elijah, neither the prophet?
+John|1|26|John answered them, saying, I baptize in water: in the midst of you standeth one whom ye know not,
+John|1|27|{even} he that cometh after me, the latchet of whose shoe I am not worthy to unloose.
+John|1|28|These things were done in Bethany beyond the Jordan, where John was baptizing.
+John|1|29|On the morrow he seeth Jesus coming unto him, and saith, Behold, the Lamb of God, that taketh away the sin of the world!
+John|1|30|This is he of whom I said, After me cometh a man who is become before me: for he was before me.
+John|1|31|And I knew him not; but that he should be made manifest to Israel, for this cause came I baptizing in water.
+John|1|32|And John bare witness, saying, I have beheld the Spirit descending as a dove out of heaven; and it abode upon him.
+John|1|33|And I knew him not: but he that sent me to baptize in water, he said unto me, Upon whomsoever thou shalt see the Spirit descending, and abiding upon him, the same is he that baptizeth in the Holy Spirit.
+John|1|34|And I have seen, and have borne witness that this is the Son of God.
+John|1|35|Again on the morrow John was standing, and two of his disciples;
+John|1|36|and he looked upon Jesus as he walked, and saith, Behold, the Lamb of God!
+John|1|37|And the two disciples heard him speak, and they followed Jesus.
+John|1|38|And Jesus turned, and beheld them following, and saith unto them, What seek ye? And they said unto him, Rabbi (which is to say, being interpreted, Teacher), where abideth thou?
+John|1|39|He saith unto them, Come, and ye shall see. They came therefore and saw where he abode; and they abode with him that day: it was about the tenth hour.
+John|1|40|One of the two that heard John {speak}, and followed him, was Andrew, Simon Peter’s brother.
+John|1|41|He findeth first his own brother Simon, and saith unto him, We have found the Messiah (which is, being interpreted, Christ).
+John|1|42|He brought him unto Jesus. Jesus looked upon him, and said, Thou art Simon the son of John: thou shalt be called Cephas (which is by interpretation, Peter).
+John|1|43|On the morrow he was minded to go forth into Galilee, and he findeth Philip: and Jesus saith unto him, Follow me.
+John|1|44|Now Philip was from Bethsaida, of the city of Andrew and Peter.
+John|1|45|Philip findeth Nathanael, and saith unto him, We have found him, of whom Moses in the law, and the prophets, wrote, Jesus of Nazareth, the son of Joseph.
+John|1|46|And Nathanael said unto him, Can any good thing come out of Nazareth? Philip saith unto him, Come and see.
+John|1|47|Jesus saw Nathanael coming to him, and saith of him, Behold, an Israelite indeed, in whom is no guile!
+John|1|48|Nathanael saith unto him, Whence knowest thou me? Jesus answered and said unto him, Before Philip called thee, when thou wast under the fig tree, I saw thee.
+John|1|49|Nathanael answered him, Rabbi, thou art the Son of God; thou art King of Israel.
+John|1|50|Jesus answered and said unto him, Because I said unto thee, I saw thee underneath the fig tree, believest thou? thou shalt see greater things than these.
+John|1|51|And he saith unto him, Verily, verily, I say unto you, Ye shall see the heaven opened, and the angels of God ascending and descending upon the Son of man.
+John|2|1|And the third day there was a marriage in Cana of Galilee; and the mother of Jesus was there:
+John|2|2|and Jesus also was bidden, and his disciples, to the marriage.
+John|2|3|And when the wine failed, the mother of Jesus saith unto him, They have no wine.
+John|2|4|And Jesus saith unto her, Woman, what have I to do with thee? mine hour is not yet come.
+John|2|5|His mother saith unto the servants, Whatsoever he saith unto you, do it.
+John|2|6|Now there were six waterpots of stone set there after the Jews’ manner of purifying, containing two or three firkins apiece.
+John|2|7|Jesus saith unto them, Fill the waterpots with water. And they filled them up to the brim.
+John|2|8|And he saith unto them, Draw out now, and bear unto the ruler of the feast. And they bare it.
+John|2|9|And when the ruler of the feast tasted the water now become wine, and knew not whence it was (but the servants that had drawn the water knew), the ruler of the feast calleth the bridegroom,
+John|2|10|and saith unto him, Every man setteth on first the good wine; and when {men} have drunk freely, {then} that which is worse: thou hast kept the good wine until now.
+John|2|11|This beginning of his signs did Jesus in Cana of Galilee, and manifested his glory; and his disciples believed on him.
+John|2|12|After this he went down to Capernaum, he, and his mother, and {his} brethren, and his disciples; and there they abode not many days.
+John|2|13|And the passover of the Jews was at hand, and Jesus went up to Jerusalem.
+John|2|14|And he found in the temple those that sold oxen and sheep and doves, and the changers of money sitting:
+John|2|15|and he made a scourge of cords, and cast all out of the temple, both the sheep and the oxen; and he poured out the changers’ money, and overthrew their tables;
+John|2|16|and to them that sold the doves he said, Take these things hence; make not my Father’s house a house of merchandise.
+John|2|17|His disciples remembered that it was written, Zeal for thy house shall eat me up.
+John|2|18|The Jews therefore answered and said unto him, What sign showest thou unto us, seeing that thou doest these things?
+John|2|19|Jesus answered and said unto them, Destroy this temple, and in three days I will raise it up.
+John|2|20|The Jews therefore said, Forty and six years was this temple in building, and wilt thou raise it up in three days?
+John|2|21|But he spake of the temple of his body.
+John|2|22|When therefore he was raised from the dead, his disciples remembered that he spake this; and they believed the scripture, and the word which Jesus had said.
+John|2|23|Now when he was in Jerusalem at the passover, during the feast, many believed on his name, beholding his signs which he did.
+John|2|24|But Jesus did not trust himself unto them, for that he knew all men,
+John|2|25|and because he needed not that any one should bear witness concerning man; for he himself knew what was in man.
+John|3|1|Now there was a man of the Pharisees, named Nicodemus, a ruler of the Jews:
+John|3|2|the same came unto him by night, and said to him, Rabbi, we know that thou art a teacher come from God; for no one can do these signs that thou doest, except God be with him.
+John|3|3|Jesus answered and said unto him, Verily, verily, I say unto thee, Except one be born anew, he cannot see the kingdom of God.
+John|3|4|Nicodemus saith unto him, How can a man be born when he is old? can he enter a second time into his mother’s womb, and be born?
+John|3|5|Jesus answered, Verily, verily, I say unto thee, Except one be born of water and the Spirit, he cannot enter into the kingdom of God!
+John|3|6|That which is born of the flesh is flesh; and that which is born of the Spirit is spirit.
+John|3|7|Marvel not that I said unto thee, Ye must be born anew.
+John|3|8|The wind bloweth where it will, and thou hearest the voice thereof, but knowest not whence it cometh, and whither it goeth: so is every one that is born of the Spirit.
+John|3|9|Nicodemus answered and said unto him, How can these things be?
+John|3|10|Jesus answered and said unto him, Art thou the teacher of Israel, and understandest not these things?
+John|3|11|Verily, verily, I say unto thee, We speak that which we know, and bear witness of that which we have seen; and ye receive not our witness.
+John|3|12|If I told you earthly things and ye believe not, how shall ye believe if I tell you heavenly things?
+John|3|13|And no one hath ascended into heaven, but he that descended out of heaven, {even} the Son of man, who is in heaven.
+John|3|14|And as Moses lifted up the serpent in the wilderness, even so must the Son of man be lifted up;
+John|3|15|that whosoever believeth may in him have eternal life.
+John|3|16|For God so loved the world, that he gave his only begotten Son, that whosoever believeth on him should not perish, but have eternal life.
+John|3|17|For God sent not the Son into the world to judge the world; but that the world should be saved through him.
+John|3|18|He that believeth on him is not judged: he that believeth not hath been judged already, because he hath not believed on the name of the only begotten Son of God.
+John|3|19|And this is the judgment, that the light is come into the world, and men loved the darkness rather than the light; for their works were evil.
+John|3|20|For every one that doeth evil hateth the light, and cometh not to the light, lest his works should be reproved.
+John|3|21|But he that doeth the truth cometh to the light, that his works may be made manifest, that they have been wrought in God.
+John|3|22|After these things came Jesus and his disciples into the land of Judea; and there he tarried with them, and baptized.
+John|3|23|And John also was baptizing in Enon near to Salim, because there was much water there: and they came, and were baptized.
+John|3|24|For John was not yet cast into prison.
+John|3|25|There arose therefore a questioning on the part of John’s disciples with a Jew about purifying.
+John|3|26|And they came unto John, and said to him, Rabbi, he that was with thee beyond the Jordan, to whom thou hast borne witness, behold, the same baptizeth, and all men come to him.
+John|3|27|John answered and said, A man can receive nothing, except it have been given him from heaven.
+John|3|28|Ye yourselves bear me witness, that I said, I am not the Christ, but, that I am sent before him.
+John|3|29|He that hath the bride is the bridegroom: but the friend of the bridegroom, that standeth and heareth him, rejoiceth greatly because of the bridegroom’s voice: this my joy therefore is made full.
+John|3|30|He must increase, but I must decrease.
+John|3|31|He that cometh from above is above all: he that is of the earth is of the earth, and of the earth he speaketh: he that cometh from heaven is above all.
+John|3|32|What he hath seen and heard, of that he beareth witness; and no man receiveth his witness.
+John|3|33|He that hath received his witness hath set his seal to {this}, that God is true.
+John|3|34|For he whom God hath sent speaketh the words of God: for he giveth not the Spirit by measure.
+John|3|35|The Father loveth the Son, and hath given all things into his hand.
+John|3|36|He that believeth on the Son hath eternal life; but he that obeyeth not the Son shall not see life, but the wrath of God abideth on him.
+John|4|1|When therefore the Lord knew that the Pharisees had heard that Jesus was making and baptizing more disciples than John
+John|4|2|(although Jesus himself baptized not, but his disciples),
+John|4|3|he left Judea, and departed again into Galilee.
+John|4|4|And he must needs pass through Samaria.

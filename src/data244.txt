@@ -1,0 +1,100 @@
+Job|8|14|Whose confidence shall break in sunder,                   And whose trust is a spider’s web.
+Job|8|15|He shall lean upon his house, but it shall not stand:                   He shall hold fast thereby, but it shall not endure.
+Job|8|16|He is green before the sun,                   And his shoots go forth over his garden.
+Job|8|17|His roots are wrapped about the {stone} -heap,                   He beholdeth the place of stones.
+Job|8|18|If he be destroyed from his place,                   Then it shall deny him, {saying}, I have not seen thee.
+Job|8|19|Behold, this is the joy of his way;                   And out of the earth shall others spring.
+Job|8|20|Behold, God will not cast away a perfect man,                   Neither will he uphold the evil-doers.
+Job|8|21|He will yet fill thy mouth with laughter,                   And thy lips with shouting.
+Job|8|22|They that hate thee shall be clothed with shame;                   And the tent of the wicked shall be no more.
+Job|9|1|Then Job answered and said,
+Job|9|2|Of a truth I know that it is so:                   But how can man be just with God?
+Job|9|3|If he be pleased to contend with him,                   He cannot answer him one of a thousand.
+Job|9|4|{He is} wise in heart, and mighty in strength:                   Who hath hardened himself against him, and prospered?-
+Job|9|5|{Him} that removeth the mountains, and they know it not,                   When he overturneth them in his anger;
+Job|9|6|That shaketh the earth out of its place,                   And the pillars thereof tremble;
+Job|9|7|That commandeth the sun, and it riseth not,                   And sealeth up the stars;
+Job|9|8|That alone stretcheth out the heavens,                   And treadeth upon the waves of the sea;
+Job|9|9|That maketh the Bear, Orion, and the Pleiades,                   And the chambers of the south;
+Job|9|10|That doeth great things past finding out,                   Yea, marvellous things without number.
+Job|9|11|Lo, he goeth by me, and I see him not:                   He passeth on also, but I perceive him not.
+Job|9|12|Behold, he seizeth {the prey}, who can hinder him?                   Who will say unto him, What doest thou?
+Job|9|13|God will not withdraw his anger;                   The helpers of Rahab do stoop under him.
+Job|9|14|How much less shall I answer him,                   And choose out my words {to reason} with him?
+Job|9|15|Whom, though I were righteous, yet would I not answer;                   I would make supplication to my judge.
+Job|9|16|If I had called, and he had answered me,                   Yet would I not believe that he hearkened unto my voice.
+Job|9|17|For he breaketh me with a tempest,                   And multiplieth my wounds without cause.
+Job|9|18|He will not suffer me to take my breath,                   But filleth me with bitterness.
+Job|9|19|If {we speak} of strength, lo, {he is} mighty!                   And if of justice, Who, {saith he}, will summon me?
+Job|9|20|Though I be righteous, mine own mouth shall condemn me:                   Though I be perfect, it shall prove me perverse.
+Job|9|21|I am perfect; I regard not myself;                   I despise my life.
+Job|9|22|It is all one; therefore I say,                   He destroyeth the perfect and the wicked.
+Job|9|23|If the scourge slay suddenly,                   He will mock at the trial of the innocent.
+Job|9|24|The earth is given into the hand of the wicked;                   He covereth the faces of the judges thereof:                   If {it be} not {he}, who then is it?
+Job|9|25|Now my days are swifter than a post:                   They flee away, they see no good,
+Job|9|26|They are passed away as the swift ships;                   As the eagle that swoopeth on the prey.
+Job|9|27|If I say, I will forget my complaint,                   I will put off my {sad} countenance, and be of good cheer;
+Job|9|28|I am afraid of all my sorrows,                   I know that thou wilt not hold me innocent.
+Job|9|29|I shall be condemned;                   Why then do I labor in vain?
+Job|9|30|If I wash myself with snow water,                   And make my hands never so clean;
+Job|9|31|Yet wilt thou plunge me in the ditch,                   And mine own clothes shall abhor me.
+Job|9|32|For he is not a man, as I am, that I should answer him,                   That we should come together in judgment.
+Job|9|33|There is no umpire betwixt us,                   That might lay his hand upon us both.
+Job|9|34|Let him take his rod away from me,                   And let not his terror make me afraid:
+Job|9|35|Then would I speak, and not fear him;                   For I am not so in myself.
+Job|10|1|My soul is weary of my life;                   I will give free course to my complaint;                   I will speak in the bitterness of my soul.
+Job|10|2|I will say unto God, Do not condemn me;                   Show me wherefore thou contendest with me.
+Job|10|3|Is it good unto thee that thou shouldest oppress,                   That thou shouldest despise the work of thy hands,                   And shine upon the counsel of the wicked?
+Job|10|4|Hast thou eyes of flesh?                   Or seest thou as man seeth?
+Job|10|5|Are thy days as the days of man,                   Or thy years as man’s days,
+Job|10|6|That thou inquirest after mine iniquity,                   And searchest after my sin,
+Job|10|7|Although thou knowest that I am not wicked,                   And there is none that can deliver out of thy hand?
+Job|10|8|Thy hands have framed me and fashioned me                   Together round about; yet thou dost destroy me.
+Job|10|9|Remember, I beseech thee, that thou hast fashioned me as clay;                   And wilt thou bring me into dust again?
+Job|10|10|Hast thou not poured me out as milk,                   And curdled me like cheese?
+Job|10|11|Thou hast clothed me with skin and flesh,                   And knit me together with bones and sinews.
+Job|10|12|Thou hast granted me life and lovingkindness;                   And thy visitation hath preserved my spirit.
+Job|10|13|Yet these things thou didst hide in thy heart;                   I know that this is with thee:
+Job|10|14|If I sin, then thou markest me,                   And thou wilt not acquit me from mine iniquity.
+Job|10|15|If I be wicked, woe unto me;                   And if I be righteous, yet shall I not lift up my head;                   Being filled with ignominy,                   And looking upon mine affliction.
+Job|10|16|And if {my head} exalt itself, thou huntest me as a lion;                   And again thou showest thyself marvellous upon me.
+Job|10|17|Thou renewest thy witnesses against me,                   And increasest thine indignation upon me:                   Changes and warfare are with me.
+Job|10|18|Wherefore then hast thou brought me forth out of the womb?                   I had given up the ghost, and no eye had seen me.
+Job|10|19|I should have been as though I had not been;                   I should have been carried from the womb to the grave.
+Job|10|20|Are not my days few? cease then,                   And let me alone, that I may take comfort a little,
+Job|10|21|Before I go whence I shall not return,                           {Even} to the land of darkness and of the shadow of death;
+Job|10|22|The land dark as midnight,                           {The land} of the shadow of death, without any order,                   And where the light is as midnight.
+Job|11|1|Then answered Zophar the Naamathite, and said,
+Job|11|2|Should not the multitude of words be answered?                   And should a man full of talk be justified?
+Job|11|3|Should thy boastings make men hold their peace?                   And when thou mockest, shall no man make thee ashamed?
+Job|11|4|For thou sayest, My doctrine is pure,                   And I am clean in thine eyes.
+Job|11|5|But oh that God would speak,                   And open his lips against thee,
+Job|11|6|And that he would show thee the secrets of wisdom!                   For he is manifold in understanding.                   Know therefore that God exacteth of thee less than thine iniquity deserveth.
+Job|11|7|Canst thou by searching find out God?                   Canst thou find out the Almighty unto perfection?
+Job|11|8|It is high as heaven; what canst thou do?                   Deeper than Sheol; what canst thou know?
+Job|11|9|The measure thereof is longer than the earth,                   And broader than the sea.
+Job|11|10|If he pass through, and shut up,                   And all unto judgment, then who can hinder him?
+Job|11|11|For he knoweth false men:                   He seeth iniquity also, even though he consider it not.
+Job|11|12|But vain man is void of understanding,                   Yea, man is born {as} a wild ass’s colt.
+Job|11|13|If thou set thy heart aright,                   And stretch out thy hands toward him;
+Job|11|14|If iniquity be in thy hand, put it far away,                   And let not unrighteousness dwell in thy tents.
+Job|11|15|Surely then shalt thou lift up thy face without spot;                   Yea, thou shalt be stedfast, and shalt not fear:
+Job|11|16|For thou shalt forget thy misery;                   Thou shalt remember it as waters that are passed away,
+Job|11|17|And {thy} life shall be clearer than the noonday;                    Though there be darkness, it shall be as the morning.
+Job|11|18|And thou shalt be secure, because there is hope;                   Yea, thou shalt search {about thee}, and shalt take thy rest in safety.
+Job|11|19|Also thou shalt lie down, and none shall make thee afraid;                   Yea, many shall make suit unto thee.
+Job|11|20|But the eyes of the wicked shall fail,                   And they shall have no way to flee;                   And their hope shall be the giving up of the ghost.
+Job|12|1|Then Job answered and said,
+Job|12|2|No doubt but ye are the people,                   And wisdom shall die with you.
+Job|12|3|But I have understanding as well as you;                   I am not inferior to you:                   Yea, who knoweth not such things as these?
+Job|12|4|I am as one that is a laughing-stock to his neighbor,                   I who called upon God, and he answered:                   The just, the perfect man is a laughing-stock.
+Job|12|5|In the thought of him that is at ease there is contempt for misfortune;                   It is ready for them whose foot slippeth.
+Job|12|6|The tents of robbers prosper,                   And they that provoke God are secure;                   Into whose hand God bringeth {abundantly}.
+Job|12|7|But ask now the beasts, and they shall teach thee;                   And the birds of the heavens, and they shall tell thee:
+Job|12|8|Or speak to the earth, and it shall teach thee;                   And the fishes of the sea shall declare unto thee.
+Job|12|9|Who knoweth not in all these,                   That the hand of Jehovah hath wrought this,
+Job|12|10|In whose hand is the soul of every living thing,                   And the breath of all mankind?
+Job|12|11|Doth not the ear try words,                   Even as the palate tasteth its food?
+Job|12|12|With aged men is wisdom,                   And in length of days understanding.
+Job|12|13|With {God} is wisdom and might;                   He hath counsel and understanding.
+Job|12|14|Behold, he breaketh down, and it cannot be built again;                   He shutteth up a man, and there can be no opening.

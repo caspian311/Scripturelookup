@@ -1,0 +1,100 @@
+John|6|4|Now the passover, the feast of the Jews, was at hand.
+John|6|5|Jesus therefore lifting up his eyes, and seeing that a great multitude cometh unto him, saith unto Philip, Whence are we to buy bread, that these may eat?
+John|6|6|And this he said to prove him: for he himself knew what he would do.
+John|6|7|Philip answered him, Two hundred shillings’ worth of bread is not sufficient for them, that every one may take a little.
+John|6|8|One of his disciples, Andrew, Simon Peter’s brother, saith unto him,
+John|6|9|There is a lad here, who hath five barley loaves, and two fishes: but what are these among so many?
+John|6|10|Jesus said, Make the people sit down. Now there was much grass in the place. So the men sat down, in number about five thousand.
+John|6|11|Jesus therefore took the loaves; and having given thanks, he distributed to them that were set down; likewise also of the fishes as much as they would.
+John|6|12|And when they were filled, he saith unto his disciples, Gather up the broken pieces which remain over, that nothing be lost.
+John|6|13|So they gathered them up, and filled twelve baskets with broken pieces from the five barley loaves, which remained over unto them that had eaten.
+John|6|14|When therefore the people saw the sign which he did, they said, This is of a truth the prophet that cometh into the world.
+John|6|15|Jesus therefore perceiving that they were about to come and take him by force, to make him king, withdrew again into the mountain himself alone.
+John|6|16|And when evening came, his disciples went down unto the sea;
+John|6|17|and they entered into a boat, and were going over the sea unto Capernaum. And it was now dark, and Jesus had not yet come to them.
+John|6|18|And the sea was rising by reason of a great wind that blew.
+John|6|19|When therefore they had rowed about five and twenty or thirty furlongs, they behold Jesus walking on the sea, and drawing nigh unto the boat: and they were afraid.
+John|6|20|But he saith unto them, It is I; be not afraid.
+John|6|21|They were willing therefore to receive him into the boat: and straightway the boat was at the land whither they were going.
+John|6|22|On the morrow the multitude that stood on the other side of the sea saw that there was no other boat there, save one, and that Jesus entered not with his disciples into the boat, but {that} his disciples went away alone
+John|6|23|(howbeit there came boats from Tiberias nigh unto the place where they ate the bread after the Lord had given thanks):
+John|6|24|when the multitude therefore saw that Jesus was not there, neither his disciples, they themselves got into the boats, and came to Capernaum, seeking Jesus.
+John|6|25|And when they found him on the other side of the sea, they said unto him, Rabbi, when camest thou hither?
+John|6|26|Jesus answered them and said, Verily, verily, I say unto you, Ye seek me, not because ye saw signs, but because ye ate of the loaves, and were filled.
+John|6|27|Work not for the food which perisheth, but for the food which abideth unto eternal life, which the Son of man shall give unto you: for him the Father, even God, hath sealed.
+John|6|28|They said therefore unto him, What must we do, that we may work the works of God?
+John|6|29|Jesus answered and said unto them, This is the work of God, that ye believe on him whom he hath sent.
+John|6|30|They said therefore unto him, What then doest thou for a sign, that we may see, and believe thee? what workest thou?
+John|6|31|Our fathers ate the manna in the wilderness; as it is written, He gave them bread out of heaven to eat.
+John|6|32|Jesus therefore said unto them, Verily, verily, I say unto you, It was not Moses that gave you the bread out of heaven; but my Father giveth you the true bread out of heaven.
+John|6|33|For the bread of God is that which cometh down out of heaven, and giveth life unto the world.
+John|6|34|They said therefore unto him, Lord, evermore give us this bread.
+John|6|35|Jesus said unto them. I am the bread of life: he that cometh to me shall not hunger, and he that believeth on me shall never thirst.
+John|6|36|But I said unto you, that ye have seen me, and yet believe not.
+John|6|37|All that which the Father giveth me shall come unto me; and him that cometh to me I will in no wise cast out.
+John|6|38|For I am come down from heaven, not to do mine own will, but the will of him that sent me.
+John|6|39|And this is the will of him that sent me, that of all that which he hath given me I should lose nothing, but should raise it up at the last day.
+John|6|40|For this is the will of my Father, that every one that beholdeth the Son, and believeth on him, should have eternal life; and I will raise him up at the last day.
+John|6|41|The Jews therefore murmured concerning him, because he said, I am the bread which came down out of heaven.
+John|6|42|And they said, Is not this Jesus, the son of Joseph, whose father and mother we know? how doth he now say, I am come down out of heaven?
+John|6|43|Jesus answered and said unto them, Murmur not among yourselves.
+John|6|44|No man can come to me, except the Father that sent me draw him: and I will raise him up in the last day.
+John|6|45|It is written in the prophets, And they shall all be taught of God. Every one that hath heard from the Father, and hath learned, cometh unto me.
+John|6|46|Not that any man hath seen the Father, save he that is from God, he hath seen the Father.
+John|6|47|Verily, verily, I say unto you, He that believeth hath eternal life.
+John|6|48|I am the bread of life.
+John|6|49|Your fathers ate the manna in the wilderness, and they died.
+John|6|50|This is the bread which cometh down out of heaven, that a man may eat thereof, and not die.
+John|6|51|I am the living bread which came down out of heaven: if any man eat of this bread, he shall live for ever: yea and the bread which I will give is my flesh, for the life of the world.
+John|6|52|The Jews therefore strove one with another, saying, How can this man give us his flesh to eat?
+John|6|53|Jesus therefore said unto them, Verily, verily, I say unto you, Except ye eat the flesh of the Son of man and drink his blood, ye have not life in yourselves.
+John|6|54|He that eateth my flesh and drinketh my blood hath eternal life: and I will raise him up at the last day.
+John|6|55|For my flesh is meat indeed, and my blood is drink indeed.
+John|6|56|He that eateth my flesh and drinketh my blood abideth in me, and I in him.
+John|6|57|As the living Father sent me, and I live because of the Father; so he that eateth me, he also shall live because of me.
+John|6|58|This is the bread which came down out of heaven: not as the fathers ate, and died; he that eateth this bread shall live for ever.
+John|6|59|These things said he in the synagogue, as he taught in Capernaum.
+John|6|60|Many therefore of his disciples, when they heard {this}, said, This is a hard saying; who can hear it?
+John|6|61|But Jesus knowing in himself that his disciples murmured at this, said unto them, Doth this cause you to stumble?
+John|6|62|{What} then if ye should behold the Son of man ascending where he was before?
+John|6|63|It is the spirit that giveth life; the flesh profiteth nothing: the words that I have spoken unto you are spirit, and are life.
+John|6|64|But there are some of you that believe not. For Jesus knew from the beginning who they were that believed not, and who it was that should betray him.
+John|6|65|And he said, For this cause have I said unto you, that no man can come unto me, except it be given unto him of the Father.
+John|6|66|Upon this many of his disciples went back, and walked no more with him.
+John|6|67|Jesus said therefore unto the twelve, Would ye also go away?
+John|6|68|Simon Peter answered him, Lord, to whom shall we go? thou hast the words of eternal life.
+John|6|69|And we have believed and know that thou art the Holy One of God.
+John|6|70|Jesus answered them, Did not I choose you the twelve, and one of you is a devil?
+John|6|71|Now he spake of Judas {the son} of Simon Iscariot, for he it was that should betray him, {being} one of the twelve.
+John|7|1|And after these things Jesus walked in Galilee: for he would not walk in Judaea, because the Jews sought to kill him.
+John|7|2|Now the feast of the Jews, the feast of tabernacles, was at hand.
+John|7|3|His brethren therefore said unto him, Depart hence, and go into Judaea, that thy disciples also may behold thy works which thou doest.
+John|7|4|For no man doeth anything in secret, and himself seeketh to be known openly. If thou doest these things, manifest thyself to the world.
+John|7|5|For even his brethren did not believe on him.
+John|7|6|Jesus therefore saith unto them, My time is not yet come; but your time is always ready.
+John|7|7|The world cannot hate you; but me it hateth, because I testify of it, that its works are evil.
+John|7|8|Go ye up unto the feast: I go not up unto this feast; because my time is not yet fulfilled.
+John|7|9|And having said these things unto them, he abode {still} in Galilee.
+John|7|10|But when his brethren were gone up unto the feast, then went he also up, not publicly, but as it were in secret.
+John|7|11|The Jews therefore sought him at the feast, and said, Where is he?
+John|7|12|And there was much murmuring among the multitudes concerning him: some said, He is a good man; others said, Not so, but he leadeth the multitude astray.
+John|7|13|Yet no man spake openly of him for fear of the Jews.
+John|7|14|But when it was now the midst of the feast Jesus went up into the temple, and taught.
+John|7|15|The Jews therefore marvelled, saying, How knoweth this man letters, having never learned?
+John|7|16|Jesus therefore answered them and said, My teaching is not mine, but his that sent me.
+John|7|17|If any man willeth to do his will, he shall know of the teaching, whether it is of God, or {whether} I speak from myself.
+John|7|18|He that speaketh from himself seeketh his own glory: but he that seeketh the glory of him that sent him, the same is true, and no unrighteousness is in him.
+John|7|19|Did not Moses give you the law, and {yet} none of you doeth the law? Why seek ye to kill me?
+John|7|20|The multitude answered, Thou hast a demon: who seeketh to kill thee?
+John|7|21|Jesus answered and said unto them, I did one work, and ye all marvel because thereof.
+John|7|22|Moses hath given you circumcision (not that it is of Moses, but of the fathers); and on the sabbath ye circumcise a man.
+John|7|23|If a man receiveth circumcision on the sabbath, that the law of Moses may not be broken; are ye wroth with me, because I made a man every whit whole on the sabbath?
+John|7|24|Judge not according to appearance, but judge righteous judgment.
+John|7|25|Some therefore of them of Jerusalem said, Is not this he whom they seek to kill?
+John|7|26|And lo, he speaketh openly, and they say nothing unto him. Can it be that the rulers indeed know that this is the Christ?
+John|7|27|Howbeit we know this man whence he is: but when the Christ cometh, no one knoweth whence he is.
+John|7|28|Jesus therefore cried in the temple, teaching and saying, Ye both know me, and know whence I am; and I am not come of myself, but he that sent me is true, whom ye know not.
+John|7|29|I know him; because I am from him, and he sent me.
+John|7|30|They sought therefore to take him: and no man laid his hand on him, because his hour was not yet come.
+John|7|31|But of the multitude many believed on him; and they said, When the Christ shall come, will he do more signs than those which this man hath done?
+John|7|32|The Pharisees heard the multitude murmuring these things concerning him; and the chief priests and the Pharisees sent officers to take him.
