@@ -9,7 +9,7 @@ public class FileProvider implements IFileProvider {
 	public List<String> filesToLoad() {
 		List<String> filesToLoad = new ArrayList<String>();
 		for (int i = 1; i <= 312; i++) {
-			filesToLoad.add("data" + i + ".txt");
+			filesToLoad.add("/data" + i + ".txt");
 		}
 		return Collections.unmodifiableList(filesToLoad);
 	}
