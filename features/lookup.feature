@@ -20,7 +20,6 @@ Feature: Lookup Service
     And I click the "Search" button
     Then I should see "No results found"
 
-  @Pending
   Scenario: Gen 1:1 by reference
     Given scripturelookup is running
     When I go to "/"

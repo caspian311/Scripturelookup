@@ -122,15 +122,15 @@ public class DataLoadingModelTest {
 	@Test
 	public void progressPercentageIsAvailableAfterEachDataFileHasBeenLoaded() {
 		loadingSuccessfullListener.handleEvent();
-		assertEquals(0.25, dataLoadingModel.getPercentComplete());
+		assertEquals(0.25, dataLoadingModel.getPercentComplete(), 0);
 
 		loadingSuccessfullListener.handleEvent();
-		assertEquals(0.5, dataLoadingModel.getPercentComplete());
+		assertEquals(0.5, dataLoadingModel.getPercentComplete(), 0);
 		
 		loadingSuccessfullListener.handleEvent();
-		assertEquals(0.75, dataLoadingModel.getPercentComplete());
+		assertEquals(0.75, dataLoadingModel.getPercentComplete(), 0);
 
 		loadingSuccessfullListener.handleEvent();
-		assertEquals(1, dataLoadingModel.getPercentComplete());
+		assertEquals(1, dataLoadingModel.getPercentComplete(), 0);
 	}
 }
