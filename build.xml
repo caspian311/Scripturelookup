@@ -170,11 +170,9 @@
 		<antcall target="clean" />
 		<antcall target="war" />
 		<antcall target="test" />
-<!--
 		<antcall target="deploy" />
 		<antcall target="integration-test" />
 		<antcall target="undeploy" />
--->
 	</target>
 </project>
 
