@@ -142,10 +142,6 @@
 			<arg value="--wip" />
 			<arg value="--tags" />
 			<arg value="@Pending" />
-			<arg value="--format" />
-			<arg value="junit" />
-			<arg value="--out" />
-			<arg value="reports" />
 		</exec>
 	</target>
 
