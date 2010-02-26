@@ -2,13 +2,16 @@ require 'spec/expectations'
 require 'selenium'
 require 'selenium/client'
 
+BASE_URL='http://localhost:8080'
+TIMEOUT=120
+
 Before do
   @browser = Selenium::Client::Driver.new( 
     :host => "localhost",
     :port => 4444,
     :browser => "*firefox",
     :url => "http://www.google.com",
-    :timeout_in_second => 60)
+    :timeout_in_second => TIMEOUT)
   @browser.start
 end
 

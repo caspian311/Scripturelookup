@@ -4,6 +4,23 @@ Feature: Lookup Service
     When I go to "/"
     Then I should see "Scripture Lookup"
 
+  Scenario: Show dataloading page
+    Given scripturelookup is running
+    When I go to "/Dataloading.html"
+    Then I should see "Data Management"
+
+  Scenario: Delete all existing Bible verse data
+    Given scripturelookup is running
+    When I go to "/Dataloading.html"
+    And I click the "Delete" button
+    Then I should see "Data has deleted successfully."
+
+  Scenario: Reload all Bible verse data
+    Given scripturelookup is running
+    When I go to "/Dataloading.html"
+    And I click the "Reload" button
+    Then I should see "Data has reloaded successfully."
+
   Scenario: Gen 1:1 by keyword
     Given scripturelookup is running
     When I go to "/"
@@ -20,11 +37,10 @@ Feature: Lookup Service
     And I click the "Search" button
     Then I should see "No results found"
 
-  @Pending
   Scenario: Gen 1:1 by reference
     Given scripturelookup is running
     When I go to "/"
     And I type "Genesis 1:1" in "query"
     And I select "By Reference" in "queryType"
     And I click the "Search" button
-    Then I should see "in the beginning God created"
+    Then I should see "In the beginning God created"

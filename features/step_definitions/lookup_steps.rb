@@ -1,5 +1,3 @@
-BASE_URL='http://localhost:8080/Scripturelookup'
-
 Given /^scripturelookup is running$/ do
 end
 
@@ -20,7 +18,7 @@ And /^I wait for the page to load$/ do |text|
 end
 
 Then /^I should see "(.*)"$/ do |text|
-  @browser.wait_for_text text, :timeout_in_seconds => 10
+  @browser.wait_for_text text, :timeout_in_seconds => TIMEOUT
 end
 
 When /^I select "([^\"]*)" in "([^\"]*)"$/ do |value, field|

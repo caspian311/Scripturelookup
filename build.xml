@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<project name="Scripturelookup" default="war" basedir=".">
+<project name="Scripturelookup" default="ci" basedir=".">
 	<property file="build.properties" />
 
 	<!-- Configure path to GWT SDK -->
@@ -25,10 +25,17 @@
 		<fileset dir="lib" includes="**/*.jar" />
 	</path>
 
-	<target name="libs" description="Copy libs to WEB-INF/lib">
+	<target name="clean">
+		<delete dir="reports" failonerror="false" />
+		<delete dir="war/WEB-INF/classes" failonerror="false" />
+		<delete dir="war/WEB-INF/appengine-generated" failonerror="false" />
+		<delete dir="war/scripturelookup" failonerror="false" />
+		<delete file="Scripturelookup.war" failonerror="false" />
+	</target>
+
+	<target name="libs" depends="clean">
 		<mkdir dir="war/WEB-INF/lib" />
 		<copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet.jar" />
-		<!-- Add any additional server libs that need to be copied -->
 	</target>
 
 	<target name="javac" depends="libs" description="Compile java source">
@@ -59,21 +66,11 @@
 		</java>
 	</target>
 
-	<target name="devmode" depends="javac" description="Run development mode">
-		<java failonerror="true" fork="true" classname="com.google.gwt.dev.DevMode">
-			<classpath>
-				<pathelement location="src" />
-				<path refid="project.class.path" />
-			</classpath>
-			<jvmarg value="-Xmx256M" />
-			<arg value="-startupUrl" />
-			<arg value="Scripturelookup.html" />
-			<!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
-			<arg value="net.todd.bible.scripturelookup.Scripturelookup" />
-		</java>
+	<target name="war" depends="gwtc" description="Create a war file">
+		<zip destfile="Scripturelookup.war" basedir="war" />
 	</target>
 
-	<target name="javac.tests" depends="javac, enhance" description="Compiles test code">
+	<target name="javac.tests" depends="war" description="Compiles test code">
 		<javac srcdir="test" includes="**" destdir="war/WEB-INF/classes" encoding="utf-8" source="1.5" target="1.5" nowarn="true" debug="true" debuglevel="lines,vars,source">
 			<classpath location="lib/junit-4.7.jar" />
 			<classpath location="lib/mockito-all-1.8.0.jar" />
@@ -101,36 +98,14 @@
 		</junit>
 	</target>
 
-	<target name="war" depends="gwtc" description="Create a war file">
-		<zip destfile="Scripturelookup.war" basedir="war" />
+	<target name="start-dev-server">
+		<exec executable="${appengine.sdk}/bin/dev_appserver.sh">
+			<arg value="war" />
+		</exec>
 	</target>
-
-	<target name="clean" description="Cleans this project">
-		<delete dir="reports" failonerror="false" />
-		<delete dir="war/WEB-INF/classes" failonerror="false" />
-		<delete dir="war/WEB-INF/appengine-generated" failonerror="false" />
-		<delete dir="war/scripturelookup" failonerror="false" />
-		<delete file="Scripturelookup.war" failonerror="false" />
-	</target>
-
-	<taskdef name="deploy" classname="org.apache.catalina.ant.DeployTask">
-		<classpath>
-			<fileset dir="${app.server}">
-				<include name="**/*.jar" />
-			</fileset>
-		</classpath>
-	</taskdef>
-
-	<taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask">
-		<classpath>
-			<fileset dir="${app.server}">
-				<include name="**/*.jar" />
-			</fileset>
-		</classpath>
-	</taskdef>
 
 	<target name="integration-test">
-		<exec executable="cucumber" failonerror="true">
+		<exec executable="cucumber">
 			<arg value="--tags" />
 			<arg value="~@Pending" />
 			<arg value="--format" />
@@ -145,6 +120,15 @@
 		</exec>
 	</target>
 
+	<target name="ci" depends="test">
+		<parallel>
+			<daemons>
+				<antcall target="start-dev-server" />
+			</daemons>
+			<antcall target="integration-test" />
+		</parallel>
+	</target>
+
 	<target name="build-index" depends="enhance">
 		<java failonerror="true" fork="true" classname="net.todd.bible.scripturelookup.server.Indexer">
 			<classpath>
@@ -153,22 +137,4 @@
 			<arg value="${basedir}/war/WEB-INF/index" />
 		</java>
 	</target>
-
-	<target name="deploy">
-		<deploy update="true" url="${deploy-url}" username="${deploy-username}" password="${deploy-password}" path="/Scripturelookup" war="file:${basedir}/Scripturelookup.war" />
-	</target>
-
-	<target name="undeploy">
-		<undeploy url="${deploy-url}" username="${deploy-username}" password="${deploy-password}" path="/Scripturelookup" />
-	</target>
-
-	<target name="ci">
-		<antcall target="clean" />
-		<antcall target="war" />
-		<antcall target="test" />
-		<antcall target="deploy" />
-		<antcall target="integration-test" />
-		<antcall target="undeploy" />
-	</target>
 </project>
-
