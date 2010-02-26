@@ -15,7 +15,6 @@ build.properites file and set the values like so:
 gwt.sdk=<path-to-gwt>
 appengine.sdk=<path-to-gwt>
 
-
 -------------------------------------------------------------------------------
                                     BUILD
 -------------------------------------------------------------------------------
