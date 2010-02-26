@@ -2,7 +2,7 @@ require 'spec/expectations'
 require 'selenium'
 require 'selenium/client'
 
-BASE_URL='http://localhost:8080'
+BASE_URL='http://localhost:8888'
 TIMEOUT=120
 
 Before do
