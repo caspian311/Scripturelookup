@@ -100,8 +100,7 @@
 
 	<target name="start-dev-server">
 		<exec executable="${appengine.sdk}/bin/dev_appserver.sh">
-			<arg value="--port" />
-			<arg value="8888" />
+			<arg value="--port=8888" />
 			<arg value="war" />
 		</exec>
 	</target>
