@@ -1,6 +1,7 @@
 package net.todd.bible.scripturelookup.server;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doReturn;
@@ -93,5 +94,13 @@ public class ReferenceLookupTest {
 
 		assertEquals(1, actualResults.size());
 		assertEquals(verse, actualResults.get(0));
+	}
+	
+	@Test
+	public void whenNothingComesBackFromDaoResultsShouldBeEmpty() {
+		doReturn(null).when(bibleDao).getVerse(anyString(), anyInt(), anyInt());
+
+		List<Verse> actualResults = referenceLookup.lookupReference(referenceToJohn316);
+		assertTrue(actualResults.isEmpty());
 	}
 }

@@ -24,7 +24,9 @@ public class ReferenceLookup implements IReferenceLookup {
 		} else {
 			Verse verse = bibleDao.getVerse(reference.getBook(), reference.getChapter(),
 					reference.getVerse());
-			verses.addAll(Arrays.asList(verse));
+			if (verse != null) {
+				verses.addAll(Arrays.asList(verse));
+			}
 		}
 		return verses;
 	}

@@ -96,18 +96,23 @@ public class BibleDao implements IBibleDao {
 	@Override
 	public Verse getVerse(String book, int chapter, int verse) {
 		PersistenceManager persistenceManager = persistenceManagerFactory.getPersistenceManager();
-		List<Verse> verses = new ArrayList<Verse>();
+		List<Verse> results = new ArrayList<Verse>();
 		try {
 			Query query = persistenceManager.newQuery("select from " + Verse.class.getName()
 					+ " where book == '" + book + "' && chapter == " + chapter + " && verse == "
 					+ verse);
-			verses.addAll((List<Verse>) query.execute());
+			results.addAll((List<Verse>) query.execute());
 		} catch (RuntimeException e) {
 			LOG.severe(e.getMessage());
 			throw e;
 		} finally {
 			persistenceManager.close();
 		}
-		return verses.get(0);
+		Verse foundVerse = null;
+		if (results.size() > 0) {
+			foundVerse = results.get(0);
+		}
+
+		return foundVerse;
 	}
 }

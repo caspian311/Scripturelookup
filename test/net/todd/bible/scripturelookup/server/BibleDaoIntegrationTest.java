@@ -1,6 +1,7 @@
 package net.todd.bible.scripturelookup.server;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.io.File;
 import java.util.HashMap;
@@ -44,25 +45,31 @@ public class BibleDaoIntegrationTest {
 	}
 
 	@Test
-	public void allVersesInBook() {
+	public void allVersesInBookOfJohn() {
 		List<Verse> john = bibleDao.getAllVersesInBook("John");
 		assertEquals(4, john.size());
-		
+	}
+
+	@Test
+	public void allVersesInBookOfGenesis() {
 		List<Verse> gen = bibleDao.getAllVersesInBook("Genesis");
 		assertEquals(1, gen.size());
 	}
 
 	@Test
-	public void allVersesInChapter() {
+	public void allVersesInJohn1() {
 		List<Verse> john1 = bibleDao.getAllVersesInChapter("John", 1);
 		assertEquals(3, john1.size());
-		
+	}
+
+	@Test
+	public void allVersesInJohn3() {
 		List<Verse> john3 = bibleDao.getAllVersesInChapter("John", 3);
 		assertEquals(1, john3.size());
 	}
 	
 	@Test
-	public void verse() {
+	public void singleVerse_John11() {
 		Verse john11 = BibleDaoProvider.getBibleDao().getVerse("John", 1, 1);
 		assertEquals("John", john11.getBook());
 		assertEquals(1, john11.getChapter().intValue());
@@ -70,12 +77,20 @@ public class BibleDaoIntegrationTest {
 		assertEquals(
 				"In the beginning was the Word, and the Word was with God, and the Word was God.",
 				john11.getText());
+	}
 
+	@Test
+	public void singleVerse_John316() {
 		Verse john316 = BibleDaoProvider.getBibleDao().getVerse("John", 3, 16);
 		assertEquals("John", john316.getBook());
 		assertEquals(3, john316.getChapter().intValue());
 		assertEquals(16, john316.getVerse().intValue());
 		assertEquals("For God so loved the world...", john316.getText());
+	}
+	
+	@Test
+	public void verseThatDoesntExist() {
+		assertNull(BibleDaoProvider.getBibleDao().getVerse("Test", 1, 2));
 	}
 	
 	class TestEnvironment implements ApiProxy.Environment {
