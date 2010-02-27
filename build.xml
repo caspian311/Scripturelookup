@@ -25,7 +25,6 @@
 	</path>
 
 	<path id="test.class.path">
-		<pathelement location="${instrumented.dir}" />
 		<pathelement location="war/WEB-INF/classes" />
 		<pathelement location="${gwt.sdk}/gwt-user.jar" />
 		<fileset dir="${gwt.sdk}" includes="gwt-dev*.jar" />
@@ -55,12 +54,7 @@
 		<mkdir dir="${instrumented.dir}" />
 	</target>
 
-	<target name="libs" depends="init">
-		<mkdir dir="war/WEB-INF/lib" />
-		<copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet.jar" />
-	</target>
-
-	<target name="compile" depends="libs" description="Compile java source">
+	<target name="compile" depends="init">
 		<mkdir dir="war/WEB-INF/classes" />
 		<javac srcdir="src" includes="**" encoding="utf-8" destdir="war/WEB-INF/classes" source="1.5" target="1.5" nowarn="true" debug="true" debuglevel="lines,vars,source">
 			<classpath refid="project.class.path" />
@@ -70,37 +64,25 @@
 		</copy>
 	</target>
 
-	<target name="instrument" depends="compile">
+	<target name="enhance" depends="compile">
+		<enhance failonerror="true">
+			<classpath>
+				<pathelement path="${appengine.tools.classpath}" />
+				<pathelement path="war/WEB-INF/classes" />
+				<fileset dir="war/WEB-INF/lib" includes="*.jar" />
+			</classpath>
+			<fileset dir="war/WEB-INF/classes" includes="**/Verse.class" />
+		</enhance>
+	</target>
+
+	<target name="instrument" depends="enhance">
 		<emma enabled="true">
-			<instr instrpath="war/WEB-INF/classes" 
-				destdir="${instrumented.dir}" 
-				metadatafile="${coverage.dir}/metadata.emma" 
-				merge="true">
+			<instr instrpath="war/WEB-INF/classes" destdir="${instrumented.dir}" metadatafile="${coverage.dir}/metadata.emma" merge="true">
 			</instr>
 		</emma>
 	</target>
 
-	<target name="enhance" depends="instrument">
-		<enhance_war war="war" />
-	</target>
-
-	<target name="gwtc" depends="enhance" description="GWT compile to JavaScript">
-		<java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
-			<classpath>
-				<pathelement location="src" />
-				<path refid="project.class.path" />
-			</classpath>
-			<jvmarg value="-Xmx256M" />
-			<arg value="net.todd.bible.scripturelookup.Scripturelookup" />
-			<arg value="net.todd.bible.scripturelookup.Dataloading" />
-		</java>
-	</target>
-
-	<target name="war" depends="gwtc" description="Create a war file">
-		<zip destfile="Scripturelookup.war" basedir="war" />
-	</target>
-
-	<target name="compile-tests" depends="war" description="Compiles test code">
+	<target name="compile-tests" depends="instrument">
 		<javac srcdir="test" includes="**" destdir="war/WEB-INF/classes" encoding="utf-8" source="1.5" target="1.5" nowarn="true" debug="true" debuglevel="lines,vars,source">
 			<classpath location="lib/junit-4.7.jar" />
 			<classpath location="lib/mockito-all-1.8.0.jar" />
@@ -116,6 +98,7 @@
 			<sysproperty key="java.awt.headless" value="true" />
 			<classpath>
 				<pathelement location="test" />
+				<pathelement location="${instrumented.dir}" />
 				<path refid="test.class.path" />
 				<path refid="emma.lib" />
 				<path refid="project.extra.class.path" />
@@ -135,21 +118,35 @@
 				<include name="*.ec" />
 			</fileset>
 		</move>
-		<emma enabled="true" >
-			<report sourcepath="${src.dir}" >
-				<fileset dir="${coverage.dir}" >
+		<emma enabled="true">
+			<report sourcepath="${src.dir}">
+				<fileset dir="${coverage.dir}">
 					<include name="*.emma" />
 				</fileset>
-				<fileset dir="${coverage.dir}" >
+				<fileset dir="${coverage.dir}">
 					<include name="*.ec" />
 				</fileset>
 
-				<xml outfile="${coverage.dir}/coverage.xml" 
-					depth="method"/>
-				<txt outfile="${coverage.dir}/coverage.txt" 
-					depth="method"/>
+				<xml outfile="${coverage.dir}/coverage.xml" depth="method" />
+				<txt outfile="${coverage.dir}/coverage.txt" depth="method" />
 			</report>
 		</emma>
+	</target>
+
+	<target name="gwtc" depends="coverage" description="GWT compile to JavaScript">
+		<java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
+			<classpath>
+				<pathelement location="src" />
+				<path refid="project.class.path" />
+			</classpath>
+			<jvmarg value="-Xmx256M" />
+			<arg value="net.todd.bible.scripturelookup.Scripturelookup" />
+			<arg value="net.todd.bible.scripturelookup.Dataloading" />
+		</java>
+	</target>
+
+	<target name="war" depends="gwtc" description="Create a war file">
+		<zip destfile="Scripturelookup.war" basedir="war" />
 	</target>
 
 	<target name="start-dev-server">
@@ -175,7 +172,7 @@
 		</exec>
 	</target>
 
-	<target name="ci" depends="coverage">
+	<target name="ci" depends="war">
 		<parallel>
 			<daemons>
 				<antcall target="start-dev-server" />
