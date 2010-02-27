@@ -8,3 +8,5 @@ webrat.log
 *.war
 build.properties
 *.log
+coverage
+instrument

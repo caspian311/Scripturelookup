@@ -5,10 +5,10 @@
 	<!-- Configure path to GWT SDK -->
 	<property name="gwt.sdk" value="/usr/local/gwt" />
 	<property name="appengine.sdk" value="/usr/local/appengine-java-sdk" />
-	<property name="app.server" value="/usr/local/tomcat" />
-	<property name="deploy-url" value="http://localhost:8080/manager" />
-	<property name="deploy-username" value="admin" />
-	<property name="deploy-password" value="admin" />
+	<property name="emma.dir" value="/usr/share/java" />
+
+	<property name="instrumented.dir" value="${basedir}/instrument" />
+	<property name="coverage.dir" value="${basedir}/coverage" />
 
 	<import file="${appengine.sdk}/config/user/ant-macros.xml" />
 
@@ -17,7 +17,6 @@
 		<pathelement location="${gwt.sdk}/gwt-user.jar" />
 		<fileset dir="${gwt.sdk}" includes="gwt-dev*.jar" />
 		<fileset dir="${appengine.sdk}" includes="lib/impl/*.jar" />
-		<!-- Add any additional non-server libs (such as JUnit) -->
 		<fileset dir="war/WEB-INF/lib" includes="**/*.jar" />
 	</path>
 
@@ -25,20 +24,43 @@
 		<fileset dir="lib" includes="**/*.jar" />
 	</path>
 
+	<path id="test.class.path">
+		<pathelement location="${instrumented.dir}" />
+		<pathelement location="war/WEB-INF/classes" />
+		<pathelement location="${gwt.sdk}/gwt-user.jar" />
+		<fileset dir="${gwt.sdk}" includes="gwt-dev*.jar" />
+		<fileset dir="${appengine.sdk}" includes="lib/impl/*.jar" />
+		<fileset dir="war/WEB-INF/lib" includes="**/*.jar" />
+	</path>
+
+	<path id="emma.lib">
+		<fileset dir="${emma.dir}" includes="**/*.jar" />
+	</path>
+
+	<taskdef resource="emma_ant.properties" classpathref="emma.lib" />
+
 	<target name="clean">
 		<delete dir="reports" failonerror="false" />
 		<delete dir="war/WEB-INF/classes" failonerror="false" />
 		<delete dir="war/WEB-INF/appengine-generated" failonerror="false" />
 		<delete dir="war/scripturelookup" failonerror="false" />
 		<delete file="Scripturelookup.war" failonerror="false" />
+
+		<delete dir="${coverage.dir}" failonerror="false" />
+		<delete dir="${instrumented.dir}" failonerror="false" />
 	</target>
 
-	<target name="libs" depends="clean">
+	<target name="init" depends="clean">
+		<mkdir dir="${coverage.dir}" />
+		<mkdir dir="${instrumented.dir}" />
+	</target>
+
+	<target name="libs" depends="init">
 		<mkdir dir="war/WEB-INF/lib" />
 		<copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet.jar" />
 	</target>
 
-	<target name="javac" depends="libs" description="Compile java source">
+	<target name="compile" depends="libs" description="Compile java source">
 		<mkdir dir="war/WEB-INF/classes" />
 		<javac srcdir="src" includes="**" encoding="utf-8" destdir="war/WEB-INF/classes" source="1.5" target="1.5" nowarn="true" debug="true" debuglevel="lines,vars,source">
 			<classpath refid="project.class.path" />
@@ -48,7 +70,17 @@
 		</copy>
 	</target>
 
-	<target name="enhance" depends="javac">
+	<target name="instrument" depends="compile">
+		<emma enabled="true">
+			<instr instrpath="war/WEB-INF/classes" 
+				destdir="${instrumented.dir}" 
+				metadatafile="${coverage.dir}/metadata.emma" 
+				merge="true">
+			</instr>
+		</emma>
+	</target>
+
+	<target name="enhance" depends="instrument">
 		<enhance_war war="war" />
 	</target>
 
@@ -58,9 +90,7 @@
 				<pathelement location="src" />
 				<path refid="project.class.path" />
 			</classpath>
-			<!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
 			<jvmarg value="-Xmx256M" />
-			<!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
 			<arg value="net.todd.bible.scripturelookup.Scripturelookup" />
 			<arg value="net.todd.bible.scripturelookup.Dataloading" />
 		</java>
@@ -70,7 +100,7 @@
 		<zip destfile="Scripturelookup.war" basedir="war" />
 	</target>
 
-	<target name="javac.tests" depends="war" description="Compiles test code">
+	<target name="compile-tests" depends="war" description="Compiles test code">
 		<javac srcdir="test" includes="**" destdir="war/WEB-INF/classes" encoding="utf-8" source="1.5" target="1.5" nowarn="true" debug="true" debuglevel="lines,vars,source">
 			<classpath location="lib/junit-4.7.jar" />
 			<classpath location="lib/mockito-all-1.8.0.jar" />
@@ -78,15 +108,16 @@
 		</javac>
 	</target>
 
-	<target name="test" depends="javac.tests" description="Run development mode tests">
+	<target name="test" depends="compile-tests" description="Run development mode tests">
 		<mkdir dir="reports" />
-		<junit fork="yes" printsummary="yes" haltonfailure="yes">
+		<junit fork="yes" printsummary="yes" haltonfailure="false">
 			<jvmarg line="-Xmx256m" />
 			<sysproperty key="gwt.args" value="-logLevel WARN" />
 			<sysproperty key="java.awt.headless" value="true" />
 			<classpath>
 				<pathelement location="test" />
-				<path refid="project.class.path" />
+				<path refid="test.class.path" />
+				<path refid="emma.lib" />
 				<path refid="project.extra.class.path" />
 			</classpath>
 			<batchtest todir="reports">
@@ -96,6 +127,29 @@
 			</batchtest>
 			<formatter type="xml" />
 		</junit>
+	</target>
+
+	<target name="coverage" depends="test">
+		<move toDir="${coverage.dir}">
+			<fileset dir="${basedir}">
+				<include name="*.ec" />
+			</fileset>
+		</move>
+		<emma enabled="true" >
+			<report sourcepath="${src.dir}" >
+				<fileset dir="${coverage.dir}" >
+					<include name="*.emma" />
+				</fileset>
+				<fileset dir="${coverage.dir}" >
+					<include name="*.ec" />
+				</fileset>
+
+				<xml outfile="${coverage.dir}/coverage.xml" 
+					depth="method"/>
+				<txt outfile="${coverage.dir}/coverage.txt" 
+					depth="method"/>
+			</report>
+		</emma>
 	</target>
 
 	<target name="start-dev-server">
@@ -121,7 +175,7 @@
 		</exec>
 	</target>
 
-	<target name="ci" depends="test">
+	<target name="ci" depends="coverage">
 		<parallel>
 			<daemons>
 				<antcall target="start-dev-server" />
