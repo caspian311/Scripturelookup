@@ -126,7 +126,10 @@
 			<daemons>
 				<antcall target="start-dev-server" />
 			</daemons>
-			<antcall target="integration-test" />
+			<sequential>
+				<sleep seconds="10" />
+				<antcall target="integration-test" />
+			</sequential>
 		</parallel>
 	</target>
 
