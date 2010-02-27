@@ -44,3 +44,21 @@ Feature: Lookup Service
     And I select "By Reference" in "queryType"
     And I click the "Search" button
     Then I should see "In the beginning God created"
+
+  Scenario: John 3 by reference
+    Given scripturelookup is running
+    When I go to "/"
+    And I type "John 3" in "query"
+    And I select "By Reference" in "queryType"
+    And I click the "Search" button
+    Then I should see "John 3:1"
+    And I should see "John 3:2"
+    And I should see "John 3:16"
+
+  Scenario: Acts by reference
+    Given scripturelookup is running
+    When I go to "/"
+    And I type "Acts" in "query"
+    And I select "By Reference" in "queryType"
+    And I click the "Search" button
+    Then I should see "Acts 1:1"
