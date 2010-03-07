@@ -77,14 +77,13 @@
 		</enhance>
 	</target>
 
-<!--
 	<target name="instrument" depends="enhance">
 		<emma enabled="true">
 			<instr instrpath="war/WEB-INF/classes" destdir="${instrumented.dir}" metadatafile="${coverage.dir}/metadata.emma" merge="true">
 			</instr>
 		</emma>
 	</target>
--->
+
 	<target name="compile-tests" depends="enhance">
 		<javac srcdir="test" includes="**" destdir="war/WEB-INF/classes" encoding="utf-8" source="1.5" target="1.5" nowarn="true" debug="true" debuglevel="lines,vars,source">
 			<classpath location="lib/junit-4.7.jar" />
@@ -115,7 +114,6 @@
 		</junit>
 	</target>
 
-<!--
 	<target name="coverage" depends="test">
 		<move toDir="${coverage.dir}">
 			<fileset dir="${basedir}">
@@ -136,7 +134,6 @@
 			</report>
 		</emma>
 	</target>
--->
 
 	<target name="gwtc" depends="test" description="GWT compile to JavaScript">
 		<java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
