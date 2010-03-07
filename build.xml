@@ -43,8 +43,10 @@
 		<delete dir="war/WEB-INF/classes" failonerror="false" />
 		<delete dir="war/WEB-INF/appengine-generated" failonerror="false" />
 		<delete dir="war/scripturelookup" failonerror="false" />
+		<delete dir="war/dataloading" failonerror="false" />
 		<delete file="Scripturelookup.war" failonerror="false" />
 
+		<delete file="coverage.ec" failonerror="false" />
 		<delete dir="${coverage.dir}" failonerror="false" />
 		<delete dir="${instrumented.dir}" failonerror="false" />
 	</target>
@@ -64,6 +66,7 @@
 		</copy>
 	</target>
 
+<!--
 	<target name="enhance" depends="compile">
 		<enhance failonerror="true">
 			<classpath>
@@ -81,8 +84,8 @@
 			</instr>
 		</emma>
 	</target>
-
-	<target name="compile-tests" depends="instrument">
+-->
+	<target name="compile-tests" depends="compile">
 		<javac srcdir="test" includes="**" destdir="war/WEB-INF/classes" encoding="utf-8" source="1.5" target="1.5" nowarn="true" debug="true" debuglevel="lines,vars,source">
 			<classpath location="lib/junit-4.7.jar" />
 			<classpath location="lib/mockito-all-1.8.0.jar" />
