@@ -21,6 +21,10 @@ Then /^I should see "(.*)"$/ do |text|
   @browser.wait_for_text text, :timeout_in_seconds => TIMEOUT
 end
 
+Then /^I should not see "(.*)"$/ do |text|
+  @browser.wait_for_no_text text, :timeout_in_seconds => TIMEOUT
+end
+
 When /^I select "([^\"]*)" in "([^\"]*)"$/ do |value, field|
   @browser.select field, value
 end

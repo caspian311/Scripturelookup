@@ -62,3 +62,33 @@ Feature: Lookup Service
     And I select "By Reference" in "queryType"
     And I click the "Search" button
     Then I should see "Acts 1:1"
+  
+  Scenario: Show busy signal when searching
+    Given scripturelookup is running
+    When I go to "/"
+    And I type "Acts" in "query"
+    And I select "By Reference" in "queryType"
+    And I click the "Search" button
+    Then I should see "Searching Scripture..."
+
+  Scenario: Hide busy signal when results show
+    Given scripturelookup is running
+    When I go to "/"
+    And I type "Acts" in "query"
+    And I select "By Reference" in "queryType"
+    And I click the "Search" button
+    Then I should see "Acts 1:1"
+    And I should not see "Searching Scripture..."
+
+  Scenario: Hide old results
+    Given scripturelookup is running
+    When I go to "/"
+    And I type "Psalms 110" in "query"
+    And I select "By Reference" in "queryType"
+    And I click the "Search" button
+    Then I should see "Psalms 110:7"
+    And I type "John 3:16" in "query"
+    And I select "By Reference" in "queryType"
+    And I click the "Search" button
+    And I should not see "Psalms 110:7"
+    
