@@ -31,8 +31,6 @@ public class DataDeletingServiceCallerTest {
 		dataDeletingServiceCaller.addSuccessListener(successListener);
 		dataDeletingServiceCaller.addFailureListener(failureListener);
 
-		String part = UUID.randomUUID().toString();
-
 		dataDeletingServiceCaller.callService();
 
 		ArgumentCaptor<AsyncCallback> callbackArgument = ArgumentCaptor

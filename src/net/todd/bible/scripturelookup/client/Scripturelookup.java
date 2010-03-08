@@ -8,6 +8,6 @@ public class Scripturelookup implements EntryPoint {
 	
 	public void onModuleLoad() {
 		new LookupPresenter(new LookupView(), new LookupModel(new LookupServiceCaller(lookupService),
-				new ResultsParser()));
+				new ResultsParser(new ReferenceListParser())));
 	}
 }

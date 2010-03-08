@@ -8,7 +8,7 @@ public class LookupModel implements ILookupModel {
 	private final ListenerManager failureListenerManager = new ListenerManager();
 	private String queryType;
 	private final ILookupServiceCaller serviceCaller;
-	private List<Verse> returnResults;
+	private ParsedResults returnResults;
 
 	public LookupModel(final ILookupServiceCaller serviceCaller, final IResultsParser parser) {
 		this.serviceCaller = serviceCaller;
@@ -23,13 +23,21 @@ public class LookupModel implements ILookupModel {
 			@Override
 			public void handleEvent() {
 				returnResults = parser.parse(serviceCaller.getReturnValue());
-				if (returnResults.isEmpty()) {
+				if (areResultsEmpty(returnResults)) {
 					noResultsReturnedListenerManager.notifyListeners();
 				} else {
 					resultsReturnedListenerManager.notifyListeners();
 				}
 			}
 		});
+	}
+	
+	private boolean areResultsEmpty(ParsedResults returnResults) {
+		if (returnResults == null || returnResults.getReferenceList() == null) {
+			return true;
+		}
+
+		return returnResults.getReferenceList().isEmpty();
 	}
 
 	@Override
@@ -39,7 +47,7 @@ public class LookupModel implements ILookupModel {
 
 	@Override
 	public List<Verse> searchResults() {
-		return returnResults;
+		return returnResults.getReferenceList();
 	}
 
 	@Override
@@ -63,5 +71,10 @@ public class LookupModel implements ILookupModel {
 
 	public void addFailureListener(IListener listener) {
 		failureListenerManager.addListener(listener);
+	}
+
+	@Override
+	public SearchResultsMetaData getSearchResultsMetaData() {
+		return returnResults.getMetaData();
 	}
 }

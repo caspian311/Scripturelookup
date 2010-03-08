@@ -24,6 +24,9 @@ public class LookupPresenter {
 		lookupModel.addResultsReturnedListener(new IListener() {
 			@Override
 			public void handleEvent() {
+				lookupView.clearResponseLabel();
+				lookupView.clearResults();
+				lookupView.showMetaData(lookupModel.getSearchResultsMetaData());
 				lookupView.showVerses(lookupModel.searchResults());
 				lookupView.enableSubmitButton();
 			}

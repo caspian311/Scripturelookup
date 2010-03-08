@@ -1,25 +1,68 @@
 package net.todd.bible.scripturelookup.client;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
-import org.junit.Ignore;
+import org.junit.Before;
 import org.junit.Test;
 
 public class ResultsParserTest {
-	@Test
-	@Ignore
-	// ignored because the stupid unsatisifedlinkerror
-	public void searchResultAreAvailableWhenCallReturns() {
-		IResultsParser parser = new ResultsParser();
-		List<Verse> searchResults = parser
-				.parse("[{\"book\":\"bookValue1\", \"chapter\":\"chapterValue1\", \"verse\":\"verseValue1\", \"text\":\"textValue1\"}]");
+	private ResultsParser parser;
+	private IReferenceListParser referenceListParser;
 
-		assertEquals(1, searchResults.size());
-		assertEquals("bookValue1", searchResults.get(0).getBook());
-		assertEquals("chapterValue1", searchResults.get(0).getChapter());
-		assertEquals("verseValue1", searchResults.get(0).getVerse());
-		assertEquals("bookText1", searchResults.get(0).getText());
+	@Before
+	public void setUp() {
+		referenceListParser = mock(IReferenceListParser.class);
+		parser = new ResultsParser(referenceListParser);
+	}
+
+	@Test
+	public void returnedParsedResultsIsNotNullEvenIfAskedToParseNullText() {
+		assertNotNull(parser.parse(null));
+	}
+
+	@Test
+	public void returnedParsedResultsIsNotNullEvenIfAskedToParseEmptyText() {
+		assertNotNull(parser.parse(""));
+	}
+
+	@Test
+	public void referenceListParserGivenText() {
+		String text = UUID.randomUUID().toString();
+
+		parser.parse(text);
+
+		verify(referenceListParser).parse(text);
+	}
+	
+	@Test
+	public void referenceListInParsedResultsAreFromReferenceListParser() {
+		List<Verse> referenceList = Arrays.asList();
+		doReturn(referenceList).when(referenceListParser).parse(anyString());
+		ParsedResults parsedResults = parser.parse(anyString());
+
+		assertSame(referenceList, parsedResults.getReferenceList());
+	}
+	
+	@Test
+	public void metaDataShouldContainSizeOfList() {
+		Verse verse1 = mock(Verse.class);
+		Verse verse2 = mock(Verse.class);
+		Verse verse3 = mock(Verse.class);
+		Verse verse4 = mock(Verse.class);
+		List<Verse> referenceList = Arrays.asList(verse1, verse2, verse3, verse4);
+		doReturn(referenceList).when(referenceListParser).parse(anyString());
+		ParsedResults parsedResults = parser.parse(anyString());
+
+		assertEquals("Total results: 4", parsedResults.getMetaData().toString());
 	}
 }

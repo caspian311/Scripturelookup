@@ -1,5 +1,6 @@
 package net.todd.bible.scripturelookup.client;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
@@ -16,6 +17,11 @@ public class FileProviderTest {
 	@Test
 	public void filesToLoadAreNotNull() {
 		assertNotNull(fileProvider.filesToLoad());
+	}
+	
+	@Test
+	public void thereShouldBe312Files() {
+		assertEquals(312, fileProvider.filesToLoad().size());
 	}
 
 	@Test(expected = UnsupportedOperationException.class)

@@ -7,6 +7,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -63,7 +64,9 @@ public class LookupModelTest {
 
 	@Test
 	public void whenNoResultsReturnedNoResultsReturnedListenerNotified() {
-		doReturn(Arrays.asList()).when(resultsParser).parse(anyString());
+		ParsedResults parsedResults = mock(ParsedResults.class);
+		doReturn(Arrays.asList()).when(parsedResults).getReferenceList();
+		doReturn(parsedResults).when(resultsParser).parse(anyString());
 
 		successListener.handleEvent();
 
@@ -73,7 +76,9 @@ public class LookupModelTest {
 	@Test
 	public void whenSomeResultsAreReturnedResultsReturnedListenerNotified() {
 		Verse verse1 = mock(Verse.class);
-		doReturn(Arrays.asList(verse1)).when(resultsParser).parse(anyString());
+		ParsedResults parsedResults = mock(ParsedResults.class);
+		doReturn(Arrays.asList(verse1)).when(parsedResults).getReferenceList();
+		doReturn(parsedResults).when(resultsParser).parse(anyString());
 		
 		successListener.handleEvent();
 
@@ -108,11 +113,25 @@ public class LookupModelTest {
 
 	@Test
 	public void searchResultsArePulledFromResultsParser() {
-		List<Verse> returnResults = Arrays.asList(mock(Verse.class));
-		doReturn(returnResults).when(resultsParser).parse(anyString());
+		List<Verse> referenceList = new ArrayList<Verse>();
+		ParsedResults parsedResults = mock(ParsedResults.class);
+		doReturn(referenceList).when(parsedResults).getReferenceList();
+		doReturn(parsedResults).when(resultsParser).parse(anyString());
 
 		successListener.handleEvent();
 
-		assertSame(returnResults, lookupModel.searchResults());
+		assertSame(referenceList, lookupModel.searchResults());
+	}
+	
+	@Test
+	public void metaDataIsPulledFromResultsParser() {
+		SearchResultsMetaData metaData = mock(SearchResultsMetaData.class);
+		ParsedResults parsedResults = mock(ParsedResults.class);
+		doReturn(metaData).when(parsedResults).getMetaData();
+		doReturn(parsedResults).when(resultsParser).parse(anyString());
+
+		successListener.handleEvent();
+
+		assertSame(metaData, lookupModel.getSearchResultsMetaData());
 	}
 }

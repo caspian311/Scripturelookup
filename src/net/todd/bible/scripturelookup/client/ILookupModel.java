@@ -16,4 +16,6 @@ public interface ILookupModel {
 	void addNoResultsReturnedListener(IListener listener);
 
 	void setQueryType(String queryType);
+
+	SearchResultsMetaData getSearchResultsMetaData();
 }

@@ -10,7 +10,10 @@ import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -20,8 +23,10 @@ public class LookupView implements ILookupView {
 	private final Button submitButton;
 	private final TextBox queryField;
 
-	private final HTML serverResponseLabel;
-	private final SimplePanel responsePanel;
+	private final SimplePanel responseMetaDataPanel;
+	private final HTML responseLabel;
+	private final SimplePanel resultsPanel;
+	private final FlexTable resultsTable;
 	private final ListBox queryTypeList;
 
 	private final ListenerManager submissionListeners = new ListenerManager();
@@ -44,8 +49,14 @@ public class LookupView implements ILookupView {
 			}
 		});
 
-		responsePanel = new SimplePanel();
-		serverResponseLabel = new HTML();
+		responseMetaDataPanel = new SimplePanel();
+		responseLabel = new HTML();
+
+		resultsPanel = new SimplePanel();
+		resultsTable = new FlexTable();
+		resultsTable.setStyleName("searchResults");
+		resultsTable.getColumnFormatter().setWidth(0, "125px");
+		resultsTable.getColumnFormatter().setWidth(1, "400px");
 
 		queryTypeList = new ListBox();
 		queryTypeList.setName("queryType");
@@ -63,7 +74,8 @@ public class LookupView implements ILookupView {
 		queryField.setFocus(true);
 		queryField.selectAll();
 
-		responsePanel.add(serverResponseLabel);
+		responseMetaDataPanel.add(responseLabel);
+		resultsPanel.add(resultsTable);
 
 		submitButton.addClickHandler(new ClickHandler() {
 			@Override
@@ -71,55 +83,78 @@ public class LookupView implements ILookupView {
 				submissionListeners.notifyListeners();
 			}
 		});
-		
+
 		RootPanel.get("queryFieldContainer").add(queryField);
 		RootPanel.get("submitButtonContainer").add(submitButton);
-		RootPanel.get("responseContainer").add(responsePanel);
+		RootPanel.get("responseContainer").add(responseMetaDataPanel);
+		RootPanel.get("responseContainer").add(resultsPanel);
 		RootPanel.get("queryTypeFieldContainer").add(queryTypeList);
 	}
 
+	@Override
 	public void addQueryTypeChangeListener(IListener listener) {
 		queryTypeChangedListener.addListener(listener);
 	}
 
+	@Override
 	public void addSubmissionListener(IListener listener) {
 		submissionListeners.addListener(listener);
 	}
 
-	public void showVerses(List<Verse> verses) {
-		StringBuffer response = new StringBuffer();
-		for (Verse verse : verses) {
-			response.append("<b>").append(verse.getBook()).append(" ").append(verse.getChapter())
-					.append(":").append(verse.getVerse()).append(" - ").append("</b>");
-			response.append(verse.getText());
-			response.append("<br />\n");
-		}
-		serverResponseLabel.setHTML(response.toString());
+	@Override
+	public void showMetaData(SearchResultsMetaData metaData) {
+		responseLabel.setHTML(metaData.toString());
 	}
 
+	@Override
+	public void showVerses(List<Verse> verses) {
+		for (int i = 0; i < verses.size(); i++) {
+			Verse verse = verses.get(i);
+			String reference = verse.getBook() + " " + verse.getChapter() + ":" + verse.getVerse();
+			resultsTable.setText(i, 0, reference);
+			resultsTable.getCellFormatter().setStyleName(i, 0, "searchResultsReference");
+			resultsTable.getCellFormatter().setVerticalAlignment(i, 0,
+					HasVerticalAlignment.ALIGN_TOP);
+			
+			resultsTable.setText(i, 1, verse.getText());
+			resultsTable.getCellFormatter().setVerticalAlignment(i, 1,
+					HasVerticalAlignment.ALIGN_TOP);
+			resultsTable.getCellFormatter().setHorizontalAlignment(i, 1,
+					HasHorizontalAlignment.ALIGN_LEFT);
+		}
+	}
+
+	@Override
+	public void clearResponseLabel() {
+		responseLabel.setHTML("");
+	}
+
+	@Override
 	public void showBusySignal() {
-		serverResponseLabel.setHTML("Searching Scripture...");
+		responseLabel.setHTML("Searching Scripture...");
 	}
 
 	@Override
 	public void showErrorMessage(String errorMessage) {
-		submitButton.setEnabled(true);
-		serverResponseLabel.setHTML("Error: " + errorMessage);
+		responseLabel.setHTML("Error: " + errorMessage);
 	}
 
+	@Override
 	public void showNoResultsMessage() {
-		submitButton.setEnabled(true);
-		serverResponseLabel.setHTML("No results found");
+		responseLabel.setHTML("No results found");
 	}
 
+	@Override
 	public void enableSubmitButton() {
 		submitButton.setEnabled(true);
 	}
 
+	@Override
 	public void disableSubmitButton() {
 		submitButton.setEnabled(false);
 	}
 
+	@Override
 	public String getQueryString() {
 		return queryField.getText();
 	}
@@ -127,5 +162,10 @@ public class LookupView implements ILookupView {
 	@Override
 	public String getQueryType() {
 		return queryTypeList.getValue(queryTypeList.getSelectedIndex());
+	}
+
+	@Override
+	public void clearResults() {
+		resultsTable.removeAllRows();
 	}
 }

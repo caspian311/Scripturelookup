@@ -22,4 +22,10 @@ public interface ILookupView {
 	void addQueryTypeChangeListener(IListener listener);
 
 	String getQueryType();
+	
+	void showMetaData(SearchResultsMetaData metaData);
+
+	void clearResponseLabel();
+
+	void clearResults();
 }

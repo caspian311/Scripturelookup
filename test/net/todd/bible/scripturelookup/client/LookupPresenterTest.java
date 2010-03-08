@@ -55,6 +55,13 @@ public class LookupPresenterTest {
 		verify(view).disableSubmitButton();
 		verify(view).showBusySignal();
 	}
+	
+	@Test
+	public void whenModelGetsSearchResultsClearResponseLabel() {
+		resultsReturnedListener.handleEvent();
+
+		verify(view).clearResponseLabel();
+	}
 
 	@Test
 	public void whenSubmitButtonPressedPullQueryFromViewAndGiveToModel() {
@@ -101,6 +108,24 @@ public class LookupPresenterTest {
 		resultsReturnedListener.handleEvent();
 
 		verify(view).showVerses(results);
+	}
+	
+	@Test
+	public void whenModelGetsSearchResultsClearOutOldResults() {
+		resultsReturnedListener.handleEvent();
+
+		verify(view).clearResults();
+	}
+
+	@Test
+	public void whenModelGetsSearchResultsPullMetaDataFromModelAndPutIntoView() {
+		SearchResultsMetaData metaData = mock(SearchResultsMetaData.class);
+
+		when(model.getSearchResultsMetaData()).thenReturn(metaData);
+
+		resultsReturnedListener.handleEvent();
+
+		verify(view).showMetaData(metaData);
 	}
 
 	@Test
