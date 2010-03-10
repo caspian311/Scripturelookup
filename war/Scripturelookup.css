@@ -1,20 +1,56 @@
 h1 {
-  font-size: 2em;
-  font-weight: bold;
-  color: #777777;
-  margin: 40px 0px 70px;
-  text-align: center;
+	font-size: 2em;
+	font-weight: bold;
+	color: #777777;
+	margin: 40px 0px 70px;
+	text-align: center;
 }
 
 .sendButton {
-  display: block;
-  font-size: 16pt;
+	display: block;
+	font-size: 16pt;
 }
 
 .searchResults {
-	border: solid black 1px;
+	border-width: 0px 1px 1px 1px;
+	border-style: solid;
+	border-color: #000000;
+	border-spacing: 0px;
 }
 
-.searchResultsReference {
-	font-weight: bold;
+.searchResults thead th {
+	background: #515151;
+	color: #ffffff;
+}
+
+.searchResults thead th {
+	border-width: 1px 0px 0px 0px;
+	border-style: solid;
+	border-color: #000000;
+	padding: 5px 10px 5px 10px;
+	font-weight: normal;
+	font-size: 10pt;
+}
+
+.searchResults td {
+	border-width: 1px 0px 0px 0px;
+	border-style: solid;
+	border-color: #000000;
+	padding: 5px 10px 5px 10px;
+	font-size: 10pt;
+}
+
+.searchResults tr {
+	background: #B4C4F9;
+	color: #000000;
+}
+
+.searchResults tr.alternate {
+	background: #CCCED5;
+	color: #000000;
+}
+
+.searchResults tr:hover {
+	background-color: #ffffff;
+	color: #000000;
 }

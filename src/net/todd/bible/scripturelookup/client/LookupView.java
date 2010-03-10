@@ -10,7 +10,6 @@ import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
@@ -26,7 +25,7 @@ public class LookupView implements ILookupView {
 	private final SimplePanel responseMetaDataPanel;
 	private final HTML responseLabel;
 	private final SimplePanel resultsPanel;
-	private final FlexTable resultsTable;
+	private final DataGrid resultsTable;
 	private final ListBox queryTypeList;
 
 	private final ListenerManager submissionListeners = new ListenerManager();
@@ -53,10 +52,12 @@ public class LookupView implements ILookupView {
 		responseLabel = new HTML();
 
 		resultsPanel = new SimplePanel();
-		resultsTable = new FlexTable();
+		resultsTable = new DataGrid();
 		resultsTable.setStyleName("searchResults");
-		resultsTable.getColumnFormatter().setWidth(0, "125px");
+		resultsTable.getColumnFormatter().setWidth(0, "200px");
 		resultsTable.getColumnFormatter().setWidth(1, "400px");
+		resultsTable.setHeader(0, "Reference");
+		resultsTable.setHeader(1, "Text");
 
 		queryTypeList = new ListBox();
 		queryTypeList.setName("queryType");
@@ -111,8 +112,10 @@ public class LookupView implements ILookupView {
 		for (int i = 0; i < verses.size(); i++) {
 			Verse verse = verses.get(i);
 			String reference = verse.getBook() + " " + verse.getChapter() + ":" + verse.getVerse();
+			if (i % 2 == 0) {
+				resultsTable.getRowFormatter().setStyleName(i, "alternate");
+			}
 			resultsTable.setText(i, 0, reference);
-			resultsTable.getCellFormatter().setStyleName(i, 0, "searchResultsReference");
 			resultsTable.getCellFormatter().setVerticalAlignment(i, 0,
 					HasVerticalAlignment.ALIGN_TOP);
 			
