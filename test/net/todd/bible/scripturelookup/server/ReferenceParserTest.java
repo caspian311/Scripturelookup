@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import net.todd.bible.scripturelookup.server.ReferenceParser.Reference;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class ReferenceParserTest {
@@ -82,5 +83,29 @@ public class ReferenceParserTest {
 	@Test(expected = ReferenceParsingException.class)
 	public void aSingleWordWithALetterForAverseAndAColonIsNotAReference() {
 		referenceParser.parseReference("test 1:b");
+	}
+	
+	@Test
+	@Ignore
+	public void aNumberThenAWordIsAReference() {
+		Reference reference = referenceParser.parseReference("1 test");
+
+		assertEquals("1 test", reference.getBook());
+	}
+	
+	@Test
+	@Ignore
+	public void aNumberThenAWordThenAnotherNumberIsAReference() {
+		Reference reference = referenceParser.parseReference("1 test 1");
+
+		assertEquals(1, reference.getChapter());
+	}
+
+	@Test
+	@Ignore
+	public void aNumberThenAWordThenAnotherNumberColonAndANumberIsAReference() {
+		Reference reference = referenceParser.parseReference("1 test 1:1");
+
+		assertEquals(1, reference.getVerse());
 	}
 }
