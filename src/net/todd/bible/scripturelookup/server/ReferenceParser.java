@@ -1,27 +1,46 @@
 package net.todd.bible.scripturelookup.server;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
+
+import org.apache.commons.lang.StringUtils;
+
 public class ReferenceParser implements IReferenceParser {
+	private Reference reference;
+	private int lastPoint = 0;
+	
 	@Override
 	public Reference parseReference(String query) {
-		validateEmptiness(query);
-		validateWordCount(query);
-		validateChapterAndVerse(query);
-
-		return new Reference(query);
+		return validateReferenceStr(query);
 	}
 
-	private void validateChapterAndVerse(String query) {
-		String[] tokens = query.split(" ");
-		if (tokens.length > 1) {
-			String[] chapterAndVerse = tokens[1].split(":");
-			if (chapterAndVerse.length == 2) {
+	private Reference validateReferenceStr(String referenceStr) {
+		reference = new Reference();
+
+		if (StringUtils.isEmpty(referenceStr)) {
+			throw new ReferenceParsingException();
+		}
+
+		extractBook(referenceStr);
+		extractChapter(referenceStr);
+		extractVerse(referenceStr);
+
+		return reference;
+	}
+
+	private void extractVerse(String referenceStr) {
+		String ref = referenceStr.substring(lastPoint);
+		ref = ref.trim();
+
+		if (StringUtils.isEmpty(ref) == false) {
+			if (StringUtils.contains(ref, "-") || StringUtils.contains(ref, ",")) {
+				int[] verses = getMixedNumberArray(ref);
+
+				reference.setVerses(verses);
+			} else {
 				try {
-					new Integer(chapterAndVerse[0]);
-				} catch (NumberFormatException e) {
-					throw new ReferenceParsingException();
-				}
-				try {
-					new Integer(chapterAndVerse[1]);
+					reference.setVerses(new int[] { Integer.parseInt(ref) });
 				} catch (NumberFormatException e) {
 					throw new ReferenceParsingException();
 				}
@@ -29,58 +48,153 @@ public class ReferenceParser implements IReferenceParser {
 		}
 	}
 
-	private void validateWordCount(String query) {
-		String[] tokens = query.split(" ");
-		int wordCount = 0;
-		for (String token : tokens) {
-			if (token.indexOf(":") < 0) {
-				try {
-					new Integer(token);
-				} catch (NumberFormatException e) {
-					wordCount++;
-				}
+	private int[] getMixedNumberArray(String ref) {
+		List<Integer> numberList = new ArrayList<Integer>();
+
+		StringTokenizer tokenizer = new StringTokenizer(ref, ",");
+
+		while (tokenizer.hasMoreTokens()) {
+			String numberStr = tokenizer.nextToken();
+
+			if (StringUtils.contains(numberStr, "-")) {
+				numberList.addAll(getNumberArray(numberStr));
+			} else {
+				Integer number = Integer.parseInt(numberStr.trim());
+				numberList.add(number);
 			}
 		}
-		if (wordCount > 1) {
-			throw new ReferenceParsingException();
+
+		int[] numbers = new int[numberList.size()];
+		for (int i = 0; i < numberList.size(); i++) {
+			numbers[i] = new Integer(numberList.get(i));
+		}
+
+		return numbers;
+	}
+
+	private void extractChapter(String referenceStr) {
+		String ref = referenceStr.substring(lastPoint);
+		ref = ref.trim();
+
+		if (StringUtils.isEmpty(ref) == false) {
+			if (StringUtils.isNumeric(ref)) {
+				try {
+					reference.setChapters(new int[] { Integer.parseInt(ref) });
+				} catch (NumberFormatException e) {
+					throw new ReferenceParsingException();
+				}
+
+				lastPoint = reference.getBook().length() + ref.length() + 1;
+			} else if (StringUtils.contains(ref, ":")) {
+				StringTokenizer tokenizer = new StringTokenizer(ref, ":");
+				String chapterStr = tokenizer.nextToken();
+
+				try {
+					reference.setChapters(new int[] { Integer.parseInt(chapterStr) });
+				} catch (NumberFormatException e) {
+					throw new ReferenceParsingException();
+				}
+
+				lastPoint = reference.getBook().length() + chapterStr.length() + 2;
+			} else if (StringUtils.contains(ref, "-") || StringUtils.contains(ref, ",")) {
+				int[] numbers = getMixedNumberArray(ref);
+
+				reference.setChapters(numbers);
+				lastPoint = reference.getBook().length() + ref.length() + 1;
+			} else {
+				throw new ReferenceParsingException();
+			}
 		}
 	}
 
-	private void validateEmptiness(String query) {
-		if (query == null || query.length() == 0) {
+	private List<Integer> getNumberArray(String ref) {
+		StringTokenizer tokenizer = new StringTokenizer(ref, "-");
+
+		String startStr = tokenizer.nextToken();
+		startStr = startStr.trim();
+		String endStr = tokenizer.nextToken();
+		endStr = endStr.trim();
+
+		Integer startingChapter = Integer.parseInt(startStr);
+		Integer endingChapter = Integer.parseInt(endStr);
+
+		List<Integer> numbers = new ArrayList<Integer>();
+
+		for (int i = startingChapter; i <= endingChapter; i++) {
+			numbers.add(i);
+		}
+
+		return numbers;
+	}
+
+	private void extractBook(String referenceStr) {
+		StringTokenizer tokenizer = new StringTokenizer(referenceStr);
+		if (tokenizer.hasMoreTokens() == false) {
 			throw new ReferenceParsingException();
 		}
+
+		String book = "";
+
+		boolean firstToken = true;
+
+		while (tokenizer.hasMoreTokens()) {
+			String token = tokenizer.nextToken();
+			if (StringUtils.isNumeric(token) && firstToken == false) {
+				break;
+			}
+			if (StringUtils.contains(token, ":")) {
+				break;
+			}
+			if (StringUtils.contains(token, "-")) {
+				break;
+			}
+
+			book += " " + token;
+			book = book.trim();
+
+			firstToken = false;
+		}
+
+		lastPoint = book.length();
+
+		reference.setBook(book);
 	}
 	
 	public static class Reference {
-		private final String book;
-		private int chapter;
-		private int verse;
+		private String book;
+		private int[] chapters;
+		private int[] verses;
+		
+		private void setBook(String book) {
+			this.book = book;
+		}
 
-		Reference(String book) {
-			String[] split = book.split(" ");
-			this.book = split[0];
-			if (split.length > 1) {
-				if (split[1].indexOf(":") > 0) {
-					String[] chapterAndVerse = split[1].split(":");
-					this.chapter = new Integer(chapterAndVerse[0]).intValue();
-					this.verse = new Integer(chapterAndVerse[1]).intValue();
-				} else {
-					this.chapter = new Integer(split[1]).intValue();
-				}
-			}
+		private void setChapters(int[] chapters) {
+			this.chapters = chapters;
+		}
+		
+		private void setVerses(int[] verses) {
+			this.verses = verses;
 		}
 
 		public String getBook() {
 			return book;
 		}
-
+		
 		public int getChapter() {
-			return chapter;
+			return chapters == null ? 0 : chapters.length == 0 ? 0 : chapters[0];
+		}
+		
+		public int[] getChapters() {
+			return chapters;
 		}
 
 		public int getVerse() {
-			return verse;
+			return verses == null ? 0 : verses.length == 0 ? 0 : verses[0];
+		}
+		
+		public int[] getVerses() {
+			return verses;
 		}
 	}
 

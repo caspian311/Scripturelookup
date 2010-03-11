@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import net.todd.bible.scripturelookup.server.ReferenceParser.Reference;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class ReferenceParserTest {
@@ -32,9 +31,11 @@ public class ReferenceParserTest {
 		assertEquals("test", reference.getBook());
 	}
 	
-	@Test(expected = ReferenceParsingException.class)
-	public void multipleWordsIsNotAReference() {
-		referenceParser.parseReference("test test");
+	@Test
+	public void booksWithMultipleWordsIsAValidReference() {
+		Reference reference = referenceParser.parseReference("test test");
+
+		assertEquals("test test", reference.getBook());
 	}
 	
 	@Test
@@ -86,7 +87,6 @@ public class ReferenceParserTest {
 	}
 	
 	@Test
-	@Ignore
 	public void aNumberThenAWordIsAReference() {
 		Reference reference = referenceParser.parseReference("1 test");
 
@@ -94,7 +94,6 @@ public class ReferenceParserTest {
 	}
 	
 	@Test
-	@Ignore
 	public void aNumberThenAWordThenAnotherNumberIsAReference() {
 		Reference reference = referenceParser.parseReference("1 test 1");
 
@@ -102,10 +101,27 @@ public class ReferenceParserTest {
 	}
 
 	@Test
-	@Ignore
 	public void aNumberThenAWordThenAnotherNumberColonAndANumberIsAReference() {
 		Reference reference = referenceParser.parseReference("1 test 1:1");
 
 		assertEquals(1, reference.getVerse());
+	}
+	
+	@Test
+	public void rangeOfVerses() {
+		Reference reference = referenceParser.parseReference("1 test 1:1-2");
+
+		assertEquals(2, reference.getVerses().length);
+		assertEquals(1, reference.getVerses()[0]);
+		assertEquals(2, reference.getVerses()[1]);
+	}
+	
+	@Test
+	public void rangeOfChapters() {
+		Reference reference = referenceParser.parseReference("1 test 1-2");
+
+		assertEquals(2, reference.getChapters().length);
+		assertEquals(1, reference.getChapters()[0]);
+		assertEquals(2, reference.getChapters()[1]);
 	}
 }
