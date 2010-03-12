@@ -7,12 +7,8 @@ import org.junit.Test;
 
 public class DataLoaderProviderTest {
 	@Test
-	public void returnsADataLoader() {
-		assertTrue(DataLoaderProvider.getDataLoader() instanceof DataLoader);
-	}
-
-	@Test
 	public void singletonNature() {
+		assertTrue(DataLoaderProvider.getDataLoader() instanceof DataLoader);
 		assertSame(DataLoaderProvider.getDataLoader(), DataLoaderProvider.getDataLoader());
 	}
 }

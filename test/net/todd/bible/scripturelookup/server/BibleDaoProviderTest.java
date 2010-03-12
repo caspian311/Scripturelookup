@@ -9,16 +9,8 @@ import org.junit.Test;
 public class BibleDaoProviderTest {
 	@Test
 	public void singletonNatureOfReturnedDao() {
-		assertSame(BibleDaoProvider.getBibleDao(), BibleDaoProvider.getBibleDao());
-	}
-	
-	@Test
-	public void neverReturnsNull() {
 		assertNotNull(BibleDaoProvider.getBibleDao());
-	}
-	
-	@Test
-	public void returnsABibleDao() {
 		assertTrue(BibleDaoProvider.getBibleDao() instanceof IBibleDao);
+		assertSame(BibleDaoProvider.getBibleDao(), BibleDaoProvider.getBibleDao());
 	}
 }
