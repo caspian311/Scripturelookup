@@ -1,6 +1,7 @@
 package net.todd.bible.scripturelookup.server;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -35,12 +36,12 @@ public class ReferenceParser implements IReferenceParser {
 
 		if (StringUtils.isEmpty(ref) == false) {
 			if (StringUtils.contains(ref, "-") || StringUtils.contains(ref, ",")) {
-				int[] verses = getMixedNumberArray(ref);
+				List<Integer> verses = getMixedNumberArray(ref);
 
 				reference.setVerses(verses);
 			} else {
 				try {
-					reference.setVerses(new int[] { Integer.parseInt(ref) });
+					reference.setVerses(Arrays.asList(Integer.parseInt(ref)));
 				} catch (NumberFormatException e) {
 					throw new ReferenceParsingException();
 				}
@@ -48,7 +49,7 @@ public class ReferenceParser implements IReferenceParser {
 		}
 	}
 
-	private int[] getMixedNumberArray(String ref) {
+	private List<Integer> getMixedNumberArray(String ref) {
 		List<Integer> numberList = new ArrayList<Integer>();
 
 		StringTokenizer tokenizer = new StringTokenizer(ref, ",");
@@ -64,12 +65,7 @@ public class ReferenceParser implements IReferenceParser {
 			}
 		}
 
-		int[] numbers = new int[numberList.size()];
-		for (int i = 0; i < numberList.size(); i++) {
-			numbers[i] = new Integer(numberList.get(i));
-		}
-
-		return numbers;
+		return numberList;
 	}
 
 	private void extractChapter(String referenceStr) {
@@ -79,7 +75,7 @@ public class ReferenceParser implements IReferenceParser {
 		if (StringUtils.isEmpty(ref) == false) {
 			if (StringUtils.isNumeric(ref)) {
 				try {
-					reference.setChapters(new int[] { Integer.parseInt(ref) });
+					reference.setChapters(Arrays.asList(Integer.parseInt(ref)));
 				} catch (NumberFormatException e) {
 					throw new ReferenceParsingException();
 				}
@@ -90,14 +86,14 @@ public class ReferenceParser implements IReferenceParser {
 				String chapterStr = tokenizer.nextToken();
 
 				try {
-					reference.setChapters(new int[] { Integer.parseInt(chapterStr) });
+					reference.setChapters(Arrays.asList(Integer.parseInt(chapterStr)));
 				} catch (NumberFormatException e) {
 					throw new ReferenceParsingException();
 				}
 
 				lastPoint = reference.getBook().length() + chapterStr.length() + 2;
 			} else if (StringUtils.contains(ref, "-") || StringUtils.contains(ref, ",")) {
-				int[] numbers = getMixedNumberArray(ref);
+				List<Integer> numbers = getMixedNumberArray(ref);
 
 				reference.setChapters(numbers);
 				lastPoint = reference.getBook().length() + ref.length() + 1;
@@ -162,18 +158,18 @@ public class ReferenceParser implements IReferenceParser {
 	
 	public static class Reference {
 		private String book;
-		private int[] chapters;
-		private int[] verses;
+		private List<Integer> chapters = new ArrayList<Integer>();
+		private List<Integer> verses = new ArrayList<Integer>();
 		
 		private void setBook(String book) {
 			this.book = book;
 		}
 
-		private void setChapters(int[] chapters) {
+		private void setChapters(List<Integer> chapters) {
 			this.chapters = chapters;
 		}
 		
-		private void setVerses(int[] verses) {
+		private void setVerses(List<Integer> verses) {
 			this.verses = verses;
 		}
 
@@ -181,19 +177,19 @@ public class ReferenceParser implements IReferenceParser {
 			return book;
 		}
 		
-		public int getChapter() {
-			return chapters == null ? 0 : chapters.length == 0 ? 0 : chapters[0];
+		public Integer getChapter() {
+			return chapters.size() == 0 ? 0 : chapters.get(0);
 		}
 		
-		public int[] getChapters() {
+		public List<Integer> getChapters() {
 			return chapters;
 		}
 
-		public int getVerse() {
-			return verses == null ? 0 : verses.length == 0 ? 0 : verses[0];
+		public Integer getVerse() {
+			return verses.size() == 0 ? 0 : verses.get(0);
 		}
 		
-		public int[] getVerses() {
+		public List<Integer> getVerses() {
 			return verses;
 		}
 	}

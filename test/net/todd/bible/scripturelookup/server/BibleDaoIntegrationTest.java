@@ -1,15 +1,16 @@
 package net.todd.bible.scripturelookup.server;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.google.appengine.tools.development.ApiProxyLocalImpl;
@@ -18,82 +19,61 @@ import com.google.apphosting.api.ApiProxy;
 public class BibleDaoIntegrationTest {
 	private IBibleDao bibleDao;
 
-	@Before
-	public void setUp() {
+	@BeforeClass
+	public static void setUpData() {
 		ApiProxy.setEnvironmentForCurrentThread(new TestEnvironment());
 		ApiProxy.setDelegate(new ApiProxyLocalImpl(new File("war")) {
 		});
 
 		DataLoaderProvider.getDataLoader().deleteData();
-		DataLoaderProvider.getDataLoader().loadData(
-				BibleDaoIntegrationTest.class
+		DataLoaderProvider.getDataLoader()
+				.loadData(
+						BibleDaoIntegrationTest.class
 								.getResourceAsStream("/dao-integration-test-data.txt"));
-		
+	}
+
+	@Before
+	public void setUp() {
 		bibleDao = BibleDaoProvider.getBibleDao();
 	}
-	
+
 	@After
 	public void tearDown() {
 		DataLoaderProvider.getDataLoader().deleteData();
 	}
-	
-	@Test
-	public void allVerses() {
-		List<Verse> verses = bibleDao.getAllVerses();
-
-		assertEquals(5, verses.size());
-	}
-
-	@Test
-	public void allVersesInBookOfJohn() {
-		List<Verse> john = bibleDao.getAllVersesInBook("John");
-		assertEquals(4, john.size());
-	}
-
-	@Test
-	public void allVersesInBookOfGenesis() {
-		List<Verse> gen = bibleDao.getAllVersesInBook("Genesis");
-		assertEquals(1, gen.size());
-	}
 
 	@Test
 	public void allVersesInJohn1() {
-		List<Verse> john1 = bibleDao.getAllVersesInChapter("John", 1);
+		List<Verse> john1 = bibleDao.getAllSpecifiedVerses("John", Arrays.asList(1), Arrays.asList(
+				1, 2, 3));
 		assertEquals(3, john1.size());
-	}
-
-	@Test
-	public void allVersesInJohn3() {
-		List<Verse> john3 = bibleDao.getAllVersesInChapter("John", 3);
-		assertEquals(1, john3.size());
-	}
-	
-	@Test
-	public void singleVerse_John11() {
-		Verse john11 = BibleDaoProvider.getBibleDao().getVerse("John", 1, 1);
-		assertEquals("John", john11.getBook());
-		assertEquals(1, john11.getChapter().intValue());
-		assertEquals(1, john11.getVerse().intValue());
+		assertEquals("John", john1.get(0).getBook());
+		assertEquals(1, john1.get(0).getChapter());
+		assertEquals(1, john1.get(0).getVerse());
 		assertEquals(
 				"In the beginning was the Word, and the Word was with God, and the Word was God.",
-				john11.getText());
+				john1.get(0).getText());
+		assertEquals("John", john1.get(1).getBook());
+		assertEquals(1, john1.get(1).getChapter());
+		assertEquals(2, john1.get(1).getVerse());
+		assertEquals("He was with God in the beginning", john1.get(1).getText());
+		assertEquals("John", john1.get(2).getBook());
+		assertEquals(1, john1.get(2).getChapter());
+		assertEquals(3, john1.get(2).getVerse());
+		assertEquals(
+				"Through him all things were made; without him nothing was made that has been made.",
+				john1.get(2).getText());
 	}
 
 	@Test
-	public void singleVerse_John316() {
-		Verse john316 = BibleDaoProvider.getBibleDao().getVerse("John", 3, 16);
-		assertEquals("John", john316.getBook());
-		assertEquals(3, john316.getChapter().intValue());
-		assertEquals(16, john316.getVerse().intValue());
-		assertEquals("For God so loved the world...", john316.getText());
+	public void verseThatDoesntExistReturnEmpty() {
+		List<Verse> verses = bibleDao.getAllSpecifiedVerses("Test", Arrays.asList(1), Arrays
+				.asList(2));
+
+		assertEquals(0, verses.size());
 	}
-	
-	@Test
-	public void verseThatDoesntExist() {
-		assertNull(BibleDaoProvider.getBibleDao().getVerse("Test", 1, 2));
-	}
-	
-	class TestEnvironment implements ApiProxy.Environment {
+
+	static class TestEnvironment implements ApiProxy.Environment {
 		public String getAppId() {
 			return "test";
 		}

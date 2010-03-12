@@ -13,57 +13,23 @@ public class BibleDao implements IBibleDao {
 
 	private final PersistenceManagerFactory persistenceManagerFactory;
 
-	public BibleDao(PersistenceManagerFactory persistenceManagerFactory) {
+	private final IGQLQueryFactory queryFactory;
+
+	public BibleDao(PersistenceManagerFactory persistenceManagerFactory,
+			IGQLQueryFactory queryFactory) {
 		this.persistenceManagerFactory = persistenceManagerFactory;
+		this.queryFactory = queryFactory;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Verse> getAllVerses() {
 		PersistenceManager persistenceManager = persistenceManagerFactory.getPersistenceManager();
-		List<Verse> results = new ArrayList<Verse>();
+		List<Verse> results = null;
 		try {
 			Query query = persistenceManager.newQuery(Verse.class);
-			results.addAll((List<Verse>) query.execute());
-			for (Verse verse : results) {
-				verse.getText();
-			}
-		} catch (RuntimeException e) {
-			LOG.severe(e.getMessage());
-			throw e;
-		} finally {
-			persistenceManager.close();
-		}
-		return results;
-	}
-
-	@Override
-	public Verse getVerse(String id) {
-		Verse verse = null;
-		PersistenceManager persistenceManager = persistenceManagerFactory.getPersistenceManager();
-		try {
-			verse = persistenceManager.getObjectById(Verse.class, id);
-			verse.getText();
-		} catch (RuntimeException e) {
-			LOG.severe(e.getMessage());
-			throw e;
-		} finally {
-			persistenceManager.close();
-		}
-		return verse;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Verse> getAllVersesInBook(String book) {
-		PersistenceManager persistenceManager = persistenceManagerFactory.getPersistenceManager();
-		List<Verse> results = new ArrayList<Verse>();
-		try {
-			Query query = persistenceManager.newQuery("select from " + Verse.class.getName()
-					+ " where book == '" + book + "'");
-			query.setOrdering("chapter, verse");
-			List<Verse> verses = (List<Verse>) query.execute();
-			results.addAll(verses);
+			results = (List<Verse>) query.execute();
+			results = new ArrayList<Verse>(persistenceManager.detachCopyAll(results));
 		} catch (RuntimeException e) {
 			LOG.severe(e.getMessage());
 			throw e;
@@ -75,44 +41,24 @@ public class BibleDao implements IBibleDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Verse> getAllVersesInChapter(String book, int chapter) {
+	public List<Verse> getAllSpecifiedVerses(String book, List<Integer> chapters,
+			List<Integer> verses) {
+		String gqlQuery = queryFactory.createQuery(book, chapters, verses);
 		PersistenceManager persistenceManager = persistenceManagerFactory.getPersistenceManager();
-		List<Verse> results = new ArrayList<Verse>();
+		
+		List<Verse> results = null;
+		
 		try {
-			Query query = persistenceManager.newQuery("select from " + Verse.class.getName()
-					+ " where book == '" + book + "' && chapter == " + chapter);
-			query.setOrdering("chapter, verse");
-			results.addAll((List<Verse>) query.execute());
+			Query query = persistenceManager.newQuery(gqlQuery);
+			results = (List<Verse>) query.execute();
+			results = new ArrayList<Verse>(persistenceManager.detachCopyAll(results));
 		} catch (RuntimeException e) {
 			LOG.severe(e.getMessage());
 			throw e;
 		} finally {
 			persistenceManager.close();
 		}
+		
 		return results;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public Verse getVerse(String book, int chapter, int verse) {
-		PersistenceManager persistenceManager = persistenceManagerFactory.getPersistenceManager();
-		List<Verse> results = new ArrayList<Verse>();
-		try {
-			Query query = persistenceManager.newQuery("select from " + Verse.class.getName()
-					+ " where book == '" + book + "' && chapter == " + chapter + " && verse == "
-					+ verse);
-			results.addAll((List<Verse>) query.execute());
-		} catch (RuntimeException e) {
-			LOG.severe(e.getMessage());
-			throw e;
-		} finally {
-			persistenceManager.close();
-		}
-		Verse foundVerse = null;
-		if (results.size() > 0) {
-			foundVerse = results.get(0);
-		}
-
-		return foundVerse;
 	}
 }

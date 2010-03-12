@@ -14,16 +14,16 @@ public class Verse {
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Key key;
-	
+
 	@Persistent
 	private String book;
-	
+
 	@Persistent
 	private Integer chapter;
-	
+
 	@Persistent
 	private Integer verse;
-	
+
 	@Persistent
 	private Text text;
 
@@ -73,7 +73,7 @@ public class Verse {
 	public void setText(String text) {
 		this.text = new Text(text);
 	}
-	
+
 	@Override
 	public String toString() {
 		return getReference() + " - " + text.getValue();

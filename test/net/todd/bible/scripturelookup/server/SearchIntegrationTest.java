@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.google.appengine.tools.development.ApiProxyLocalImpl;
@@ -19,20 +20,23 @@ public class SearchIntegrationTest {
 	private String indexLocation;
 	private ISearchResultToVerseConverter converter;
 
+	@BeforeClass
+	public static void setUpData() {
+		ApiProxy.setEnvironmentForCurrentThread(new TestEnvironment());
+		ApiProxy.setDelegate(new ApiProxyLocalImpl(new File("war")) {
+		});
+
+		DataLoaderProvider.getDataLoader().deleteData();
+		DataLoaderProvider.getDataLoader().loadData(
+				SearchIntegrationTest.class.getResourceAsStream("/test-data.txt"));
+	}
+	
 	@Before
 	public void setUp() throws IOException {
 		converter = new SearchResultToVerseConverter();
 		File tempFile = File.createTempFile(getClass().getName(), "");
 		indexLocation = tempFile.getAbsolutePath();
 		tempFile.delete();
-		
-		ApiProxy.setEnvironmentForCurrentThread(new TestEnvironment());
-		ApiProxy.setDelegate(new ApiProxyLocalImpl(new File("war")) {
-		});
-		
-		DataLoaderProvider.getDataLoader().deleteData();
-		DataLoaderProvider.getDataLoader().loadData(
-				getClass().getResourceAsStream("/test-data.txt"));
 	}
 
 	@After
@@ -52,7 +56,7 @@ public class SearchIntegrationTest {
 		assertTrue(results.size() > 0);
 	}
 
-	class TestEnvironment implements ApiProxy.Environment {
+	static class TestEnvironment implements ApiProxy.Environment {
 		public String getAppId() {
 			return "test";
 		}

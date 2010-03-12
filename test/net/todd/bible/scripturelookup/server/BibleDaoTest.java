@@ -1,12 +1,15 @@
 package net.todd.bible.scripturelookup.server;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.mockito.Matchers.anyListOf;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,52 +17,132 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InOrder;
 
 public class BibleDaoTest {
+	private PersistenceManagerFactory persistenceManagerFactory;
+	private PersistenceManager persistenceManager;
+	private IBibleDao bibleDao;
+	private IGQLQueryFactory queryFactory;
+	private String book;
+	private List<Integer> chapters;
+	private List<Integer> verses;
+	private Query queryFromString;
+	private Query queryFromClass;
+
+	@Before
+	public void setUp() {
+		queryFactory = mock(IGQLQueryFactory.class);
+		persistenceManagerFactory = mock(PersistenceManagerFactory.class);
+		persistenceManager = mock(PersistenceManager.class);
+		doReturn(persistenceManager).when(persistenceManagerFactory).getPersistenceManager();
+
+		queryFromString = mock(Query.class);
+		doReturn(queryFromString).when(persistenceManager).newQuery(anyString());
+		
+		queryFromClass = mock(Query.class);
+		doReturn(queryFromClass).when(persistenceManager).newQuery(Verse.class);
+		
+		book = UUID.randomUUID().toString();
+		chapters = Arrays.asList(1, 2, 3);
+		verses = Arrays.asList(4, 5, 6);
+		
+		bibleDao = new BibleDao(persistenceManagerFactory, queryFactory);
+	}
+	
 	@Test
-	public void getSpecificVerse() {
-		Verse expectedResult = mock(Verse.class);
-		String id = UUID.randomUUID().toString();
+	public void fetchAllVerses() {
+		List<Verse> expectedResults = Arrays.asList(mock(Verse.class), mock(Verse.class),
+				mock(Verse.class));
+		doReturn(expectedResults).when(queryFromClass).execute();
+		doReturn(expectedResults).when(persistenceManager).detachCopyAll(expectedResults);
 
-		PersistenceManagerFactory persistenceManagerFactory = mock(PersistenceManagerFactory.class);
-		PersistenceManager persistenceManager = mock(PersistenceManager.class);
+		List<Verse> actualResults = bibleDao.getAllVerses();
 
-		when(persistenceManagerFactory.getPersistenceManager()).thenReturn(persistenceManager);
-		when(persistenceManager.getObjectById(Verse.class, id)).thenReturn(expectedResult);
+		compareResults(expectedResults, actualResults);
+	}
 
-		IBibleDao bibleDao = new BibleDao(persistenceManagerFactory);
-		Verse actualResult = bibleDao.getVerse(id);
-
-		verify(persistenceManager).getObjectById(Verse.class, id);
-		verify(persistenceManager).close();
-
-		assertSame(expectedResult, actualResult);
+	private void compareResults(List<Verse> expectedResults, List<Verse> actualResults) {
+		assertEquals(expectedResults.size(), actualResults.size());
+		for (int i = 0; i < expectedResults.size(); i++) {
+			assertEquals(expectedResults.get(i), actualResults.get(i));
+		}
 	}
 
 	@Test
-	public void fetchAllVerses() {
-		List<Verse> expectedResults = new ArrayList<Verse>();
-		expectedResults.add(mock(Verse.class));
-		expectedResults.add(mock(Verse.class));
-		expectedResults.add(mock(Verse.class));
+	public void closePersistenceManagerAfterExecutingQueryWhenGettingAllVerses() {
+		doReturn(Arrays.asList()).when(queryFromClass).execute();
+		
+		InOrder inOrder = inOrder(persistenceManager, queryFromClass);
 
-		PersistenceManagerFactory persistenceManagerFactory = mock(PersistenceManagerFactory.class);
-		PersistenceManager persistenceManager = mock(PersistenceManager.class);
-		Query query = mock(Query.class);
+		bibleDao.getAllVerses();
 
-		when(persistenceManagerFactory.getPersistenceManager()).thenReturn(persistenceManager);
-		when(persistenceManager.newQuery(Verse.class)).thenReturn(query);
-		when(query.execute()).thenReturn(expectedResults);
+		inOrder.verify(queryFromClass).execute();
+		inOrder.verify(persistenceManager).close();
+	}
+	
+	@Test(expected = RuntimeException.class)
+	public void reThrowExceptionWhenGettingAllVerses() {
+		RuntimeException error = new RuntimeException();
+		doThrow(error).when(queryFromClass).execute();
 
-		IBibleDao bibleDao = new BibleDao(persistenceManagerFactory);
-		List<Verse> actualResults = bibleDao.getAllVerses();
+		bibleDao.getAllVerses();
+	}
+	
+	@Test
+	public void bookChaptersAndVersesAreGivenToQueryFactoryWhenGettingAllSpecifiedVerses() {
+		bibleDao.getAllSpecifiedVerses(book, chapters, verses);
 
-		verify(persistenceManager).close();
+		verify(queryFactory).createQuery(book, chapters, verses);
+	}
+	
+	@Test
+	public void createQueryFromWhateverFactoryReturnsWhenGettingAllSpecifiedVerses() {
+		String gqlQuery = UUID.randomUUID().toString();
+		doReturn(gqlQuery).when(queryFactory).createQuery(anyString(), anyListOf(Integer.class),
+				anyListOf(Integer.class));
 
-		assertEquals(expectedResults.size(), actualResults.size());
-		assertSame(expectedResults.get(0), actualResults.get(0));
-		assertSame(expectedResults.get(1), actualResults.get(1));
-		assertSame(expectedResults.get(2), actualResults.get(2));
+		bibleDao.getAllSpecifiedVerses(book, chapters, verses);
+
+		verify(persistenceManager).newQuery(gqlQuery);
+	}
+	
+	@Test
+	public void createdQueryGetsExecutedWhenGettingAllSpecifiedVerses() {
+		bibleDao.getAllSpecifiedVerses(book, chapters, verses);
+		
+		verify(queryFromString).execute();
+	}
+	
+	@Test
+	public void returnWhateverResultsFromTheQueryExecutionWhenGettingAllSpecifiedVerses() {
+		List<Verse> expectedResults = Arrays.asList(mock(Verse.class));
+		doReturn(expectedResults).when(queryFromString).execute();
+		doReturn(expectedResults).when(persistenceManager).detachCopyAll(expectedResults);
+		
+		List<Verse> actualResults = bibleDao.getAllSpecifiedVerses(book, chapters, verses);
+
+		compareResults(expectedResults, actualResults);
+	}
+	
+	@Test
+	public void persistenceManagerClosedAfterQueryExecutionWhenGettingAllSpecifiedVerses() {
+		InOrder inOrder = inOrder(persistenceManager, queryFromString);
+
+		bibleDao.getAllSpecifiedVerses(book, chapters, verses);
+
+		inOrder.verify(queryFromString).execute();
+		inOrder.verify(persistenceManager).close();
+	}
+	
+	@Test(expected = RuntimeException.class)
+	public void reThrowExceptionWhenGettingAllSpecifiedVerses() {
+		RuntimeException error = new RuntimeException();
+		doThrow(error).when(queryFromString).execute();
+
+		bibleDao.getAllSpecifiedVerses(anyString(), anyListOf(Integer.class),
+				anyListOf(Integer.class));
 	}
 }

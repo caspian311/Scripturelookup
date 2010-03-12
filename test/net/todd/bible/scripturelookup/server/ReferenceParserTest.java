@@ -1,6 +1,7 @@
 package net.todd.bible.scripturelookup.server;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import net.todd.bible.scripturelookup.server.ReferenceParser.Reference;
 
 import org.junit.Before;
@@ -111,17 +112,31 @@ public class ReferenceParserTest {
 	public void rangeOfVerses() {
 		Reference reference = referenceParser.parseReference("1 test 1:1-2");
 
-		assertEquals(2, reference.getVerses().length);
-		assertEquals(1, reference.getVerses()[0]);
-		assertEquals(2, reference.getVerses()[1]);
+		assertEquals(2, reference.getVerses().size());
+		assertEquals(1, reference.getVerses().get(0));
+		assertEquals(2, reference.getVerses().get(1));
 	}
 	
 	@Test
 	public void rangeOfChapters() {
 		Reference reference = referenceParser.parseReference("1 test 1-2");
 
-		assertEquals(2, reference.getChapters().length);
-		assertEquals(1, reference.getChapters()[0]);
-		assertEquals(2, reference.getChapters()[1]);
+		assertEquals(2, reference.getChapters().size());
+		assertEquals(1, reference.getChapters().get(0));
+		assertEquals(2, reference.getChapters().get(1));
+	}
+	
+	@Test
+	public void chaptersAreEmptyWhenReferenceIsToABook() {
+		Reference reference = referenceParser.parseReference("test");
+
+		assertTrue(reference.getChapters().isEmpty());
+	}
+	
+	@Test
+	public void versesAreNullWhenReferenceIsToABookAndChapter() {
+		Reference reference = referenceParser.parseReference("test 1");
+
+		assertTrue(reference.getVerses().isEmpty());
 	}
 }

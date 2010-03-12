@@ -92,3 +92,37 @@ Feature: Lookup Service
     And I click the "Search" button
     And I should not see "Psalms 110:7"
     
+    
+  Scenario: Ranged chapters
+    Given scripturelookup is running
+    When I go to "/"
+    And I type "Psalms 110-111" in "query"
+    And I select "By Reference" in "queryType"
+    And I click the "Search" button
+    Then I should see "Psalms 110:1"
+    And I should see "Psalms 110:2"
+    And I should see "Psalms 110:3"
+    And I should see "Psalms 110:4"
+    And I should see "Psalms 110:5"
+    And I should see "Psalms 110:6"
+    And I should see "Psalms 110:7"
+    And I should see "Psalms 111:1"
+    And I should see "Psalms 111:2"
+    And I should see "Psalms 111:3"
+    And I should see "Psalms 111:4"
+    And I should see "Psalms 111:5"
+    And I should see "Psalms 111:6"
+    And I should see "Psalms 111:7"
+    And I should see "Psalms 111:8"
+    And I should see "Psalms 111:9"
+    And I should see "Psalms 111:10"
+
+  Scenario: Ranged verses
+    Given scripturelookup is running
+    When I go to "/"
+    And I type "John 3:16-18" in "query"
+    And I select "By Reference" in "queryType"
+    And I click the "Search" button
+	Then I should see "John 3:16"
+    Then I should see "John 3:17"
+    Then I should see "John 3:18"
