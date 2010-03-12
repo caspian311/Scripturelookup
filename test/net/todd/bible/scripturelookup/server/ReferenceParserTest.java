@@ -44,14 +44,14 @@ public class ReferenceParserTest {
 		Reference reference = referenceParser.parseReference("test 1");
 
 		assertEquals("test", reference.getBook());
-		assertEquals(1, reference.getChapter());
+		assertEquals(1, reference.getChapter().intValue());
 	}
 	
 	@Test
 	public void aSingleWordReferenceHas0ForAChapter() {
 		Reference reference = referenceParser.parseReference("test");
 
-		assertEquals(0, reference.getChapter());
+		assertEquals(0, reference.getChapter().intValue());
 	}
 	
 	@Test
@@ -59,22 +59,22 @@ public class ReferenceParserTest {
 		Reference reference = referenceParser.parseReference("test 1:1");
 
 		assertEquals("test", reference.getBook());
-		assertEquals(1, reference.getChapter());
-		assertEquals(1, reference.getVerse());
+		assertEquals(1, reference.getChapter().intValue());
+		assertEquals(1, reference.getVerse().intValue());
 	}
 	
 	@Test
 	public void aSingleWordReferenceHas0ForAVerse() {
 		Reference reference = referenceParser.parseReference("test");
 
-		assertEquals(0, reference.getVerse());
+		assertEquals(0, reference.getVerse().intValue());
 	}
 	
 	@Test
 	public void aSingleWordAndANumberReferenceHas0ForAVerse() {
 		Reference reference = referenceParser.parseReference("test 1");
 
-		assertEquals(0, reference.getVerse());
+		assertEquals(0, reference.getVerse().intValue());
 	}
 	
 	@Test(expected = ReferenceParsingException.class)
@@ -98,14 +98,14 @@ public class ReferenceParserTest {
 	public void aNumberThenAWordThenAnotherNumberIsAReference() {
 		Reference reference = referenceParser.parseReference("1 test 1");
 
-		assertEquals(1, reference.getChapter());
+		assertEquals(1, reference.getChapter().intValue());
 	}
 
 	@Test
 	public void aNumberThenAWordThenAnotherNumberColonAndANumberIsAReference() {
 		Reference reference = referenceParser.parseReference("1 test 1:1");
 
-		assertEquals(1, reference.getVerse());
+		assertEquals(1, reference.getVerse().intValue());
 	}
 	
 	@Test
@@ -113,8 +113,8 @@ public class ReferenceParserTest {
 		Reference reference = referenceParser.parseReference("1 test 1:1-2");
 
 		assertEquals(2, reference.getVerses().size());
-		assertEquals(1, reference.getVerses().get(0));
-		assertEquals(2, reference.getVerses().get(1));
+		assertEquals(1, reference.getVerses().get(0).intValue());
+		assertEquals(2, reference.getVerses().get(1).intValue());
 	}
 	
 	@Test
@@ -122,8 +122,8 @@ public class ReferenceParserTest {
 		Reference reference = referenceParser.parseReference("1 test 1-2");
 
 		assertEquals(2, reference.getChapters().size());
-		assertEquals(1, reference.getChapters().get(0));
-		assertEquals(2, reference.getChapters().get(1));
+		assertEquals(1, reference.getChapters().get(0).intValue());
+		assertEquals(2, reference.getChapters().get(1).intValue());
 	}
 	
 	@Test
