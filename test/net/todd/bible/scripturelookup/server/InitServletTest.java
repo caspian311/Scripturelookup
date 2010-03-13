@@ -6,6 +6,9 @@ import static org.mockito.Mockito.mock;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
+import net.todd.bible.scripturelookup.server.web.InitServlet;
+import net.todd.bible.scripturelookup.server.web.ServletContextProvider;
+
 import org.junit.Before;
 import org.junit.Test;
 

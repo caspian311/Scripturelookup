@@ -5,7 +5,7 @@
 <web-app>
 	<servlet>
 		<servlet-name>initServlet</servlet-name>
-		<servlet-class>net.todd.bible.scripturelookup.server.InitServlet</servlet-class>
+		<servlet-class>net.todd.bible.scripturelookup.server.web.InitServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet>

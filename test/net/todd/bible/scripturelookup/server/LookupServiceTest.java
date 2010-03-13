@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import net.todd.bible.scripturelookup.server.data.Verse;
+import net.todd.bible.scripturelookup.server.search.IBibleSearchFactory;
+import net.todd.bible.scripturelookup.server.web.IJSONWriter;
+
 import org.junit.Before;
 import org.junit.Test;
 

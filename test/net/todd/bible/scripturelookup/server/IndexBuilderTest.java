@@ -8,6 +8,10 @@ import static org.mockito.Mockito.verify;
 import java.io.File;
 import java.io.IOException;
 
+import net.todd.bible.scripturelookup.server.data.IBibleDao;
+import net.todd.bible.scripturelookup.server.search.IIndexBuilder;
+import net.todd.bible.scripturelookup.server.search.IndexBuilder;
+
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;

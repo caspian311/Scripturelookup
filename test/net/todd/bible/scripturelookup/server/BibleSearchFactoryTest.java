@@ -9,6 +9,10 @@ import java.util.UUID;
 
 import javax.servlet.ServletContext;
 
+import net.todd.bible.scripturelookup.server.search.BibleSearchFactory;
+import net.todd.bible.scripturelookup.server.search.LuceneSearchEngine;
+import net.todd.bible.scripturelookup.server.web.IServletContextProvider;
+
 import org.junit.Before;
 import org.junit.Test;
 

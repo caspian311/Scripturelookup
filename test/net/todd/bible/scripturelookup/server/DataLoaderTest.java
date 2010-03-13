@@ -14,6 +14,8 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 
+import net.todd.bible.scripturelookup.server.data.Verse;
+
 import org.junit.Test;
 
 public class DataLoaderTest {

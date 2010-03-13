@@ -8,6 +8,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.todd.bible.scripturelookup.server.data.BibleDaoProvider;
+import net.todd.bible.scripturelookup.server.data.Verse;
+import net.todd.bible.scripturelookup.server.search.IndexBuilder;
+import net.todd.bible.scripturelookup.server.search.LuceneSearchEngine;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;

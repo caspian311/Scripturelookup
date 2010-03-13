@@ -1,7 +1,7 @@
 package net.todd.bible.scripturelookup.server;
 
-import net.todd.bible.scripturelookup.client.IDataDeletingService;
-import net.todd.bible.scripturelookup.client.IDataLoadingService;
+import net.todd.bible.scripturelookup.client.service.IDataDeletingService;
+import net.todd.bible.scripturelookup.client.service.IDataLoadingService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

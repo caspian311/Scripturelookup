@@ -11,6 +11,8 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 
+import net.todd.bible.scripturelookup.server.data.Verse;
+
 public class DataLoader implements IDataLoader {
 	private static final Logger LOG = Logger.getLogger(DataLoader.class.getName());
 	

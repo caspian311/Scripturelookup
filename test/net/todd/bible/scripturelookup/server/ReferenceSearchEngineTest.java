@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 import net.todd.bible.scripturelookup.server.ReferenceParser.Reference;
+import net.todd.bible.scripturelookup.server.data.Verse;
 
 import org.junit.Before;
 import org.junit.Test;

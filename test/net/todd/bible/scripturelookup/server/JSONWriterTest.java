@@ -5,6 +5,10 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.todd.bible.scripturelookup.server.data.Verse;
+import net.todd.bible.scripturelookup.server.web.IJSONWriter;
+import net.todd.bible.scripturelookup.server.web.JSONWriter;
+
 import org.junit.Before;
 import org.junit.Test;
 

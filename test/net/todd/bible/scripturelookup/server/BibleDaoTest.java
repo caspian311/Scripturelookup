@@ -17,6 +17,11 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 
+import net.todd.bible.scripturelookup.server.data.BibleDao;
+import net.todd.bible.scripturelookup.server.data.IBibleDao;
+import net.todd.bible.scripturelookup.server.data.IVerseQueryFactory;
+import net.todd.bible.scripturelookup.server.data.Verse;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InOrder;
@@ -25,7 +30,7 @@ public class BibleDaoTest {
 	private PersistenceManagerFactory persistenceManagerFactory;
 	private PersistenceManager persistenceManager;
 	private IBibleDao bibleDao;
-	private IGQLQueryFactory queryFactory;
+	private IVerseQueryFactory queryFactory;
 	private String book;
 	private List<Integer> chapters;
 	private List<Integer> verses;
@@ -34,7 +39,7 @@ public class BibleDaoTest {
 
 	@Before
 	public void setUp() {
-		queryFactory = mock(IGQLQueryFactory.class);
+		queryFactory = mock(IVerseQueryFactory.class);
 		persistenceManagerFactory = mock(PersistenceManagerFactory.class);
 		persistenceManager = mock(PersistenceManager.class);
 		doReturn(persistenceManager).when(persistenceManagerFactory).getPersistenceManager();

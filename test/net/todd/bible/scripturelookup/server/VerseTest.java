@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import java.util.Random;
 import java.util.UUID;
 
+import net.todd.bible.scripturelookup.server.data.Verse;
+
 import org.junit.Test;
 
 public class VerseTest {

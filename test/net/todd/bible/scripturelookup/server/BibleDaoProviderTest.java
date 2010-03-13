@@ -4,6 +4,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import net.todd.bible.scripturelookup.server.data.BibleDaoProvider;
+import net.todd.bible.scripturelookup.server.data.IBibleDao;
+
 import org.junit.Test;
 
 public class BibleDaoProviderTest {

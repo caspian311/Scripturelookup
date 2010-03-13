@@ -2,7 +2,13 @@ package net.todd.bible.scripturelookup.server;
 
 import java.util.List;
 
-import net.todd.bible.scripturelookup.client.ILookupService;
+import net.todd.bible.scripturelookup.client.service.ILookupService;
+import net.todd.bible.scripturelookup.server.data.Verse;
+import net.todd.bible.scripturelookup.server.search.BibleSearchFactory;
+import net.todd.bible.scripturelookup.server.search.IBibleSearchFactory;
+import net.todd.bible.scripturelookup.server.web.IJSONWriter;
+import net.todd.bible.scripturelookup.server.web.JSONWriter;
+import net.todd.bible.scripturelookup.server.web.ServletContextProvider;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

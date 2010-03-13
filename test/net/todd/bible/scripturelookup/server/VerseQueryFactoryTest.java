@@ -7,11 +7,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import net.todd.bible.scripturelookup.server.data.IVerseQueryFactory;
+import net.todd.bible.scripturelookup.server.data.Verse;
+import net.todd.bible.scripturelookup.server.data.VerseQueryFactory;
+
 import org.junit.Before;
 import org.junit.Test;
 
 public class VerseQueryFactoryTest {
-	private IGQLQueryFactory queryFactory;
+	private IVerseQueryFactory queryFactory;
 	private String book;
 	private List<Integer> multipleChapters;
 	private List<Integer> multipleVerses;

@@ -3,6 +3,8 @@ package net.todd.bible.scripturelookup.server;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.todd.bible.scripturelookup.server.data.Verse;
+
 public class SearchResultToVerseConverter implements ISearchResultToVerseConverter {
 	@Override
 	public List<Verse> convertToVerses(List<SearchResult> searchResults) {
